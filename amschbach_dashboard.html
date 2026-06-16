@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemeinde Amschbach – Daten-Dashboard</title>
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --line:#334155;
+    --txt:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --accent2:#34d399;
+    --warn:#fbbf24; --danger:#f87171; --violet:#a78bfa;
+    --radius:14px; --shadow:0 6px 24px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    background:linear-gradient(160deg,#0f172a 0%,#111c33 100%);
+    color:var(--txt); min-height:100vh; padding:24px;
+  }
+  header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .crest{
+    width:54px;height:54px;border-radius:12px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--accent),var(--violet));
+    display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#0f172a;
+    box-shadow:var(--shadow);
+  }
+  h1{font-size:1.6rem;line-height:1.1}
+  .sub{color:var(--muted);font-size:.9rem;margin-top:2px}
+  .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  select,button{
+    background:var(--panel);color:var(--txt);border:1px solid var(--line);
+    padding:9px 14px;border-radius:10px;font-size:.9rem;cursor:pointer;transition:.15s;
+  }
+  select:hover,button:hover{border-color:var(--accent)}
+  button.active{background:var(--accent);color:#0f172a;border-color:var(--accent);font-weight:600}
+
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+
+  .banner{
+    background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.35);
+    color:#fde68a;padding:10px 14px;border-radius:10px;font-size:.83rem;margin-bottom:18px;
+  }
+
+  .grid{display:grid;gap:16px}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:16px}
+  .cards{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;box-shadow:var(--shadow);
+  }
+  .kpi .label{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+  .kpi .value{font-size:1.9rem;font-weight:700;margin-top:6px}
+  .kpi .delta{font-size:.82rem;margin-top:4px}
+  .delta.up{color:var(--accent2)} .delta.down{color:var(--danger)} .delta.flat{color:var(--muted)}
+
+  .card h3{font-size:1.02rem;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .card .hint{color:var(--muted);font-size:.78rem;margin-bottom:12px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:.8rem;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bar{transition:.2s;cursor:pointer}
+  .bar:hover{opacity:.8}
+  .axis{stroke:var(--line);stroke-width:1}
+  .gtxt{fill:var(--muted);font-size:11px}
+  .vtxt{fill:var(--txt);font-size:11px;font-weight:600}
+
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:hover td{background:var(--panel2)}
+
+  .tip{
+    position:fixed;pointer-events:none;background:#0b1220;border:1px solid var(--accent);
+    color:var(--txt);padding:7px 11px;border-radius:8px;font-size:.82rem;opacity:0;
+    transition:opacity .1s;z-index:50;box-shadow:var(--shadow);white-space:nowrap;
+  }
+  .progress{height:9px;background:var(--panel2);border-radius:6px;overflow:hidden;margin-top:6px}
+  .progress > i{display:block;height:100%;border-radius:6px}
+  .row{display:flex;justify-content:space-between;align-items:center;margin:14px 0 2px;font-size:.9rem}
+  .pct{color:var(--muted);font-size:.82rem}
+  footer{margin-top:26px;color:var(--muted);font-size:.78rem;text-align:center;line-height:1.6}
+  .hidden{display:none}
+  .pill{font-size:.7rem;padding:2px 8px;border-radius:20px;background:var(--panel2);color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="crest">A</div>
+    <div>
+      <h1>Gemeinde Amschbach</h1>
+      <div class="sub">Interaktives Daten-Dashboard · <span id="lastYear"></span></div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <label class="sub" for="yearSel">Bezugsjahr:</label>
+    <select id="yearSel"></select>
+    <button id="printBtn">🖨️ Drucken / PDF</button>
+  </div>
+</header>
+
+<div class="banner" id="banner">
+  ⚠️ <strong>Hinweis:</strong> Die angezeigten Zahlen sind <strong>Beispiel-/Platzhalterdaten</strong> zur Demonstration.
+  Ersetze sie durch amtliche Werte im Abschnitt <code>const DATA = …</code> oben in dieser Datei.
+</div>
+
+<nav class="tabs" id="tabs"></nav>
+
+<!-- ÜBERBLICK -->
+<section data-tab="overview">
+  <div class="grid kpis" id="kpiRow"></div>
+  <div class="grid cards">
+    <div class="card">
+      <h3>👥 Bevölkerungsentwicklung</h3>
+      <div class="hint">Einwohner pro Jahr — Balken anklicken/überfahren für Details</div>
+      <div id="popChart"></div>
+    </div>
+    <div class="card">
+      <h3>🏠 Gemeinde auf einen Blick</h3>
+      <div class="hint">Strukturdaten im gewählten Bezugsjahr</div>
+      <table id="factTable"></table>
+    </div>
+  </div>
+</section>
+
+<!-- BEVÖLKERUNG -->
+<section data-tab="population" class="hidden">
+  <div class="grid cards">
+    <div class="card">
+      <h3>📊 Altersstruktur</h3>
+      <div class="hint">Verteilung nach Altersgruppen</div>
+      <div id="ageChart"></div>
+      <div class="legend" id="ageLegend"></div>
+    </div>
+    <div class="card">
+      <h3>⚖️ Geburten & Sterbefälle</h3>
+      <div class="hint">Natürliche Bevölkerungsbilanz</div>
+      <div id="birthChart"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--accent2)"></i>Geburten</span>
+        <span><i class="dot" style="background:var(--danger)"></i>Sterbefälle</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🔄 Zu- & Fortzüge</h3>
+      <div class="hint">Wanderungssaldo (Wanderungsbewegung)</div>
+      <div id="migChart"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--accent)"></i>Zuzüge</span>
+        <span><i class="dot" style="background:var(--warn)"></i>Fortzüge</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANZEN -->
+<section data-tab="finance" class="hidden">
+  <div class="grid kpis" id="finKpi"></div>
+  <div class="grid cards">
+    <div class="card">
+      <h3>💶 Haushalt: Einnahmen & Ausgaben</h3>
+      <div class="hint">Entwicklung des Gemeindehaushalts (Tsd. €)</div>
+      <div id="budgetChart"></div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--accent2)"></i>Einnahmen</span>
+        <span><i class="dot" style="background:var(--danger)"></i>Ausgaben</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🧾 Ausgaben nach Bereich</h3>
+      <div class="hint">Anteil am Gesamthaushalt im Bezugsjahr</div>
+      <div id="spendBars"></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUKTUR -->
+<section data-tab="infra" class="hidden">
+  <div class="grid cards">
+    <div class="card">
+      <h3>🏫 Einrichtungen & Vereine</h3>
+      <div class="hint">Soziale und kulturelle Infrastruktur</div>
+      <table id="infraTable"></table>
+    </div>
+    <div class="card">
+      <h3>🌱 Flächennutzung</h3>
+      <div class="hint">Anteil an der Gemarkungsfläche</div>
+      <div id="landChart"></div>
+      <div class="legend" id="landLegend"></div>
+    </div>
+  </div>
+</section>
+
+<div class="tip" id="tip"></div>
+
+<footer>
+  Datenstand laut Quellenangabe der Gemeinde · Dashboard generiert · Werte vor Veröffentlichung gegen amtliche Statistik prüfen.<br>
+  Bedienung: Reiter oben wechseln · Bezugsjahr rechts oben wählen · Diagramme zeigen beim Überfahren Detailwerte.
+</footer>
+
+<script>
+/* ============================================================
+   DATENQUELLE  —  HIER ECHTE WERTE EINTRAGEN
+   ------------------------------------------------------------
+   Alle Werte sind aktuell BEISPIELDATEN. Trage offizielle
+   Zahlen der Gemeinde Amschbach ein und das Dashboard
+   aktualisiert sich automatisch.
+   ============================================================ */
+const DATA = {
+  meta: {
+    name: "Amschbach",
+    landkreis: "Musterkreis",
+    flaeche_km2: 7.4,        // Gemarkungsfläche
+    hoehe_m: 285,            // Höhe über NN
+    plz: "00000",
+    quelle: "Beispieldaten (Platzhalter)"
+  },
+
+  // Bevölkerung je Jahr
+  population: {
+    2019: 1180, 2020: 1205, 2021: 1224, 2022: 1248, 2023: 1271, 2024: 1290
+  },
+
+  // Haushalte / Strukturdaten je Jahr
+  households: { 2019:512, 2020:524, 2021:533, 2022:545, 2023:558, 2024:567 },
+
+  // Altersgruppen (für Bezugsjahr) — wird je Jahr leicht skaliert
+  ageGroups: [
+    { label:"0–17 J.",  share:0.165, color:"#38bdf8" },
+    { label:"18–29 J.", share:0.130, color:"#34d399" },
+    { label:"30–49 J.", share:0.255, color:"#a78bfa" },
+    { label:"50–64 J.", share:0.235, color:"#fbbf24" },
+    { label:"65+ J.",   share:0.215, color:"#f87171" }
+  ],
+
+  // Geburten / Sterbefälle
+  births: { 2019:11, 2020:9,  2021:13, 2022:10, 2023:12, 2024:14 },
+  deaths: { 2019:14, 2020:16, 2021:15, 2022:13, 2023:12, 2024:13 },
+
+  // Zuzüge / Fortzüge
+  arrivals:   { 2019:78, 2020:71, 2021:69, 2022:83, 2023:75, 2024:80 },
+  departures: { 2019:62, 2020:55, 2021:58, 2022:67, 2023:61, 2024:64 },
+
+  // Gemeindehaushalt in Tsd. €
+  revenue: { 2019:2380, 2020:2410, 2021:2520, 2022:2680, 2023:2790, 2024:2910 },
+  expense: { 2019:2310, 2020:2470, 2021:2455, 2022:2640, 2023:2720, 2024:2860 },
+  debt:    { 2019:1450, 2020:1610, 2021:1540, 2022:1480, 2023:1390, 2024:1300 }, // Schuldenstand Tsd. €
+
+  // Ausgaben nach Bereich (Bezugsjahr, Anteile)
+  spending: [
+    { label:"Verwaltung & Personal", share:0.27, color:"#38bdf8" },
+    { label:"Bildung & Kinderbetreuung", share:0.22, color:"#34d399" },
+    { label:"Bau, Straßen & ÖPNV", share:0.19, color:"#a78bfa" },
+    { label:"Soziales & Jugend", share:0.13, color:"#fbbf24" },
+    { label:"Kultur, Sport & Vereine", share:0.10, color:"#f472b6" },
+    { label:"Sonstiges", share:0.09, color:"#94a3b8" }
+  ],
+
+  // Infrastruktur / Einrichtungen
+  facilities: [
+    { name:"Kindertagesstätten", count:2,  note:"ca. 90 Plätze" },
+    { name:"Grundschule", count:1, note:"Verbund mit Nachbarort" },
+    { name:"Ärzte / Praxen", count:2, note:"Allgemein- & Zahnmedizin" },
+    { name:"Sport- & Mehrzweckhallen", count:1, note:"+ Sportplatz" },
+    { name:"Feuerwehr (freiwillig)", count:1, note:"38 aktive Mitglieder" },
+    { name:"Eingetragene Vereine", count:14, note:"Sport, Musik, Brauchtum" },
+    { name:"Gastronomie & Läden", count:6, note:"Nahversorgung" }
+  ],
+
+  // Flächennutzung (Anteile)
+  landUse: [
+    { label:"Landwirtschaft", share:0.46, color:"#34d399" },
+    { label:"Wald & Natur", share:0.27, color:"#16a34a" },
+    { label:"Siedlung & Verkehr", share:0.18, color:"#a78bfa" },
+    { label:"Gewerbe", share:0.05, color:"#fbbf24" },
+    { label:"Wasser & Sonstiges", share:0.04, color:"#38bdf8" }
+  ]
+};
+
+/* ============================================================
+   AB HIER: DASHBOARD-LOGIK (i.d.R. keine Änderung nötig)
+   ============================================================ */
+const $ = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
+const fmt = n => n.toLocaleString("de-DE");
+const fmtK = n => n.toLocaleString("de-DE") + " Tsd. €";
+const years = Object.keys(DATA.population).map(Number).sort((a,b)=>a-b);
+let curYear = years[years.length-1];
+const tip = $("#tip");
+
+function showTip(e,html){
+  tip.innerHTML = html;
+  tip.style.opacity = 1;
+  const pad = 14;
+  tip.style.left = Math.min(e.clientX+pad, window.innerWidth-tip.offsetWidth-pad) + "px";
+  tip.style.top = (e.clientY+pad) + "px";
+}
+function hideTip(){ tip.style.opacity = 0; }
+
+/* ---------- Reiter ---------- */
+const TABS = [
+  ["overview","🏠 Überblick"],
+  ["population","👥 Bevölkerung"],
+  ["finance","💶 Finanzen"],
+  ["infra","🏗️ Infrastruktur"]
+];
+function buildTabs(){
+  const nav = $("#tabs");
+  TABS.forEach(([id,label],i)=>{
+    const b=document.createElement("button");
+    b.textContent=label; b.dataset.target=id;
+    if(i===0) b.classList.add("active");
+    b.onclick=()=>{
+      $$(".tabs button").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      $$("section[data-tab]").forEach(s=>s.classList.toggle("hidden", s.dataset.tab!==id));
+    };
+    nav.appendChild(b);
+  });
+}
+
+/* ---------- Bezugsjahr-Auswahl ---------- */
+function buildYearSelect(){
+  const sel=$("#yearSel");
+  years.slice().reverse().forEach(y=>{
+    const o=document.createElement("option"); o.value=y; o.textContent=y; sel.appendChild(o);
+  });
+  sel.value=curYear;
+  sel.onchange=()=>{ curYear=Number(sel.value); renderAll(); };
+  $("#lastYear").textContent = "Bezugsjahr "+curYear;
+}
+
+/* ---------- Helfer: Trend-Delta ---------- */
+function delta(series){
+  const ys=Object.keys(series).map(Number).sort((a,b)=>a-b);
+  const i=ys.indexOf(curYear);
+  if(i<=0) return {txt:"–",cls:"flat"};
+  const prev=series[ys[i-1]], now=series[curYear];
+  const d=now-prev, p=(d/prev*100);
+  const cls = d>0?"up":(d<0?"down":"flat");
+  const arr = d>0?"▲":(d<0?"▼":"▬");
+  return {txt:`${arr} ${d>0?"+":""}${fmt(d)} (${p>0?"+":""}${p.toFixed(1)} %) ggü. ${ys[i-1]}`, cls};
+}
+
+/* ---------- KPI-Karten ---------- */
+function kpi(label,value,d){
+  return `<div class="card kpi">
+    <div class="label">${label}</div>
+    <div class="value">${value}</div>
+    <div class="delta ${d.cls}">${d.txt}</div>
+  </div>`;
+}
+function renderKpis(){
+  const pop=DATA.population[curYear];
+  const natural=DATA.births[curYear]-DATA.deaths[curYear];
+  const mig=DATA.arrivals[curYear]-DATA.departures[curYear];
+  $("#kpiRow").innerHTML =
+    kpi("Einwohner", fmt(pop), delta(DATA.population)) +
+    kpi("Haushalte", fmt(DATA.households[curYear]), delta(DATA.households)) +
+    kpi("Natürl. Saldo", (natural>0?"+":"")+natural, {txt:`${DATA.births[curYear]} Geb. / ${DATA.deaths[curYear]} Sterbef.`,cls:natural>=0?"up":"down"}) +
+    kpi("Wanderungssaldo", (mig>0?"+":"")+mig, {txt:`${DATA.arrivals[curYear]} zu / ${DATA.departures[curYear]} fort`,cls:mig>=0?"up":"down"}) +
+    kpi("Bev.-Dichte", fmt(Math.round(pop/DATA.meta.flaeche_km2))+" /km²", {txt:`Fläche ${DATA.meta.flaeche_km2} km²`,cls:"flat"});
+
+  const surplus=DATA.revenue[curYear]-DATA.expense[curYear];
+  $("#finKpi").innerHTML =
+    kpi("Einnahmen", fmtK(DATA.revenue[curYear]), delta(DATA.revenue)) +
+    kpi("Ausgaben", fmtK(DATA.expense[curYear]), delta(DATA.expense)) +
+    kpi("Saldo", (surplus>0?"+":"")+fmtK(surplus), {txt:surplus>=0?"Überschuss":"Defizit",cls:surplus>=0?"up":"down"}) +
+    kpi("Schuldenstand", fmtK(DATA.debt[curYear]), delta(DATA.debt)) +
+    kpi("Pro-Kopf-Schuld", fmt(Math.round(DATA.debt[curYear]*1000/DATA.population[curYear]))+" €", {txt:"je Einwohner",cls:"flat"});
+}
+
+/* ---------- Balkendiagramm (eine Reihe) ---------- */
+function barChart(elId, series, color, unit, prefix=""){
+  const ys=Object.keys(series).map(Number).sort((a,b)=>a-b);
+  const vals=ys.map(y=>series[y]);
+  const max=Math.max(...vals)*1.12, W=560,H=240,pad=34,bw=(W-pad*2)/ys.length*0.6, gap=(W-pad*2)/ys.length;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  for(let g=0;g<=4;g++){const y=pad+(H-pad*2)*g/4; s+=`<line class="axis" x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" opacity=".4"/>`;
+    s+=`<text class="gtxt" x="${pad-6}" y="${y+3}" text-anchor="end">${prefix}${fmt(Math.round(max*(1-g/4)))}</text>`;}
+  ys.forEach((y,i)=>{
+    const v=series[y], h=(v/max)*(H-pad*2), x=pad+gap*i+(gap-bw)/2, yy=H-pad-h;
+    const active = y===curYear;
+    s+=`<rect class="bar" x="${x}" y="${yy}" width="${bw}" height="${h}" rx="4"
+         fill="${active?color:color+'aa'}" stroke="${active?'#fff':'none'}" stroke-width="${active?1.5:0}"
+         data-tip="${y}: ${prefix}${fmt(v)} ${unit}"></rect>`;
+    s+=`<text class="gtxt" x="${x+bw/2}" y="${H-pad+15}" text-anchor="middle">${y}</text>`;
+    if(active) s+=`<text class="vtxt" x="${x+bw/2}" y="${yy-6}" text-anchor="middle">${prefix}${fmt(v)}</text>`;
+  });
+  s+=`</svg>`;
+  $("#"+elId).innerHTML=s;
+  bindBarTips(elId);
+}
+
+/* ---------- Gruppiertes Balkendiagramm (zwei Reihen) ---------- */
+function groupedBar(elId, sA, sB, cA, cB, lblA, lblB, unit){
+  const ys=Object.keys(sA).map(Number).sort((a,b)=>a-b);
+  const max=Math.max(...ys.map(y=>Math.max(sA[y],sB[y])))*1.15;
+  const W=560,H=240,pad=34,gap=(W-pad*2)/ys.length,bw=gap*0.30;
+  let s=`<svg viewBox="0 0 ${W} ${H}">`;
+  for(let g=0;g<=4;g++){const y=pad+(H-pad*2)*g/4; s+=`<line class="axis" x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" opacity=".4"/>`;
+    s+=`<text class="gtxt" x="${pad-6}" y="${y+3}" text-anchor="end">${fmt(Math.round(max*(1-g/4)))}</text>`;}
+  ys.forEach((y,i)=>{
+    const base=pad+gap*i+gap/2;
+    [[sA[y],cA,lblA,-bw-1],[sB[y],cB,lblB,1]].forEach(([v,c,lbl,off])=>{
+      const h=(v/max)*(H-pad*2), x=base+off, yy=H-pad-h;
+      s+=`<rect class="bar" x="${x}" y="${yy}" width="${bw}" height="${h}" rx="3" fill="${c}"
+            data-tip="${y} · ${lbl}: ${fmt(v)} ${unit}"></rect>`;
+    });
+    s+=`<text class="gtxt" x="${base}" y="${H-pad+15}" text-anchor="middle">${y}</text>`;
+  });
+  s+=`</svg>`;
+  $("#"+elId).innerHTML=s;
+  bindBarTips(elId);
+}
+
+/* ---------- Donut/Tortendiagramm ---------- */
+function donut(elId, legendId, items, valueResolver){
+  const total=items.reduce((a,b)=>a+b.share,0);
+  const W=260,cx=130,cy=130,r=95,ir=55;
+  let ang=-Math.PI/2, s=`<svg viewBox="0 0 ${W} ${W}">`;
+  items.forEach(it=>{
+    const frac=it.share/total, a2=ang+frac*Math.PI*2;
+    const big=frac>0.5?1:0;
+    const x1=cx+r*Math.cos(ang), y1=cy+r*Math.sin(ang);
+    const x2=cx+r*Math.cos(a2), y2=cy+r*Math.sin(a2);
+    const xi1=cx+ir*Math.cos(a2), yi1=cy+ir*Math.sin(a2);
+    const xi2=cx+ir*Math.cos(ang), yi2=cy+ir*Math.sin(ang);
+    const valTxt = valueResolver?valueResolver(it):"";
+    s+=`<path class="bar" d="M${x1} ${y1} A${r} ${r} 0 ${big} 1 ${x2} ${y2} L${xi1} ${yi1} A${ir} ${ir} 0 ${big} 0 ${xi2} ${yi2} Z"
+          fill="${it.color}" data-tip="${it.label}: ${(frac*100).toFixed(1)} %${valTxt}"></path>`;
+    ang=a2;
+  });
+  s+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" class="vtxt" style="font-size:13px">100 %</text>`;
+  s+=`<text x="${cx}" y="${cy+14}" text-anchor="middle" class="gtxt">gesamt</text></svg>`;
+  $("#"+elId).innerHTML=s;
+  bindBarTips(elId);
+  if(legendId){
+    $("#"+legendId).innerHTML = items.map(it=>
+      `<span><i class="dot" style="background:${it.color}"></i>${it.label} · ${(it.share/total*100).toFixed(1)} %</span>`).join("");
+  }
+}
+
+function bindBarTips(elId){
+  $$("#"+elId+" [data-tip]").forEach(el=>{
+    el.addEventListener("mousemove",e=>showTip(e,el.dataset.tip));
+    el.addEventListener("mouseleave",hideTip);
+  });
+}
+
+/* ---------- Horizontale Balken (Ausgaben) ---------- */
+function hBars(elId, items, totalK){
+  const sorted=[...items].sort((a,b)=>b.share-a.share);
+  $("#"+elId).innerHTML = sorted.map(it=>{
+    const eur=Math.round(it.share*totalK);
+    return `<div class="row"><span>${it.label}</span>
+      <span class="pct">${(it.share*100).toFixed(0)} % · ${fmt(eur)} Tsd. €</span></div>
+      <div class="progress"><i style="width:${(it.share*100).toFixed(1)}%;background:${it.color}"></i></div>`;
+  }).join("");
+}
+
+/* ---------- Tabellen ---------- */
+function renderFactTable(){
+  const m=DATA.meta, pop=DATA.population[curYear];
+  const rows=[
+    ["Landkreis", m.landkreis],
+    ["Postleitzahl", m.plz],
+    ["Gemarkungsfläche", m.flaeche_km2+" km²"],
+    ["Höhe über NN", m.hoehe_m+" m"],
+    ["Einwohner ("+curYear+")", fmt(pop)],
+    ["Haushalte ("+curYear+")", fmt(DATA.households[curYear])],
+    ["Ø Personen/Haushalt", (pop/DATA.households[curYear]).toFixed(2)],
+    ["Bevölkerungsdichte", fmt(Math.round(pop/m.flaeche_km2))+" Einw./km²"]
+  ];
+  $("#factTable").innerHTML = rows.map(([k,v])=>
+    `<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("");
+}
+function renderInfraTable(){
+  $("#infraTable").innerHTML =
+    `<tr><th>Einrichtung / Bereich</th><th class="num">Anzahl</th><th>Hinweis</th></tr>` +
+    DATA.facilities.map(f=>`<tr><td>${f.name}</td><td class="num">${f.count}</td><td class="pct">${f.note||""}</td></tr>`).join("");
+}
+
+/* ---------- Altersstruktur (auf Einwohnerzahl skaliert) ---------- */
+function renderAge(){
+  const pop=DATA.population[curYear];
+  donut("ageChart","ageLegend", DATA.ageGroups, it=> ` · ~${fmt(Math.round(it.share*pop))} Pers.`);
+}
+
+/* ---------- Alles rendern ---------- */
+function renderAll(){
+  $("#yearSel").value=curYear;
+  $("#lastYear").textContent="Bezugsjahr "+curYear;
+  renderKpis();
+  barChart("popChart", DATA.population, "#38bdf8", "Einwohner");
+  renderFactTable();
+  renderAge();
+  groupedBar("birthChart", DATA.births, DATA.deaths, "#34d399","#f87171","Geburten","Sterbefälle","");
+  groupedBar("migChart", DATA.arrivals, DATA.departures, "#38bdf8","#fbbf24","Zuzüge","Fortzüge","");
+  groupedBar("budgetChart", DATA.revenue, DATA.expense, "#34d399","#f87171","Einnahmen","Ausgaben","Tsd. €");
+  hBars("spendBars", DATA.spending, DATA.expense[curYear]);
+  renderInfraTable();
+  donut("landChart","landLegend", DATA.landUse, it=> ` · ~${(it.share*DATA.meta.flaeche_km2).toFixed(2)} km²`);
+}
+
+/* ---------- Init ---------- */
+buildTabs();
+buildYearSelect();
+renderAll();
+$("#printBtn").onclick=()=>window.print();
+</script>
+</body>
+</html>
