@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gemeinde Amschbach – Daten-Dashboard</title>
+<title>Ortsgemeinde Aschbach (Westpfalz) – Daten-Dashboard</title>
 <style>
   :root{
     --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --line:#334155;
     --txt:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --accent2:#34d399;
-    --warn:#fbbf24; --danger:#f87171; --violet:#a78bfa;
+    --warn:#fbbf24; --danger:#f87171; --violet:#a78bfa; --gold:#eab308;
     --radius:14px; --shadow:0 6px 24px rgba(0,0,0,.35);
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -20,43 +20,41 @@
   header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
   .brand{display:flex;align-items:center;gap:14px}
   .crest{
-    width:54px;height:54px;border-radius:12px;flex:0 0 auto;
-    background:linear-gradient(135deg,var(--accent),var(--violet));
-    display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#0f172a;
+    width:56px;height:56px;border-radius:12px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--gold),var(--danger));
+    display:flex;align-items:center;justify-content:center;font-size:30px;
     box-shadow:var(--shadow);
   }
-  h1{font-size:1.6rem;line-height:1.1}
+  h1{font-size:1.55rem;line-height:1.1}
   .sub{color:var(--muted);font-size:.9rem;margin-top:2px}
   .toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  select,button{
+  button{
     background:var(--panel);color:var(--txt);border:1px solid var(--line);
     padding:9px 14px;border-radius:10px;font-size:.9rem;cursor:pointer;transition:.15s;
   }
-  select:hover,button:hover{border-color:var(--accent)}
+  button:hover{border-color:var(--accent)}
   button.active{background:var(--accent);color:#0f172a;border-color:var(--accent);font-weight:600}
-
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 
   .banner{
-    background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.35);
-    color:#fde68a;padding:10px 14px;border-radius:10px;font-size:.83rem;margin-bottom:18px;
+    background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.3);
+    color:#bae6fd;padding:10px 14px;border-radius:10px;font-size:.82rem;margin-bottom:18px;line-height:1.5;
   }
 
   .grid{display:grid;gap:16px}
-  .kpis{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:16px}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:16px}
   .cards{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
 
   .card{
     background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
     padding:18px;box-shadow:var(--shadow);
   }
-  .kpi .label{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
-  .kpi .value{font-size:1.9rem;font-weight:700;margin-top:6px}
-  .kpi .delta{font-size:.82rem;margin-top:4px}
-  .delta.up{color:var(--accent2)} .delta.down{color:var(--danger)} .delta.flat{color:var(--muted)}
+  .kpi .label{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+  .kpi .value{font-size:1.8rem;font-weight:700;margin-top:6px}
+  .kpi .note{font-size:.78rem;margin-top:4px;color:var(--muted)}
 
   .card h3{font-size:1.02rem;margin-bottom:4px;display:flex;align-items:center;gap:8px}
-  .card .hint{color:var(--muted);font-size:.78rem;margin-bottom:12px}
+  .card .hint{color:var(--muted);font-size:.78rem;margin-bottom:14px}
 
   .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;font-size:.8rem;color:var(--muted)}
   .legend span{display:inline-flex;align-items:center;gap:6px}
@@ -64,13 +62,13 @@
 
   svg{width:100%;height:auto;display:block;overflow:visible}
   .bar{transition:.2s;cursor:pointer}
-  .bar:hover{opacity:.8}
+  .bar:hover{opacity:.82}
   .axis{stroke:var(--line);stroke-width:1}
   .gtxt{fill:var(--muted);font-size:11px}
   .vtxt{fill:var(--txt);font-size:11px;font-weight:600}
 
   table{width:100%;border-collapse:collapse;font-size:.88rem}
-  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
   th{color:var(--muted);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
   td.num{text-align:right;font-variant-numeric:tabular-nums}
   tr:hover td{background:var(--panel2)}
@@ -78,37 +76,51 @@
   .tip{
     position:fixed;pointer-events:none;background:#0b1220;border:1px solid var(--accent);
     color:var(--txt);padding:7px 11px;border-radius:8px;font-size:.82rem;opacity:0;
-    transition:opacity .1s;z-index:50;box-shadow:var(--shadow);white-space:nowrap;
+    transition:opacity .1s;z-index:50;box-shadow:var(--shadow);max-width:260px;
   }
-  .progress{height:9px;background:var(--panel2);border-radius:6px;overflow:hidden;margin-top:6px}
+  .progress{height:10px;background:var(--panel2);border-radius:6px;overflow:hidden;margin-top:6px}
   .progress > i{display:block;height:100%;border-radius:6px}
   .row{display:flex;justify-content:space-between;align-items:center;margin:14px 0 2px;font-size:.9rem}
   .pct{color:var(--muted);font-size:.82rem}
-  footer{margin-top:26px;color:var(--muted);font-size:.78rem;text-align:center;line-height:1.6}
+
+  .timeline{position:relative;margin-left:8px;padding-left:22px;border-left:2px solid var(--line)}
+  .ev{position:relative;margin-bottom:18px}
+  .ev::before{content:"";position:absolute;left:-29px;top:3px;width:13px;height:13px;border-radius:50%;
+    background:var(--gold);border:3px solid var(--panel)}
+  .ev .yr{font-weight:700;color:var(--gold);font-size:.95rem}
+  .ev .tx{font-size:.88rem;color:var(--txt);margin-top:2px;line-height:1.45}
+
+  .quote{border-left:3px solid var(--gold);padding:10px 16px;background:var(--panel2);
+    border-radius:0 10px 10px 0;font-size:.92rem;line-height:1.55;margin-top:6px}
+  .big{font-size:2.6rem;font-weight:800;color:var(--gold);line-height:1}
+  .crest-svg{display:block;margin:6px auto 0}
+
+  footer{margin-top:26px;color:var(--muted);font-size:.76rem;text-align:center;line-height:1.7}
+  footer a{color:var(--accent);text-decoration:none}
   .hidden{display:none}
-  .pill{font-size:.7rem;padding:2px 8px;border-radius:20px;background:var(--panel2);color:var(--muted)}
+  .src{font-size:.72rem;color:var(--muted);margin-top:10px;font-style:italic}
 </style>
 </head>
 <body>
 
 <header>
   <div class="brand">
-    <div class="crest">A</div>
+    <div class="crest">🦁</div>
     <div>
-      <h1>Gemeinde Amschbach</h1>
-      <div class="sub">Interaktives Daten-Dashboard · <span id="lastYear"></span></div>
+      <h1>Ortsgemeinde Aschbach <span style="color:var(--muted);font-weight:400;font-size:1rem">(Westpfalz)</span></h1>
+      <div class="sub">Landkreis Kusel · Verbandsgemeinde Lauterecken-Wolfstein · Rheinland-Pfalz</div>
     </div>
   </div>
   <div class="toolbar">
-    <label class="sub" for="yearSel">Bezugsjahr:</label>
-    <select id="yearSel"></select>
     <button id="printBtn">🖨️ Drucken / PDF</button>
   </div>
 </header>
 
 <div class="banner" id="banner">
-  ⚠️ <strong>Hinweis:</strong> Die angezeigten Zahlen sind <strong>Beispiel-/Platzhalterdaten</strong> zur Demonstration.
-  Ersetze sie durch amtliche Werte im Abschnitt <code>const DATA = …</code> oben in dieser Datei.
+  ℹ️ <strong>Datenbasis:</strong> Öffentlich zugängliche Quellen (Wikipedia, citypopulation.de, regionalgeschichte.net,
+  Statistisches Landesamt RLP), Stand der Recherche Juni 2026. Historische Einwohnerzahlen stammen aus
+  <strong>unterschiedlichen Stichjahren</strong> (keine lückenlose Jahresreihe). Aktuelle Bevölkerung je nach Quelle
+  304–331 — vor amtlicher Verwendung gegenprüfen.
 </div>
 
 <nav class="tabs" id="tabs"></nav>
@@ -118,13 +130,14 @@
   <div class="grid kpis" id="kpiRow"></div>
   <div class="grid cards">
     <div class="card">
-      <h3>👥 Bevölkerungsentwicklung</h3>
-      <div class="hint">Einwohner pro Jahr — Balken anklicken/überfahren für Details</div>
+      <h3>📈 Bevölkerungsentwicklung</h3>
+      <div class="hint">Dokumentierte Stichjahre — Balken überfahren für Details (Jahre nicht gleich beabstandet)</div>
       <div id="popChart"></div>
+      <div class="src">Quellen: regionalgeschichte.net, citypopulation.de, Statistisches Landesamt RLP</div>
     </div>
     <div class="card">
       <h3>🏠 Gemeinde auf einen Blick</h3>
-      <div class="hint">Strukturdaten im gewählten Bezugsjahr</div>
+      <div class="hint">Struktur- und Verwaltungsdaten</div>
       <table id="factTable"></table>
     </div>
   </div>
@@ -134,66 +147,65 @@
 <section data-tab="population" class="hidden">
   <div class="grid cards">
     <div class="card">
-      <h3>📊 Altersstruktur</h3>
-      <div class="hint">Verteilung nach Altersgruppen</div>
-      <div id="ageChart"></div>
-      <div class="legend" id="ageLegend"></div>
+      <h3>⛪ Konfession</h3>
+      <div class="hint">Religionszugehörigkeit (Stand 2007)</div>
+      <div id="relChart"></div>
+      <div class="legend" id="relLegend"></div>
+      <div class="src">Kirchlich seit 1590 zur Pfarrei Hinzweiler. Quelle: regionalgeschichte.net</div>
     </div>
     <div class="card">
-      <h3>⚖️ Geburten & Sterbefälle</h3>
-      <div class="hint">Natürliche Bevölkerungsbilanz</div>
-      <div id="birthChart"></div>
-      <div class="legend">
-        <span><i class="dot" style="background:var(--accent2)"></i>Geburten</span>
-        <span><i class="dot" style="background:var(--danger)"></i>Sterbefälle</span>
-      </div>
-    </div>
-    <div class="card">
-      <h3>🔄 Zu- & Fortzüge</h3>
-      <div class="hint">Wanderungssaldo (Wanderungsbewegung)</div>
-      <div id="migChart"></div>
-      <div class="legend">
-        <span><i class="dot" style="background:var(--accent)"></i>Zuzüge</span>
-        <span><i class="dot" style="background:var(--warn)"></i>Fortzüge</span>
-      </div>
+      <h3>📊 Eckwerte der Bevölkerung</h3>
+      <div class="hint">Kennzahlen im Überblick</div>
+      <table id="popTable"></table>
     </div>
   </div>
 </section>
 
-<!-- FINANZEN -->
-<section data-tab="finance" class="hidden">
-  <div class="grid kpis" id="finKpi"></div>
+<!-- GESCHICHTE -->
+<section data-tab="history" class="hidden">
   <div class="grid cards">
     <div class="card">
-      <h3>💶 Haushalt: Einnahmen & Ausgaben</h3>
-      <div class="hint">Entwicklung des Gemeindehaushalts (Tsd. €)</div>
-      <div id="budgetChart"></div>
-      <div class="legend">
-        <span><i class="dot" style="background:var(--accent2)"></i>Einnahmen</span>
-        <span><i class="dot" style="background:var(--danger)"></i>Ausgaben</span>
-      </div>
+      <h3>🕰️ Historischer Zeitstrahl</h3>
+      <div class="hint">Wichtige Stationen der Ortsgeschichte</div>
+      <div class="timeline" id="timeline"></div>
     </div>
     <div class="card">
-      <h3>🧾 Ausgaben nach Bereich</h3>
-      <div class="hint">Anteil am Gesamthaushalt im Bezugsjahr</div>
-      <div id="spendBars"></div>
+      <h3>🎺 Westpfälzer Wandermusikanten</h3>
+      <div class="hint">Das prägende Kapitel von Aschbach</div>
+      <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:10px">
+        <span class="big">73</span>
+        <span style="font-size:.9rem;line-height:1.4">von <strong>295</strong> Einwohnern (1905) zogen als
+          <strong>Berufsmusiker</strong> in die Welt — rund <strong>jede:r Vierte</strong>.</span>
+      </div>
+      <div id="muChart"></div>
+      <div class="quote" style="margin-top:14px">
+        Durch fortgesetzte Erbteilung konnten viele Bauernfamilien nicht mehr von der Landwirtschaft leben.
+        So zogen die Aschbacher seit dem 19. Jahrhundert als Wandermusikanten bis nach Amerika, England und Russland —
+        ein Markenzeichen der gesamten Westpfalz.
+      </div>
+      <div class="src">Quelle: regionalgeschichte.net, Ortslexikon Landkreis Kusel</div>
     </div>
   </div>
 </section>
 
-<!-- INFRASTRUKTUR -->
-<section data-tab="infra" class="hidden">
+<!-- VERWALTUNG -->
+<section data-tab="admin" class="hidden">
   <div class="grid cards">
     <div class="card">
-      <h3>🏫 Einrichtungen & Vereine</h3>
-      <div class="hint">Soziale und kulturelle Infrastruktur</div>
-      <table id="infraTable"></table>
+      <h3>🏛️ Verwaltung & Mandat</h3>
+      <div class="hint">Politische und administrative Zuordnung</div>
+      <table id="adminTable"></table>
     </div>
     <div class="card">
-      <h3>🌱 Flächennutzung</h3>
-      <div class="hint">Anteil an der Gemarkungsfläche</div>
-      <div id="landChart"></div>
-      <div class="legend" id="landLegend"></div>
+      <h3>🛡️ Gemeindewappen</h3>
+      <div class="hint">Blasonierung (Wappenbeschreibung)</div>
+      <svg class="crest-svg" id="crestSvg" viewBox="0 0 120 140" width="130" height="150"></svg>
+      <div class="quote">
+        „Unter blauem Wellenschildhaupt, darin ein goldenes (linksgewendetes) Eschenblatt,
+        in Gold ein schreitender roter Löwe mit blauer Bewehrung und blauem Bezant.“
+      </div>
+      <div class="src">Symbolik: Eschenblatt + Bach = redendes Wappen für „Asch-bach“; der Löwe verweist auf die
+        pfalz-zweibrückische bzw. rheingräfliche Herrschaft.</div>
     </div>
   </div>
 </section>
@@ -201,319 +213,229 @@
 <div class="tip" id="tip"></div>
 
 <footer>
-  Datenstand laut Quellenangabe der Gemeinde · Dashboard generiert · Werte vor Veröffentlichung gegen amtliche Statistik prüfen.<br>
-  Bedienung: Reiter oben wechseln · Bezugsjahr rechts oben wählen · Diagramme zeigen beim Überfahren Detailwerte.
+  Zusammengestellt aus öffentlichen Quellen ·
+  <a href="https://de.wikipedia.org/wiki/Aschbach_(Westpfalz)">Wikipedia: Aschbach (Westpfalz)</a> ·
+  <a href="https://www.regionalgeschichte.net/pfalz/aschbach.html">regionalgeschichte.net</a> ·
+  <a href="http://www.citypopulation.de/de/germany/rheinlandpfalz/kusel/07336005__aschbach/">citypopulation.de</a> ·
+  <a href="https://www.vg-lw.de/gemeinden-staedte/aschbach/ortsbeschreibung-historie/">VG Lauterecken-Wolfstein</a><br>
+  Bedienung: Reiter oben wechseln · Diagramme zeigen beim Überfahren Detailwerte · alle Angaben ohne Gewähr, vor amtlicher Verwendung prüfen.
 </footer>
 
 <script>
 /* ============================================================
-   DATENQUELLE  —  HIER ECHTE WERTE EINTRAGEN
-   ------------------------------------------------------------
-   Alle Werte sind aktuell BEISPIELDATEN. Trage offizielle
-   Zahlen der Gemeinde Amschbach ein und das Dashboard
-   aktualisiert sich automatisch.
+   DATEN  —  Ortsgemeinde Aschbach (Westpfalz), Lkr. Kusel
+   Belegte Werte aus öffentlichen Quellen. Stichjahre notiert.
    ============================================================ */
 const DATA = {
   meta: {
-    name: "Amschbach",
-    landkreis: "Musterkreis",
-    flaeche_km2: 7.4,        // Gemarkungsfläche
-    hoehe_m: 285,            // Höhe über NN
-    plz: "00000",
-    quelle: "Beispieldaten (Platzhalter)"
+    name:"Aschbach (Westpfalz)",
+    bundesland:"Rheinland-Pfalz",
+    landkreis:"Kusel",
+    vg:"Lauterecken-Wolfstein",
+    plz:"67753",
+    ags:"07 336 005",
+    flaeche_km2:4.45,
+    hoehe_m:270,
+    einw_aktuell:304,        // Stat. Landesamt RLP (Zensus-basiert); andere Quelle: 331
+    dichte:68,               // Einw./km²
+    erstmals:"1150 als „Hasbach“",
+    pfarrei:"Hinzweiler (seit 1590)",
+    buergermeisterin:"Birgit Wamsbach",
+    bm_seit:"2019, 2024 mit 73,3 % bestätigt"
   },
 
-  // Bevölkerung je Jahr
-  population: {
-    2019: 1180, 2020: 1205, 2021: 1224, 2022: 1248, 2023: 1271, 2024: 1290
-  },
-
-  // Haushalte / Strukturdaten je Jahr
-  households: { 2019:512, 2020:524, 2021:533, 2022:545, 2023:558, 2024:567 },
-
-  // Altersgruppen (für Bezugsjahr) — wird je Jahr leicht skaliert
-  ageGroups: [
-    { label:"0–17 J.",  share:0.165, color:"#38bdf8" },
-    { label:"18–29 J.", share:0.130, color:"#34d399" },
-    { label:"30–49 J.", share:0.255, color:"#a78bfa" },
-    { label:"50–64 J.", share:0.235, color:"#fbbf24" },
-    { label:"65+ J.",   share:0.215, color:"#f87171" }
+  // Dokumentierte Einwohner-Stichjahre (KEINE Jahresreihe!)
+  population: [
+    { year:1825, value:314, note:"davon 29 jüdische Einwohner" },
+    { year:1870, value:452, note:"Höchststand (2. Hälfte 19. Jh., ca.)" },
+    { year:1905, value:295, note:"davon 73 Wandermusikanten im Ausland" },
+    { year:2007, value:355, note:"ca. 95 % evangelisch" },
+    { year:2017, value:309, note:"Stand 31.12.2017" },
+    { year:2023, value:304, note:"Stat. Landesamt (Zensus 2022 fortgeschrieben)" }
   ],
 
-  // Geburten / Sterbefälle
-  births: { 2019:11, 2020:9,  2021:13, 2022:10, 2023:12, 2024:14 },
-  deaths: { 2019:14, 2020:16, 2021:15, 2022:13, 2023:12, 2024:13 },
-
-  // Zuzüge / Fortzüge
-  arrivals:   { 2019:78, 2020:71, 2021:69, 2022:83, 2023:75, 2024:80 },
-  departures: { 2019:62, 2020:55, 2021:58, 2022:67, 2023:61, 2024:64 },
-
-  // Gemeindehaushalt in Tsd. €
-  revenue: { 2019:2380, 2020:2410, 2021:2520, 2022:2680, 2023:2790, 2024:2910 },
-  expense: { 2019:2310, 2020:2470, 2021:2455, 2022:2640, 2023:2720, 2024:2860 },
-  debt:    { 2019:1450, 2020:1610, 2021:1540, 2022:1480, 2023:1390, 2024:1300 }, // Schuldenstand Tsd. €
-
-  // Ausgaben nach Bereich (Bezugsjahr, Anteile)
-  spending: [
-    { label:"Verwaltung & Personal", share:0.27, color:"#38bdf8" },
-    { label:"Bildung & Kinderbetreuung", share:0.22, color:"#34d399" },
-    { label:"Bau, Straßen & ÖPNV", share:0.19, color:"#a78bfa" },
-    { label:"Soziales & Jugend", share:0.13, color:"#fbbf24" },
-    { label:"Kultur, Sport & Vereine", share:0.10, color:"#f472b6" },
-    { label:"Sonstiges", share:0.09, color:"#94a3b8" }
+  religion: [
+    { label:"evangelisch", share:0.95, color:"#a78bfa" },
+    { label:"andere / o. A.", share:0.05, color:"#94a3b8" }
   ],
 
-  // Infrastruktur / Einrichtungen
-  facilities: [
-    { name:"Kindertagesstätten", count:2,  note:"ca. 90 Plätze" },
-    { name:"Grundschule", count:1, note:"Verbund mit Nachbarort" },
-    { name:"Ärzte / Praxen", count:2, note:"Allgemein- & Zahnmedizin" },
-    { name:"Sport- & Mehrzweckhallen", count:1, note:"+ Sportplatz" },
-    { name:"Feuerwehr (freiwillig)", count:1, note:"38 aktive Mitglieder" },
-    { name:"Eingetragene Vereine", count:14, note:"Sport, Musik, Brauchtum" },
-    { name:"Gastronomie & Läden", count:6, note:"Nahversorgung" }
-  ],
+  // Wandermusikanten 1905
+  musicians: { musiker:73, uebrige:222 }, // 73 + 222 = 295
 
-  // Flächennutzung (Anteile)
-  landUse: [
-    { label:"Landwirtschaft", share:0.46, color:"#34d399" },
-    { label:"Wald & Natur", share:0.27, color:"#16a34a" },
-    { label:"Siedlung & Verkehr", share:0.18, color:"#a78bfa" },
-    { label:"Gewerbe", share:0.05, color:"#fbbf24" },
-    { label:"Wasser & Sonstiges", share:0.04, color:"#38bdf8" }
+  timeline: [
+    { year:"1150", text:"Erste urkundliche Erwähnung als „Hasbach“ in der Gründungsurkunde des Klosters Offenbach." },
+    { year:"14. Jh.", text:"Ober- und Unteraschbach gehören zum Amt Nerzweiler; Oberaschbach fällt später wüst." },
+    { year:"1444", text:"Das Eßweiler Tal mit Aschbach gelangt an Pfalz-Zweibrücken." },
+    { year:"1590", text:"Kirchlich der Pfarrei Hinzweiler zugeordnet (bis heute)." },
+    { year:"1595", text:"Die Hochgerichtsbarkeit geht von den Wild- und Rheingrafen an die Pfalz über." },
+    { year:"1755", text:"Aschbach kommt von Zweibrücken an Rheingraf Karl Walram von Grumbach." },
+    { year:"ab 1800er", text:"Aufstieg des Westpfälzer Wandermusikantentums — Aschbacher ziehen als Musiker ins Ausland." },
+    { year:"1905", text:"295 Einwohner, davon 73 Berufsmusiker im Ausland." },
+    { year:"2019", text:"Birgit Wamsbach wird Ortsbürgermeisterin (2024 mit 73,3 % bestätigt)." }
   ]
 };
 
 /* ============================================================
-   AB HIER: DASHBOARD-LOGIK (i.d.R. keine Änderung nötig)
+   DASHBOARD-LOGIK
    ============================================================ */
 const $ = (s,el=document)=>el.querySelector(s);
 const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
 const fmt = n => n.toLocaleString("de-DE");
-const fmtK = n => n.toLocaleString("de-DE") + " Tsd. €";
-const years = Object.keys(DATA.population).map(Number).sort((a,b)=>a-b);
-let curYear = years[years.length-1];
 const tip = $("#tip");
 
 function showTip(e,html){
-  tip.innerHTML = html;
-  tip.style.opacity = 1;
-  const pad = 14;
-  tip.style.left = Math.min(e.clientX+pad, window.innerWidth-tip.offsetWidth-pad) + "px";
-  tip.style.top = (e.clientY+pad) + "px";
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const pad=14;
+  tip.style.left = Math.min(e.clientX+pad, window.innerWidth-tip.offsetWidth-pad)+"px";
+  tip.style.top  = (e.clientY+pad)+"px";
 }
-function hideTip(){ tip.style.opacity = 0; }
-
-/* ---------- Reiter ---------- */
-const TABS = [
-  ["overview","🏠 Überblick"],
-  ["population","👥 Bevölkerung"],
-  ["finance","💶 Finanzen"],
-  ["infra","🏗️ Infrastruktur"]
-];
-function buildTabs(){
-  const nav = $("#tabs");
-  TABS.forEach(([id,label],i)=>{
-    const b=document.createElement("button");
-    b.textContent=label; b.dataset.target=id;
-    if(i===0) b.classList.add("active");
-    b.onclick=()=>{
-      $$(".tabs button").forEach(x=>x.classList.remove("active"));
-      b.classList.add("active");
-      $$("section[data-tab]").forEach(s=>s.classList.toggle("hidden", s.dataset.tab!==id));
-    };
-    nav.appendChild(b);
-  });
-}
-
-/* ---------- Bezugsjahr-Auswahl ---------- */
-function buildYearSelect(){
-  const sel=$("#yearSel");
-  years.slice().reverse().forEach(y=>{
-    const o=document.createElement("option"); o.value=y; o.textContent=y; sel.appendChild(o);
-  });
-  sel.value=curYear;
-  sel.onchange=()=>{ curYear=Number(sel.value); renderAll(); };
-  $("#lastYear").textContent = "Bezugsjahr "+curYear;
-}
-
-/* ---------- Helfer: Trend-Delta ---------- */
-function delta(series){
-  const ys=Object.keys(series).map(Number).sort((a,b)=>a-b);
-  const i=ys.indexOf(curYear);
-  if(i<=0) return {txt:"–",cls:"flat"};
-  const prev=series[ys[i-1]], now=series[curYear];
-  const d=now-prev, p=(d/prev*100);
-  const cls = d>0?"up":(d<0?"down":"flat");
-  const arr = d>0?"▲":(d<0?"▼":"▬");
-  return {txt:`${arr} ${d>0?"+":""}${fmt(d)} (${p>0?"+":""}${p.toFixed(1)} %) ggü. ${ys[i-1]}`, cls};
-}
-
-/* ---------- KPI-Karten ---------- */
-function kpi(label,value,d){
-  return `<div class="card kpi">
-    <div class="label">${label}</div>
-    <div class="value">${value}</div>
-    <div class="delta ${d.cls}">${d.txt}</div>
-  </div>`;
-}
-function renderKpis(){
-  const pop=DATA.population[curYear];
-  const natural=DATA.births[curYear]-DATA.deaths[curYear];
-  const mig=DATA.arrivals[curYear]-DATA.departures[curYear];
-  $("#kpiRow").innerHTML =
-    kpi("Einwohner", fmt(pop), delta(DATA.population)) +
-    kpi("Haushalte", fmt(DATA.households[curYear]), delta(DATA.households)) +
-    kpi("Natürl. Saldo", (natural>0?"+":"")+natural, {txt:`${DATA.births[curYear]} Geb. / ${DATA.deaths[curYear]} Sterbef.`,cls:natural>=0?"up":"down"}) +
-    kpi("Wanderungssaldo", (mig>0?"+":"")+mig, {txt:`${DATA.arrivals[curYear]} zu / ${DATA.departures[curYear]} fort`,cls:mig>=0?"up":"down"}) +
-    kpi("Bev.-Dichte", fmt(Math.round(pop/DATA.meta.flaeche_km2))+" /km²", {txt:`Fläche ${DATA.meta.flaeche_km2} km²`,cls:"flat"});
-
-  const surplus=DATA.revenue[curYear]-DATA.expense[curYear];
-  $("#finKpi").innerHTML =
-    kpi("Einnahmen", fmtK(DATA.revenue[curYear]), delta(DATA.revenue)) +
-    kpi("Ausgaben", fmtK(DATA.expense[curYear]), delta(DATA.expense)) +
-    kpi("Saldo", (surplus>0?"+":"")+fmtK(surplus), {txt:surplus>=0?"Überschuss":"Defizit",cls:surplus>=0?"up":"down"}) +
-    kpi("Schuldenstand", fmtK(DATA.debt[curYear]), delta(DATA.debt)) +
-    kpi("Pro-Kopf-Schuld", fmt(Math.round(DATA.debt[curYear]*1000/DATA.population[curYear]))+" €", {txt:"je Einwohner",cls:"flat"});
-}
-
-/* ---------- Balkendiagramm (eine Reihe) ---------- */
-function barChart(elId, series, color, unit, prefix=""){
-  const ys=Object.keys(series).map(Number).sort((a,b)=>a-b);
-  const vals=ys.map(y=>series[y]);
-  const max=Math.max(...vals)*1.12, W=560,H=240,pad=34,bw=(W-pad*2)/ys.length*0.6, gap=(W-pad*2)/ys.length;
-  let s=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
-  for(let g=0;g<=4;g++){const y=pad+(H-pad*2)*g/4; s+=`<line class="axis" x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" opacity=".4"/>`;
-    s+=`<text class="gtxt" x="${pad-6}" y="${y+3}" text-anchor="end">${prefix}${fmt(Math.round(max*(1-g/4)))}</text>`;}
-  ys.forEach((y,i)=>{
-    const v=series[y], h=(v/max)*(H-pad*2), x=pad+gap*i+(gap-bw)/2, yy=H-pad-h;
-    const active = y===curYear;
-    s+=`<rect class="bar" x="${x}" y="${yy}" width="${bw}" height="${h}" rx="4"
-         fill="${active?color:color+'aa'}" stroke="${active?'#fff':'none'}" stroke-width="${active?1.5:0}"
-         data-tip="${y}: ${prefix}${fmt(v)} ${unit}"></rect>`;
-    s+=`<text class="gtxt" x="${x+bw/2}" y="${H-pad+15}" text-anchor="middle">${y}</text>`;
-    if(active) s+=`<text class="vtxt" x="${x+bw/2}" y="${yy-6}" text-anchor="middle">${prefix}${fmt(v)}</text>`;
-  });
-  s+=`</svg>`;
-  $("#"+elId).innerHTML=s;
-  bindBarTips(elId);
-}
-
-/* ---------- Gruppiertes Balkendiagramm (zwei Reihen) ---------- */
-function groupedBar(elId, sA, sB, cA, cB, lblA, lblB, unit){
-  const ys=Object.keys(sA).map(Number).sort((a,b)=>a-b);
-  const max=Math.max(...ys.map(y=>Math.max(sA[y],sB[y])))*1.15;
-  const W=560,H=240,pad=34,gap=(W-pad*2)/ys.length,bw=gap*0.30;
-  let s=`<svg viewBox="0 0 ${W} ${H}">`;
-  for(let g=0;g<=4;g++){const y=pad+(H-pad*2)*g/4; s+=`<line class="axis" x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" opacity=".4"/>`;
-    s+=`<text class="gtxt" x="${pad-6}" y="${y+3}" text-anchor="end">${fmt(Math.round(max*(1-g/4)))}</text>`;}
-  ys.forEach((y,i)=>{
-    const base=pad+gap*i+gap/2;
-    [[sA[y],cA,lblA,-bw-1],[sB[y],cB,lblB,1]].forEach(([v,c,lbl,off])=>{
-      const h=(v/max)*(H-pad*2), x=base+off, yy=H-pad-h;
-      s+=`<rect class="bar" x="${x}" y="${yy}" width="${bw}" height="${h}" rx="3" fill="${c}"
-            data-tip="${y} · ${lbl}: ${fmt(v)} ${unit}"></rect>`;
-    });
-    s+=`<text class="gtxt" x="${base}" y="${H-pad+15}" text-anchor="middle">${y}</text>`;
-  });
-  s+=`</svg>`;
-  $("#"+elId).innerHTML=s;
-  bindBarTips(elId);
-}
-
-/* ---------- Donut/Tortendiagramm ---------- */
-function donut(elId, legendId, items, valueResolver){
-  const total=items.reduce((a,b)=>a+b.share,0);
-  const W=260,cx=130,cy=130,r=95,ir=55;
-  let ang=-Math.PI/2, s=`<svg viewBox="0 0 ${W} ${W}">`;
-  items.forEach(it=>{
-    const frac=it.share/total, a2=ang+frac*Math.PI*2;
-    const big=frac>0.5?1:0;
-    const x1=cx+r*Math.cos(ang), y1=cy+r*Math.sin(ang);
-    const x2=cx+r*Math.cos(a2), y2=cy+r*Math.sin(a2);
-    const xi1=cx+ir*Math.cos(a2), yi1=cy+ir*Math.sin(a2);
-    const xi2=cx+ir*Math.cos(ang), yi2=cy+ir*Math.sin(ang);
-    const valTxt = valueResolver?valueResolver(it):"";
-    s+=`<path class="bar" d="M${x1} ${y1} A${r} ${r} 0 ${big} 1 ${x2} ${y2} L${xi1} ${yi1} A${ir} ${ir} 0 ${big} 0 ${xi2} ${yi2} Z"
-          fill="${it.color}" data-tip="${it.label}: ${(frac*100).toFixed(1)} %${valTxt}"></path>`;
-    ang=a2;
-  });
-  s+=`<text x="${cx}" y="${cy-4}" text-anchor="middle" class="vtxt" style="font-size:13px">100 %</text>`;
-  s+=`<text x="${cx}" y="${cy+14}" text-anchor="middle" class="gtxt">gesamt</text></svg>`;
-  $("#"+elId).innerHTML=s;
-  bindBarTips(elId);
-  if(legendId){
-    $("#"+legendId).innerHTML = items.map(it=>
-      `<span><i class="dot" style="background:${it.color}"></i>${it.label} · ${(it.share/total*100).toFixed(1)} %</span>`).join("");
-  }
-}
-
-function bindBarTips(elId){
+const hideTip=()=>tip.style.opacity=0;
+function bindTips(elId){
   $$("#"+elId+" [data-tip]").forEach(el=>{
     el.addEventListener("mousemove",e=>showTip(e,el.dataset.tip));
     el.addEventListener("mouseleave",hideTip);
   });
 }
 
-/* ---------- Horizontale Balken (Ausgaben) ---------- */
-function hBars(elId, items, totalK){
-  const sorted=[...items].sort((a,b)=>b.share-a.share);
-  $("#"+elId).innerHTML = sorted.map(it=>{
-    const eur=Math.round(it.share*totalK);
-    return `<div class="row"><span>${it.label}</span>
-      <span class="pct">${(it.share*100).toFixed(0)} % · ${fmt(eur)} Tsd. €</span></div>
-      <div class="progress"><i style="width:${(it.share*100).toFixed(1)}%;background:${it.color}"></i></div>`;
-  }).join("");
+/* ---- Reiter ---- */
+const TABS=[["overview","🏠 Überblick"],["population","👥 Bevölkerung"],
+            ["history","🕰️ Geschichte & Musikanten"],["admin","🏛️ Verwaltung & Wappen"]];
+function buildTabs(){
+  const nav=$("#tabs");
+  TABS.forEach(([id,label],i)=>{
+    const b=document.createElement("button");
+    b.textContent=label; if(i===0)b.classList.add("active");
+    b.onclick=()=>{
+      $$(".tabs button").forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      $$("section[data-tab]").forEach(s=>s.classList.toggle("hidden",s.dataset.tab!==id));
+    };
+    nav.appendChild(b);
+  });
 }
 
-/* ---------- Tabellen ---------- */
+/* ---- KPI ---- */
+function kpi(label,value,note){
+  return `<div class="card kpi"><div class="label">${label}</div>
+    <div class="value">${value}</div><div class="note">${note}</div></div>`;
+}
+function renderKpis(){
+  const m=DATA.meta;
+  $("#kpiRow").innerHTML =
+    kpi("Einwohner", fmt(m.einw_aktuell), "Stand ~2023 (Quelle abh. 304–331)") +
+    kpi("Fläche", m.flaeche_km2.toLocaleString("de-DE")+" km²", "Gemarkung") +
+    kpi("Bevölk.-Dichte", m.dichte+" /km²", "Einwohner je km²") +
+    kpi("Höhe", m.hoehe_m+" m", "über NN") +
+    kpi("Ersterwähnung", "1150", "als „Hasbach“");
+}
+
+/* ---- Balkendiagramm (Stichjahre) ---- */
+function popChart(){
+  const pts=DATA.population, max=Math.max(...pts.map(p=>p.value))*1.15;
+  const W=560,H=250,pad=38,gap=(W-pad*2)/pts.length,bw=gap*0.6;
+  let s=`<svg viewBox="0 0 ${W} ${H}">`;
+  for(let g=0;g<=4;g++){const y=pad+(H-pad*2)*g/4;
+    s+=`<line class="axis" x1="${pad}" y1="${y}" x2="${W-pad}" y2="${y}" opacity=".4"/>`;
+    s+=`<text class="gtxt" x="${pad-6}" y="${y+3}" text-anchor="end">${fmt(Math.round(max*(1-g/4)))}</text>`;}
+  pts.forEach((p,i)=>{
+    const h=(p.value/max)*(H-pad*2), x=pad+gap*i+(gap-bw)/2, yy=H-pad-h;
+    const peak = p.value===Math.max(...pts.map(q=>q.value));
+    s+=`<rect class="bar" x="${x}" y="${yy}" width="${bw}" height="${h}" rx="4"
+         fill="${peak?'#34d399':'#38bdf8'}" data-tip="<strong>${p.year}: ${fmt(p.value)} Einw.</strong><br>${p.note}"></rect>`;
+    s+=`<text class="gtxt" x="${x+bw/2}" y="${H-pad+15}" text-anchor="middle">${p.year}</text>`;
+    s+=`<text class="vtxt" x="${x+bw/2}" y="${yy-6}" text-anchor="middle">${fmt(p.value)}</text>`;
+  });
+  s+=`</svg>`; $("#popChart").innerHTML=s; bindTips("popChart");
+}
+
+/* ---- Donut ---- */
+function donut(elId,legendId,items,unitResolver){
+  const total=items.reduce((a,b)=>a+b.share,0);
+  const W=240,cx=120,cy=120,r=92,ir=54;
+  let ang=-Math.PI/2,s=`<svg viewBox="0 0 ${W} ${W}">`;
+  items.forEach(it=>{
+    const frac=it.share/total,a2=ang+frac*Math.PI*2,big=frac>0.5?1:0;
+    const p=(a,rad)=>[cx+rad*Math.cos(a),cy+rad*Math.sin(a)];
+    const[x1,y1]=p(ang,r),[x2,y2]=p(a2,r),[xi1,yi1]=p(a2,ir),[xi2,yi2]=p(ang,ir);
+    s+=`<path class="bar" d="M${x1} ${y1} A${r} ${r} 0 ${big} 1 ${x2} ${y2} L${xi1} ${yi1} A${ir} ${ir} 0 ${big} 0 ${xi2} ${yi2} Z"
+         fill="${it.color}" data-tip="${it.label}: ${(frac*100).toFixed(0)} %${unitResolver?unitResolver(it):''}"></path>`;
+    ang=a2;
+  });
+  s+=`</svg>`; $("#"+elId).innerHTML=s; bindTips(elId);
+  if(legendId)$("#"+legendId).innerHTML=items.map(it=>
+    `<span><i class="dot" style="background:${it.color}"></i>${it.label} · ${(it.share/total*100).toFixed(0)} %</span>`).join("");
+}
+
+/* ---- Musikanten-Anteil (Donut) ---- */
+function muChart(){
+  const m=DATA.musicians, total=m.musiker+m.uebrige;
+  donut("muChart",null,[
+    {label:"Wandermusikanten",share:m.musiker/total,color:"#eab308"},
+    {label:"übrige Einwohner",share:m.uebrige/total,color:"#475569"}
+  ], it=> ` (${Math.round(it.share*total)} Pers., 1905)`);
+}
+
+/* ---- Tabellen ---- */
 function renderFactTable(){
-  const m=DATA.meta, pop=DATA.population[curYear];
+  const m=DATA.meta;
   const rows=[
-    ["Landkreis", m.landkreis],
-    ["Postleitzahl", m.plz],
-    ["Gemarkungsfläche", m.flaeche_km2+" km²"],
-    ["Höhe über NN", m.hoehe_m+" m"],
-    ["Einwohner ("+curYear+")", fmt(pop)],
-    ["Haushalte ("+curYear+")", fmt(DATA.households[curYear])],
-    ["Ø Personen/Haushalt", (pop/DATA.households[curYear]).toFixed(2)],
-    ["Bevölkerungsdichte", fmt(Math.round(pop/m.flaeche_km2))+" Einw./km²"]
+    ["Bundesland",m.bundesland],["Landkreis",m.landkreis],
+    ["Verbandsgemeinde",m.vg],["Postleitzahl",m.plz],
+    ["Gemeindeschlüssel",m.ags],["Gemarkungsfläche",m.flaeche_km2+" km²"],
+    ["Höhe über NN",m.hoehe_m+" m"],["Ersterwähnung",m.erstmals],
+    ["Kirchl. Pfarrei",m.pfarrei]
   ];
-  $("#factTable").innerHTML = rows.map(([k,v])=>
-    `<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("");
+  $("#factTable").innerHTML=rows.map(([k,v])=>`<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("");
 }
-function renderInfraTable(){
-  $("#infraTable").innerHTML =
-    `<tr><th>Einrichtung / Bereich</th><th class="num">Anzahl</th><th>Hinweis</th></tr>` +
-    DATA.facilities.map(f=>`<tr><td>${f.name}</td><td class="num">${f.count}</td><td class="pct">${f.note||""}</td></tr>`).join("");
+function renderPopTable(){
+  const pts=DATA.population;
+  $("#popTable").innerHTML =
+    `<tr><th>Jahr</th><th class="num">Einwohner</th><th>Anmerkung</th></tr>`+
+    pts.map(p=>`<tr><td>${p.year}</td><td class="num">${fmt(p.value)}</td><td class="pct">${p.note}</td></tr>`).join("");
 }
-
-/* ---------- Altersstruktur (auf Einwohnerzahl skaliert) ---------- */
-function renderAge(){
-  const pop=DATA.population[curYear];
-  donut("ageChart","ageLegend", DATA.ageGroups, it=> ` · ~${fmt(Math.round(it.share*pop))} Pers.`);
-}
-
-/* ---------- Alles rendern ---------- */
-function renderAll(){
-  $("#yearSel").value=curYear;
-  $("#lastYear").textContent="Bezugsjahr "+curYear;
-  renderKpis();
-  barChart("popChart", DATA.population, "#38bdf8", "Einwohner");
-  renderFactTable();
-  renderAge();
-  groupedBar("birthChart", DATA.births, DATA.deaths, "#34d399","#f87171","Geburten","Sterbefälle","");
-  groupedBar("migChart", DATA.arrivals, DATA.departures, "#38bdf8","#fbbf24","Zuzüge","Fortzüge","");
-  groupedBar("budgetChart", DATA.revenue, DATA.expense, "#34d399","#f87171","Einnahmen","Ausgaben","Tsd. €");
-  hBars("spendBars", DATA.spending, DATA.expense[curYear]);
-  renderInfraTable();
-  donut("landChart","landLegend", DATA.landUse, it=> ` · ~${(it.share*DATA.meta.flaeche_km2).toFixed(2)} km²`);
+function renderAdminTable(){
+  const m=DATA.meta;
+  const rows=[
+    ["Ortsbürgermeisterin",m.buergermeisterin],
+    ["Amtszeit",m.bm_seit],
+    ["Verbandsgemeinde",m.vg],
+    ["Landkreis",m.landkreis+" (RLP)"],
+    ["Gemeindeschlüssel",m.ags],
+    ["Frühere Herrschaft","Pfalz-Zweibrücken / Rheingrafen"]
+  ];
+  $("#adminTable").innerHTML=rows.map(([k,v])=>`<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("");
 }
 
-/* ---------- Init ---------- */
+/* ---- Zeitstrahl ---- */
+function renderTimeline(){
+  $("#timeline").innerHTML=DATA.timeline.map(e=>
+    `<div class="ev"><div class="yr">${e.year}</div><div class="tx">${e.text}</div></div>`).join("");
+}
+
+/* ---- Wappen (stilisiert) ---- */
+function renderCrest(){
+  $("#crestSvg").innerHTML=`
+    <path d="M6 6 H114 V70 Q114 120 60 134 Q6 120 6 70 Z" fill="#eab308" stroke="#0b1220" stroke-width="3"/>
+    <path d="M6 6 H114 V34 Q60 50 6 34 Z" fill="#2563eb" stroke="#0b1220" stroke-width="2"/>
+    <path d="M60 12 q-7 8 0 18 q7 -10 0 -18 Z M60 14 v14" fill="#eab308" stroke="#fde68a" stroke-width="1.2"/>
+    <g transform="translate(60,86)">
+      <path d="M-22 14 q4 -34 22 -34 q10 0 14 8 q-6 -2 -10 2 q8 4 10 12 q-4 6 -12 6 q6 6 4 14 l-6 -2 l-2 6 l-4 -6 l-6 4 l0 -8 q-10 -2 -10 -16 Z"
+            fill="#dc2626" stroke="#0b1220" stroke-width="1.5"/>
+      <circle cx="6" cy="-2" r="3" fill="#2563eb"/>
+    </g>`;
+}
+
+/* ---- Init ---- */
 buildTabs();
-buildYearSelect();
-renderAll();
+renderKpis();
+popChart();
+renderFactTable();
+donut("relChart","relLegend",DATA.religion, it=> ` (Stand 2007)`);
+renderPopTable();
+renderTimeline();
+muChart();
+renderAdminTable();
+renderCrest();
 $("#printBtn").onclick=()=>window.print();
 </script>
 </body>
