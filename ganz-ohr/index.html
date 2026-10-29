@@ -191,6 +191,17 @@ button.quiet { background: transparent; border-color: transparent; color: var(--
 .dots { letter-spacing: .15em; color: var(--accent); }
 .empty { color: var(--muted); margin: 0; }
 
+/* Handy: Gesprächsansicht passt auf einen Bildschirm */
+body.in-call header { display: none; }
+@media (hover: none) { .hint { display: none; } }
+@media (max-height: 780px) {
+  section { gap: 1rem; }
+  .breath { height: 9.5rem; }
+  .ring { width: 8.5rem; height: 8.5rem; }
+  .impulse { min-height: 6.5rem; }
+  .impulse p { font-size: 1.4rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .impulse p { transition: none; }
 }
@@ -348,6 +359,7 @@ button.quiet { background: transparent; border-color: transparent; color: var(--
 
   function show(name) {
     for (const k in views) views[k].hidden = k !== name;
+    document.body.classList.toggle("in-call", name === "waehrend");
     window.scrollTo(0, 0);
   }
 
