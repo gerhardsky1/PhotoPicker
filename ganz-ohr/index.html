@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Ganz Ohr</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+/* Layout: eine ruhige Spalte, ein Zustand pro Ansicht (vorher · während · danach) */
+:root {
+  --bg: #edf1f0;
+  --surface: #f8faf9;
+  --fg: #1c2a2b;
+  --muted: #586b6b;
+  --line: #cad6d4;
+  --accent: #2e6b66;
+  --accent-fg: #f4f8f7;
+  --accent-soft: #d6e6e3;
+  --breath: #a7c6c1;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a1b; --surface: #172425; --fg: #e2ebe9; --muted: #95a9a7; --line: #2b3d3e;
+    --accent: #80c2ba; --accent-fg: #0f1a1b; --accent-soft: #1f3735; --breath: #3d6a65;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a1b; --surface: #172425; --fg: #e2ebe9; --muted: #95a9a7; --line: #2b3d3e;
+  --accent: #80c2ba; --accent-fg: #0f1a1b; --accent-soft: #1f3735; --breath: #3d6a65;
+  color-scheme: dark;
+}
+
+html, body { min-height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 1.5rem 3rem;
+}
+main { max-width: 34rem; margin: 0 auto; display: grid; gap: 1.75rem; }
+
+header { display: grid; gap: .25rem; }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -.01em;
+}
+header p { margin: 0; color: var(--muted); }
+
+h2 {
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  color: var(--muted);
+  margin: 0;
+}
+section { display: grid; gap: 1.5rem; }
+.group { display: grid; gap: .75rem; }
+
+/* Absicht wählen */
+.intents { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.intent { position: relative; }
+.intent input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.intent label {
+  display: grid; gap: .1rem;
+  padding: .75rem .85rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  height: 100%;
+  box-sizing: border-box;
+}
+.intent label strong { font-size: 1rem; }
+.intent label span { font-size: .85rem; color: var(--muted); }
+.intent input:checked + label { border-color: var(--accent); background: var(--accent-soft); }
+.intent input:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+select, textarea {
+  font: inherit;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: .5rem .65rem;
+}
+textarea { width: 100%; box-sizing: border-box; min-height: 5.5rem; resize: vertical; }
+
+button {
+  font: inherit;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: .7rem 1.25rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+}
+button:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+button.big { width: 100%; padding: 1rem; font-size: 1.1rem; }
+button.quiet { background: transparent; border-color: transparent; color: var(--muted); padding-inline: .5rem; font-weight: 400; text-decoration: underline; text-underline-offset: 3px; }
+
+.sample {
+  border-left: 2px solid var(--breath);
+  padding: .25rem 0 .25rem 1rem;
+  display: grid; gap: .25rem;
+}
+.sample small { color: var(--muted); }
+.sample q { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; quotes: none; }
+
+/* Während */
+.callbar { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.chip {
+  display: inline-block;
+  font-size: .85rem;
+  padding: .2rem .7rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--fg);
+}
+.clock { font-variant-numeric: tabular-nums; font-size: 2rem; font-weight: 700; letter-spacing: .02em; }
+
+.breath {
+  display: grid; place-items: center;
+  height: 13rem;
+}
+.ring {
+  width: 11rem; height: 11rem; max-width: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--breath) 0%, transparent 70%);
+  border: 1px solid var(--breath);
+  display: grid; place-items: center;
+  transform: scale(.7);
+  will-change: transform;
+}
+.ring span { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--fg); }
+
+.impulse { display: grid; gap: .6rem; min-height: 8rem; align-content: start; }
+.impulse p {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  line-height: 1.3;
+  margin: 0;
+  text-wrap: balance;
+  transition: opacity .6s ease;
+}
+.impulse p.fade { opacity: 0; }
+.progress { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.progress div { height: 100%; width: 0; background: var(--accent); }
+
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.actions .drift { grid-column: 1 / -1; padding: 1rem; font-size: 1.05rem; }
+.hint { font-size: .85rem; color: var(--muted); margin: 0; }
+.toast { min-height: 1.5rem; color: var(--accent); font-weight: 700; margin: 0; }
+
+/* Danach */
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .75rem .9rem; display: grid; gap: .1rem; }
+.stat b { font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+.stat small { color: var(--muted); }
+.scale { display: flex; gap: .4rem; flex-wrap: wrap; }
+.scale button { width: 3rem; height: 3rem; padding: 0; }
+.scale button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.scale-legend { display: flex; justify-content: space-between; font-size: .8rem; color: var(--muted); max-width: 16.5rem; }
+
+/* Verlauf */
+.log { list-style: none; margin: 0; padding: 0; display: grid; }
+.log li { padding: .75rem 0; border-top: 1px solid var(--line); display: grid; gap: .2rem; }
+.log li:last-child { border-bottom: 1px solid var(--line); }
+.log .meta { display: flex; justify-content: space-between; gap: .5rem; flex-wrap: wrap; font-size: .9rem; }
+.log .meta span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+.log .note { font-family: var(--font-display); font-style: italic; color: var(--fg); overflow-wrap: anywhere; }
+.dots { letter-spacing: .15em; color: var(--accent); }
+.empty { color: var(--muted); margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .impulse p { transition: none; }
+}
+</style>
+
+<main>
+  <header>
+    <h1>Ganz Ohr</h1>
+    <p>Präsent bleiben, während du telefonierst.</p>
+  </header>
+
+  <!-- VORHER -->
+  <section id="vor" aria-labelledby="vor-h">
+    <div class="group">
+      <h2 id="vor-h">Meine Absicht für dieses Gespräch</h2>
+      <div class="intents" role="radiogroup" aria-labelledby="vor-h">
+        <div class="intent"><input type="radio" name="absicht" id="a-zuhoeren" value="Zuhören" checked><label for="a-zuhoeren"><strong>Zuhören</strong><span>Verstehen, bevor ich antworte</span></label></div>
+        <div class="intent"><input type="radio" name="absicht" id="a-gelassen" value="Gelassenheit"><label for="a-gelassen"><strong>Gelassenheit</strong><span>Ruhig bleiben, Tempo raus</span></label></div>
+        <div class="intent"><input type="radio" name="absicht" id="a-klar" value="Klarheit"><label for="a-klar"><strong>Klarheit</strong><span>Sagen, was ich meine</span></label></div>
+        <div class="intent"><input type="radio" name="absicht" id="a-wert" value="Wertschätzung"><label for="a-wert"><strong>Wertschätzung</strong><span>Das Gegenüber würdigen</span></label></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="intervall">Neuer Impuls alle</label>
+      <select id="intervall">
+        <option value="45">45 Sekunden</option>
+        <option value="60">60 Sekunden</option>
+        <option value="90" selected>90 Sekunden</option>
+        <option value="120">2 Minuten</option>
+      </select>
+    </div>
+
+    <div class="sample">
+      <small>Vor dem Abheben: drei ruhige Atemzüge. Ein Impuls klingt dann etwa so:</small>
+      <q>Hör zu, um zu verstehen. Die Antwort kommt von selbst.</q>
+    </div>
+
+    <button class="primary big" id="start">Gespräch beginnen</button>
+
+    <div class="group" aria-labelledby="log-h">
+      <div class="callbar">
+        <h2 id="log-h">Letzte Gespräche</h2>
+        <button class="quiet" id="clear" hidden>Verlauf löschen</button>
+      </div>
+      <p class="empty" id="log-empty">Noch nichts festgehalten. Nach dem ersten Gespräch erscheinen hier Dauer, Absicht und deine Notiz.</p>
+      <ul class="log" id="log"></ul>
+    </div>
+  </section>
+
+  <!-- WÄHREND -->
+  <section id="waehrend" hidden aria-label="Gespräch läuft">
+    <div class="callbar">
+      <span class="chip" id="w-absicht">Zuhören</span>
+      <span class="clock" id="clock" aria-label="Gesprächsdauer">0:00</span>
+    </div>
+
+    <div class="breath" aria-hidden="true">
+      <div class="ring" id="ring"><span id="breath-label">ein</span></div>
+    </div>
+
+    <div class="impulse">
+      <p id="impulse" aria-live="polite"></p>
+      <div class="progress"><div id="bar"></div></div>
+    </div>
+
+    <div class="actions">
+      <button class="drift primary" id="drift">Abgeschweift – zurück</button>
+      <button id="next">Nächster Impuls</button>
+      <button id="stop">Gespräch beenden</button>
+    </div>
+    <p class="toast" id="toast" aria-live="polite"></p>
+    <p class="hint">Tastatur: Leertaste = abgeschweift · N = nächster Impuls · Esc = beenden</p>
+  </section>
+
+  <!-- DANACH -->
+  <section id="nach" hidden aria-labelledby="nach-h">
+    <h2 id="nach-h">Gespräch beendet</h2>
+    <div class="stats">
+      <div class="stat"><b id="n-dauer">0:00</b><small>Dauer</small></div>
+      <div class="stat"><b id="n-drift">0×</b><small>bemerkt und zurückgekehrt</small></div>
+    </div>
+
+    <div class="group">
+      <h2 id="praesenz-h">Wie präsent war ich?</h2>
+      <div class="scale" role="group" aria-labelledby="praesenz-h" id="scale">
+        <button type="button" data-v="1" aria-pressed="false">1</button>
+        <button type="button" data-v="2" aria-pressed="false">2</button>
+        <button type="button" data-v="3" aria-pressed="false">3</button>
+        <button type="button" data-v="4" aria-pressed="false">4</button>
+        <button type="button" data-v="5" aria-pressed="false">5</button>
+      </div>
+      <div class="scale-legend"><span>kaum da</span><span>ganz da</span></div>
+    </div>
+
+    <div class="group">
+      <h2><label for="notiz">Was nehme ich mit?</label></h2>
+      <textarea id="notiz" placeholder="Ein Satz genügt. Zum Beispiel: Ich habe die Pause ausgehalten."></textarea>
+    </div>
+
+    <div class="row">
+      <button class="primary" id="save">Speichern</button>
+      <button id="discard">Ohne Speichern zurück</button>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const IMPULSE = [
+    // alle
+    { t: "Atme aus. Etwas länger als ein.", k: "alle" },
+    { t: "Spür deine Füße am Boden.", k: "alle" },
+    { t: "Schultern sinken lassen. Kiefer lockern.", k: "alle" },
+    { t: "Blick weg vom Bildschirm. Nur diese Stimme.", k: "alle" },
+    { t: "Wo sind deine Gedanken gerade? Zurück zum Gespräch.", k: "alle" },
+    { t: "Was braucht mein Gegenüber jetzt von mir?", k: "alle" },
+    { t: "Lächle kurz. Man hört es.", k: "alle" },
+    // Zuhören
+    { t: "Hör zu, um zu verstehen. Die Antwort kommt von selbst.", k: "Zuhören" },
+    { t: "Lass den Satz zu Ende kommen.", k: "Zuhören" },
+    { t: "Welche Stimmung liegt in der Stimme?", k: "Zuhören" },
+    { t: "Was ist das Anliegen hinter den Worten?", k: "Zuhören" },
+    { t: "Fasse zusammen: „Habe ich richtig verstanden, dass …?“", k: "Zuhören" },
+    { t: "Frag offen nach: „Wie meinst du das?“", k: "Zuhören" },
+    // Gelassenheit
+    { t: "Bemerke die Ungeduld. Sie darf da sein. Du musst ihr nicht folgen.", k: "Gelassenheit" },
+    { t: "Eine Pause darf sein. Halte sie aus.", k: "Gelassenheit" },
+    { t: "Langsamer sprechen. Tiefer atmen.", k: "Gelassenheit" },
+    { t: "Du musst jetzt nichts lösen.", k: "Gelassenheit" },
+    { t: "Was liegt in meiner Hand, was nicht?", k: "Gelassenheit" },
+    // Klarheit
+    { t: "Was ist der Kern? Ein Satz.", k: "Klarheit" },
+    { t: "Sag, was du meinst. Kurz und freundlich.", k: "Klarheit" },
+    { t: "Was ist der nächste konkrete Schritt, und wer macht ihn?", k: "Klarheit" },
+    { t: "Notiere nur das Wesentliche, dann wieder zuhören.", k: "Klarheit" },
+    // Wertschätzung
+    { t: "Danke für etwas Konkretes.", k: "Wertschätzung" },
+    { t: "Sprich dein Gegenüber beim Namen an.", k: "Wertschätzung" },
+    { t: "Was macht dieser Mensch gerade gut?", k: "Wertschätzung" },
+    { t: "Vertrauen schenken: Das Gespräch darf sich entwickeln.", k: "Wertschätzung" },
+  ];
+  const DRIFT_MSG = ["Bemerkt. Zurück zur Stimme.", "Gut gesehen. Ausatmen, weiter.", "Zurückkommen ist die Übung.", "Da bist du wieder."];
+  const STORE = "ganz-ohr-v1";
+  const BREATH_IN = 4000, BREATH_OUT = 6000, CYCLE = BREATH_IN + BREATH_OUT;
+
+  const $ = (id) => document.getElementById(id);
+  const views = { vor: $("vor"), waehrend: $("waehrend"), nach: $("nach") };
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let s = null;         // laufendes Gespräch
+  let last = null;      // beendetes Gespräch
+  let wakeLock = null;
+  let tickId = null, rafId = null, toastId = null;
+
+  function show(name) {
+    for (const k in views) views[k].hidden = k !== name;
+    window.scrollTo(0, 0);
+  }
+
+  function fmt(ms) {
+    const sec = Math.floor(ms / 1000);
+    const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), x = sec % 60;
+    return h ? `${h}:${String(m).padStart(2, "0")}:${String(x).padStart(2, "0")}` : `${m}:${String(x).padStart(2, "0")}`;
+  }
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
+
+  // Absicht-Impulse doppelt im Stapel, damit sie öfter kommen
+  function deck(absicht) {
+    const own = IMPULSE.filter(i => i.k === absicht).map(i => i.t);
+    const all = IMPULSE.filter(i => i.k === "alle").map(i => i.t);
+    return shuffle([...own, ...own, ...all]);
+  }
+
+  function nextImpulse() {
+    if (!s) return;
+    if (!s.deck.length) s.deck = deck(s.absicht);
+    let t = s.deck.pop();
+    if (t === s.current && s.deck.length) { s.deck.unshift(t); t = s.deck.pop(); }
+    s.current = t;
+    s.nextAt = Date.now() + s.interval * 1000;
+    const p = $("impulse");
+    if (reduced) { p.textContent = t; return; }
+    p.classList.add("fade");
+    setTimeout(() => { p.textContent = t; p.classList.remove("fade"); }, 350);
+  }
+
+  function tick() {
+    const now = Date.now();
+    $("clock").textContent = fmt(now - s.t0);
+    const left = Math.max(0, s.nextAt - now);
+    $("bar").style.width = `${100 - (left / (s.interval * 1000)) * 100}%`;
+    if (left === 0) nextImpulse();
+  }
+
+  function breathe() {
+    if (!s) return;
+    const p = (Date.now() - s.t0) % CYCLE;
+    const ease = (x) => (1 - Math.cos(Math.PI * x)) / 2;
+    const inhale = p < BREATH_IN;
+    const scale = inhale ? 0.7 + 0.3 * ease(p / BREATH_IN) : 1 - 0.3 * ease((p - BREATH_IN) / BREATH_OUT);
+    if (!reduced) $("ring").style.transform = `scale(${scale.toFixed(4)})`;
+    const label = inhale ? "ein" : "aus";
+    if ($("breath-label").textContent !== label) $("breath-label").textContent = label;
+    rafId = requestAnimationFrame(breathe);
+  }
+
+  async function lockScreen() {
+    try { wakeLock = await navigator.wakeLock?.request("screen"); } catch { wakeLock = null; }
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (s && document.visibilityState === "visible") lockScreen();
+  });
+
+  function start() {
+    const absicht = document.querySelector('input[name="absicht"]:checked').value;
+    const interval = Number($("intervall").value);
+    s = { absicht, interval, t0: Date.now(), drift: 0, deck: deck(absicht), current: null, nextAt: 0 };
+    $("w-absicht").textContent = absicht;
+    $("toast").textContent = "";
+    $("impulse").textContent = "";
+    show("waehrend");
+    nextImpulse();
+    tick();
+    tickId = setInterval(tick, 250);
+    rafId = requestAnimationFrame(breathe);
+    lockScreen();
+  }
+
+  function drift() {
+    if (!s) return;
+    s.drift++;
+    $("drift").textContent = `Abgeschweift – zurück · ${s.drift}`;
+    $("toast").textContent = DRIFT_MSG[(s.drift - 1) % DRIFT_MSG.length];
+    clearTimeout(toastId);
+    toastId = setTimeout(() => { $("toast").textContent = ""; }, 4000);
+  }
+
+  function stop() {
+    if (!s) return;
+    clearInterval(tickId); cancelAnimationFrame(rafId); clearTimeout(toastId);
+    try { wakeLock?.release(); } catch {}
+    wakeLock = null;
+    last = { at: s.t0, dur: Date.now() - s.t0, absicht: s.absicht, drift: s.drift, praesenz: 0, notiz: "" };
+    s = null;
+    $("drift").textContent = "Abgeschweift – zurück";
+    $("n-dauer").textContent = fmt(last.dur);
+    $("n-drift").textContent = `${last.drift}×`;
+    $("notiz").value = "";
+    setPresence(0);
+    show("nach");
+  }
+
+  function setPresence(v) {
+    if (last) last.praesenz = v;
+    document.querySelectorAll("#scale button").forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.v) === v)));
+  }
+
+  function load() {
+    try { const d = JSON.parse(localStorage.getItem(STORE) || "[]"); return Array.isArray(d) ? d : []; } catch { return []; }
+  }
+  function persist(list) {
+    try { localStorage.setItem(STORE, JSON.stringify(list)); return true; } catch { return false; }
+  }
+
+  const esc = (t) => String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const dateFmt = new Intl.DateTimeFormat("de-AT", { weekday: "short", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+  function renderLog() {
+    const list = load();
+    $("log-empty").hidden = list.length > 0;
+    $("clear").hidden = list.length === 0;
+    $("log").innerHTML = list.slice(0, 8).map(e => `
+      <li>
+        <div class="meta"><span><strong>${esc(e.absicht)}</strong> · ${esc(dateFmt.format(new Date(e.at)))}</span><span>${fmt(e.dur)} · ${e.drift}× zurück</span></div>
+        ${e.praesenz ? `<span class="dots" aria-label="Präsenz ${e.praesenz} von 5">${"●".repeat(e.praesenz)}${"○".repeat(5 - e.praesenz)}</span>` : ""}
+        ${e.notiz ? `<span class="note">${esc(e.notiz)}</span>` : ""}
+      </li>`).join("");
+  }
+
+  function save() {
+    if (last) {
+      last.notiz = $("notiz").value.trim();
+      const list = load();
+      list.unshift(last);
+      persist(list.slice(0, 100));
+    }
+    last = null;
+    renderLog();
+    show("vor");
+  }
+
+  let clearArmed = null;
+  $("clear").addEventListener("click", () => {
+    if (!clearArmed) {
+      $("clear").textContent = "Wirklich alles löschen?";
+      clearArmed = setTimeout(() => { $("clear").textContent = "Verlauf löschen"; clearArmed = null; }, 3500);
+      return;
+    }
+    clearTimeout(clearArmed); clearArmed = null;
+    try { localStorage.removeItem(STORE); } catch {}
+    $("clear").textContent = "Verlauf löschen";
+    renderLog();
+  });
+
+  $("start").addEventListener("click", start);
+  $("drift").addEventListener("click", drift);
+  $("next").addEventListener("click", nextImpulse);
+  $("stop").addEventListener("click", stop);
+  $("save").addEventListener("click", save);
+  $("discard").addEventListener("click", () => { last = null; show("vor"); });
+  $("scale").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-v]");
+    if (b) setPresence(Number(b.dataset.v));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!s) return;
+    const tag = e.target.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+    if (e.code === "Space" && tag !== "BUTTON") { e.preventDefault(); drift(); }
+    else if (e.key === "n" || e.key === "N") nextImpulse();
+    else if (e.key === "Escape") stop();
+  });
+
+  renderLog();
+})();
+</script>
+
+</body>
+</html>
