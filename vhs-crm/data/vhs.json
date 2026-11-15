@@ -4,7 +4,54 @@
   "abgerufen": "2026-11-15",
   "geocoding": "OpenStreetMap Nominatim (© OpenStreetMap-Mitwirkende, ODbL)",
   "anzahl": 68,
-  "traeger_hinweis": "Trägerschaft ist aus den Kontaktadressen abgeleitet (Indiz), nicht geprüft. Bitte durch den Verband bestätigen."
+  "recherche": {
+   "quelle": "Eigene Recherche, Stand 15.11.2026",
+   "kurszaehlung": "2026-11-06",
+   "verzeichnis": "2026-10-30"
+  },
+  "portal_liste": "Auswahlliste der Kurssuche vhs-noe.at, Abruf 15.11.2026",
+  "land": {
+   "quelle": "VÖV-Statistikbericht 2026, Arbeitsjahr 2024/25 (VÖV-Materialien 62, Datenstand 28.02.2026)",
+   "quelle_url": "https://adulteducation.at/sites/default/files/statistikberichte-auswertungen/stat2026.pdf",
+   "kurse": 5295,
+   "kurse_veraenderung": "+7,7 %",
+   "teilnahmen": 51769,
+   "teilnahmen_veraenderung": "+4,6 %",
+   "unterrichtseinheiten": 73720,
+   "kurse_je_1000_ew": "3,1",
+   "kurse_je_1000_ew_oe": "5,4",
+   "teilnahmen_je_1000_ew": "30,0",
+   "teilnahmen_je_1000_ew_oe": "53",
+   "frauenanteil": "75,9 %",
+   "kursleitende": 1928,
+   "fachbereiche_anteil_teilnahmen": [
+    [
+     "Gesundheit und Bewegung",
+     50,
+     "rund 50 %"
+    ],
+    [
+     "Sprachen",
+     22.0,
+     "22,0 %"
+    ],
+    [
+     "Politik, Gesellschaft und Kultur",
+     11.7,
+     "11,7 % (Österreich 6,3 %)"
+    ],
+    [
+     "Grundbildung und Zweiter Bildungsweg",
+     0.45,
+     "0,45 % (234 Teilnahmen)"
+    ]
+   ],
+   "traeger_summe": {
+    "kommunal": 50,
+    "verein": 19,
+    "quelle": "Leitbild des Verbands vom 18.03.2025 (Summe 69, Mitgliederliste hat 68 Einträge)"
+   }
+  }
  },
  "vhs": [
   {
@@ -22,10 +69,34 @@
    "lon": 15.3290528,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (allentsteig.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Zwettl",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "Programm nur als Scan/Bild; kein lesbarer Text",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Website der Gemeinde (VHS-Unterseite); Kursprogramm: https://allentsteig.vhs-noe.at/Kurse"
+   ]
   },
   {
    "id": "10068",
@@ -42,10 +113,34 @@
    "lon": 14.8711144,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (amstetten.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Amstetten",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 439,
+    "untergrenze": false,
+    "spanne": "428–441",
+    "zeitraum": "Jahresprogramm 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 370,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "rund 6.000 (Kalenderjahr 2025)",
+    "kurse_jahr": "rund 600 (Kalenderjahr 2025)",
+    "quelle": "Stadtgemeinde Amstetten, Presseinformation 12.02.2026 („Rekordjahr 2025“), dazu 120 Kursleiter:innen. Vorwert: 356 Kurse und rund 4.500 Teilnehmende im Jahr 2023 (MeinBezirk 30.08.2024). Programm 2026 laut Eigenangabe 500 Kurse, Workshops, Vorträge und Führungen."
+   },
+   "hinweise": [
+    "davon 233 mit Start Herbst 2026"
+   ]
   },
   {
    "id": "10075",
@@ -62,10 +157,34 @@
    "lon": 16.2275934,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-baden.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Baden",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 190,
+    "untergrenze": true,
+    "spanne": "≥ 190",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 190,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "mehr als 1.000 (ohne Jahresangabe)",
+    "kurse_jahr": "",
+    "quelle": "Keine Jahreszahlen publiziert. Selbstangabe AMS-Weiterbildungsdatenbank: Teilnehmende „mehr als 1000“, 2–5 Angestellte, mehr als 100 freie Mitarbeitende, gegründet 1957, LQW und jährlicher statistischer Leistungsbericht angegeben."
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10077",
@@ -82,10 +201,34 @@
    "lon": 16.2139748,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (badener-urania.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Baden",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 4,
+    "untergrenze": true,
+    "spanne": "≥ 4",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 4,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10081",
@@ -102,10 +245,32 @@
    "lon": 16.1027302,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (berndorf.vhs-noe.at, gmx.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Baden",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 7,
+    "untergrenze": false,
+    "spanne": "7",
+    "zeitraum": "Herbst/Winter 2026/27",
+    "zaehlquelle": "Verbands-Kurssuche, einzeln gezählt",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 5,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10013",
@@ -122,10 +287,32 @@
    "lon": 16.7817352,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-bruck.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Bruck an der Leitha",
+   "kommunalpolitisches_amt": "Bgm",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 112,
+    "untergrenze": false,
+    "spanne": "112",
+    "zeitraum": "Herbstsemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10085",
@@ -142,10 +329,34 @@
    "lon": 16.5599512,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (deutsch-wagram.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gänserndorf",
+   "kommunalpolitisches_amt": "VizeBgm",
+   "ansprechperson": "Gabriele Oberndorfer (Telefonkontakt laut Quelle)",
+   "kurse": {
+    "anzahl": 18,
+    "untergrenze": false,
+    "spanne": "15–18",
+    "zeitraum": "Herbstsemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 13,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Telefonnummer laut Quelle von Gabriele Oberndorfer.; Website der Gemeinde (VHS-Unterseite); Kursprogramm: https://deutschwagram.vhs-noe.at/Kurse"
+   ]
   },
   {
    "id": "10087",
@@ -162,10 +373,34 @@
    "lon": 15.6216736,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (drosendorf.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Horn",
+   "kommunalpolitisches_amt": "VzBgm",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "VHS-Unterseite der Gemeinde nicht erreichbar",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Website der Gemeinde (VHS-Unterseite)"
+   ]
   },
   {
    "id": "10014",
@@ -182,10 +417,32 @@
    "lon": 15.8176993,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (eggenburg.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Horn",
+   "kommunalpolitisches_amt": "STR",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "eigene Domain nicht erreichbar; Verbandsseite ohne Programm",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10092",
@@ -202,10 +459,34 @@
    "lon": 16.6139584,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-fischamend.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Bruck an der Leitha",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 31,
+    "untergrenze": true,
+    "spanne": "≥ 31",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 31,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10106",
@@ -222,10 +503,35 @@
    "lon": 15.6779033,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (geras.vhs-noe.at, gmail.com)"
-   }
+    "wert": "kommunal",
+    "quelle": "beleg",
+    "grund": "Verbandsverzeichnis nennt als Leitung die „Stadtgemeinde Geras“ (keine Person)"
+   },
+   "bezirk": "Horn",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "Stadtgemeinde Geras (keine Person genannt)",
+   "kurse": {
+    "anzahl": 6,
+    "untergrenze": true,
+    "spanne": "≥ 6",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 6,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "Als Leitung ist nur \"Stadtgemeinde Geras\" angegeben – keine Person genannt"
+   ]
   },
   {
    "id": "10107",
@@ -242,10 +548,35 @@
    "lon": 15.9353469,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (gloggnitz.at, gloggnitz.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Neunkirchen",
+   "kommunalpolitisches_amt": "StR",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 7,
+    "untergrenze": true,
+    "spanne": "≥ 7",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 7,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "Website der Gemeinde (VHS-Unterseite); Kursprogramm: https://gloggnitz.vhs-noe.at/Kurse"
+   ]
   },
   {
    "id": "10108",
@@ -262,10 +593,32 @@
    "lon": 14.9860343,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (gmuend.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gmünd",
+   "kommunalpolitisches_amt": "Stadtrat",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "Verbandsseite ohne Programm, keine Gemeindeangabe gefunden",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10112",
@@ -282,10 +635,34 @@
    "lon": 14.9580745,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (gerungs.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Zwettl",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 44,
+    "untergrenze": false,
+    "spanne": "44",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 1,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Website der Gemeinde (VHS-Unterseite)"
+   ]
   },
   {
    "id": "10113",
@@ -302,10 +679,34 @@
    "lon": 15.406188,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (siegharts.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Waidhofen an der Thaya",
+   "kommunalpolitisches_amt": "Stadträtin",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "Gemeindeseite nur mit Kontaktdaten",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Website der Gemeinde (VHS-Unterseite)"
+   ]
   },
   {
    "id": "10425",
@@ -322,10 +723,32 @@
    "lon": 16.5507803,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (gross-enzersdorf.gv.at, vhs.gross-enzersdorf.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gänserndorf",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 132,
+    "untergrenze": false,
+    "spanne": "132–140",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 98,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10095",
@@ -342,10 +765,32 @@
    "lon": 16.7169502,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (gaenserndorf.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gänserndorf",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 67,
+    "untergrenze": false,
+    "spanne": "59–68",
+    "zeitraum": "Herbstsemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10116",
@@ -362,10 +807,34 @@
    "lon": 14.5655237,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (haag.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Amstetten",
+   "kommunalpolitisches_amt": "Bürgermeister",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 14,
+    "untergrenze": true,
+    "spanne": "≥ 14",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 14,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10118",
@@ -382,10 +851,32 @@
    "lon": 16.9420444,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (hainburg-donau.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Bruck an der Leitha",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 12,
+    "untergrenze": false,
+    "spanne": "12",
+    "zeitraum": "1. Semester 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10123",
@@ -402,10 +893,35 @@
    "lon": 15.7732335,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (hainfeld.at, hainfeld.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Lilienfeld",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 20,
+    "untergrenze": true,
+    "spanne": "≥ 20",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 20,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "Website der Gemeinde (VHS-Unterseite)"
+   ]
   },
   {
    "id": "10125",
@@ -422,10 +938,32 @@
    "lon": 15.1220473,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (heidenreichstein.vhs-noe.at, yahoo.de)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gmünd",
+   "kommunalpolitisches_amt": "StR",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 23,
+    "untergrenze": false,
+    "spanne": "20–26",
+    "zeitraum": "Herbstsemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10127",
@@ -442,10 +980,34 @@
    "lon": 15.6946553,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-herzogenburg.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "St. Pölten-Land",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 21,
+    "untergrenze": true,
+    "spanne": "≥ 21",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 21,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10129",
@@ -462,10 +1024,35 @@
    "lon": 16.9052729,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (hohenau.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gänserndorf",
+   "kommunalpolitisches_amt": "GGR",
+   "ansprechperson": "Gemeindeamt (Telefon)",
+   "kurse": {
+    "anzahl": 16,
+    "untergrenze": true,
+    "spanne": "≥ 16",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 16,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "Telefon laut Quelle: Gemeindeamt"
+   ]
   },
   {
    "id": "10135",
@@ -482,10 +1069,34 @@
    "lon": 15.6559964,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhshorn.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Horn",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 107,
+    "untergrenze": false,
+    "spanne": "61–107",
+    "zeitraum": "Jahresprogramm 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 13,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "57 Herbst 2026, 50 Frühjahr 2027"
+   ]
   },
   {
    "id": "10141",
@@ -502,10 +1113,32 @@
    "lon": 16.3272709,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (kvkorneuburg.vhs-noe.at, wobornik.com)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Korneuburg",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "Seite ohne Kurse",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10143",
@@ -522,10 +1155,34 @@
    "lon": 16.3334321,
    "geo_genauigkeit": "ort",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-korneuburg.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Korneuburg",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 127,
+    "untergrenze": false,
+    "spanne": "127",
+    "zeitraum": "Herbst/Winter 2026/27",
+    "zaehlquelle": "Zähler der eigenen Seite (= Kurssuche)",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 127,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "mehr als 1.000 (ohne Jahresangabe)",
+    "kurse_jahr": "rund 320 (ohne Jahresangabe)",
+    "quelle": "Selbstangabe AMS-Weiterbildungsdatenbank: Angebot ca. 400, veranstaltete Kurse ca. 320, gegründet 1953. Teilnehmende nur als Größenklasse „mehr als 1000“, 2–5 Angestellte, 51–100 freie Mitarbeitende. Kein Bezugsjahr genannt."
+   },
+   "hinweise": [
+    "Programm nur als Bild online; verwaltet auch Stockerau"
+   ]
   },
   {
    "id": "10144",
@@ -542,10 +1199,32 @@
    "lon": 15.5989509,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-krems.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Krems an der Donau (Stadt)",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 163,
+    "untergrenze": false,
+    "spanne": "153–163",
+    "zeitraum": "Wintersemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 124,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10146",
@@ -562,10 +1241,32 @@
    "lon": 16.3896039,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-laa.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Mistelbach",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 9,
+    "untergrenze": false,
+    "spanne": "9",
+    "zeitraum": "Herbstprogramm 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 5,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10147",
@@ -582,10 +1283,32 @@
    "lon": 15.6730992,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-langenlois.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Krems-Land",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "eigene Domain nicht erreichbar, Verbandsseite leer",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10149",
@@ -602,10 +1325,34 @@
    "lon": 15.5975756,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (bglilienfeld.ac.at, lilienfeld.vhs-noe.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Lilienfeld",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 15,
+    "untergrenze": true,
+    "spanne": "≥ 15",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 15,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10415",
@@ -622,10 +1369,32 @@
    "lon": 15.3411865,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (mank.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Melk",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 39,
+    "untergrenze": false,
+    "spanne": "39–40",
+    "zeitraum": "Herbst/Winter 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 26,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": "Nur Programmzahl: rund 50 Kurse im Herbstprogramm 2024, davor über 40 (MeinBezirk 2023 und 2024). Jubiläum „25 Jahre VHS Mank“. Keine Jahresbilanz."
+   },
+   "hinweise": []
   },
   {
    "id": "10153",
@@ -642,10 +1411,32 @@
    "lon": 15.5779333,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (gmail.com, mautern.vhs-noe.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Krems-Land",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 20,
+    "untergrenze": false,
+    "spanne": "20",
+    "zeitraum": "Wintersemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 20,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10154",
@@ -662,10 +1453,32 @@
    "lon": 15.3321454,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (stadt-melk.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Melk",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "Website veraltet (letzter Eintrag Herbst 2020)",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10155",
@@ -682,10 +1495,32 @@
    "lon": 16.5698407,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-mistelbach.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Mistelbach",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 150,
+    "untergrenze": false,
+    "spanne": "140–150",
+    "zeitraum": "Herbstsemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 119,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10156",
@@ -702,10 +1537,32 @@
    "lon": 16.2902883,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-moedling.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Mödling",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 183,
+    "untergrenze": false,
+    "spanne": "176–184",
+    "zeitraum": "Herbst/Winter 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10369",
@@ -722,10 +1579,34 @@
    "lon": 15.9041722,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhsneulengbach.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "St. Pölten-Land",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 41,
+    "untergrenze": true,
+    "spanne": "≥ 41",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 41,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10157",
@@ -742,10 +1623,34 @@
    "lon": 16.0889663,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (neunkirchen.vhs-noe.at, vhs-noe.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Neunkirchen",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 10,
+    "untergrenze": true,
+    "spanne": "≥ 10",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 10,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10158",
@@ -762,10 +1667,32 @@
    "lon": 16.2622826,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-perchtoldsdorf.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Mödling",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 47,
+    "untergrenze": false,
+    "spanne": "47",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "eigene Online-Liste",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10159",
@@ -782,10 +1709,34 @@
    "lon": 15.5118415,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Gemeinde- und eigene VHS-Adresse (hofstetten-gruenau.gv.at, vhs-pielachtal.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "St. Pölten-Land",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 41,
+    "untergrenze": true,
+    "spanne": "≥ 41",
+    "zeitraum": "Herbst/Winter 2026/27",
+    "zaehlquelle": "eigene Online-Liste + Flyer",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": "Nur Programmzahl: 60 Veranstaltungen im Programm 2024 (MeinBezirk 22.08.2024). Keine Jahresbilanz."
+   },
+   "hinweise": [
+    "Flyer nennt „über 40 Kurse & Vorträge“"
+   ]
   },
   {
    "id": "10162",
@@ -802,10 +1753,35 @@
    "lon": 16.6267241,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (aon.at, poysdorf.vhs-noe.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Mistelbach",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "Hr. Jilli (DW 29), Hr. Stadlbacher (DW 38)",
+   "kurse": {
+    "anzahl": 16,
+    "untergrenze": true,
+    "spanne": "≥ 16",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 16,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "Mehrere Telefonnummern laut Quelle (Hr. Jilli, Hr. Stadlbacher)"
+   ]
   },
   {
    "id": "10164",
@@ -822,10 +1798,34 @@
    "lon": 16.1734913,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (purkersdorf.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "St. Pölten-Land",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 53,
+    "untergrenze": true,
+    "spanne": "≥ 53",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 53,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10160",
@@ -842,10 +1842,32 @@
    "lon": 15.2109477,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (poechlarn.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Melk",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 26,
+    "untergrenze": false,
+    "spanne": "24–26",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 18,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10169",
@@ -862,10 +1884,34 @@
    "lon": 15.1675727,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (scheibbs.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Scheibbs",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 32,
+    "untergrenze": true,
+    "spanne": "≥ 32",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 32,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10171",
@@ -876,16 +1922,41 @@
    "ort": "Schrems",
    "telefon": "02853 7745425",
    "email": "philipp@loeffler.top",
-   "web": "http://www.vhs-noe.at",
+   "web": "",
    "kursprogramm": "http://www.vhs-noe.at",
    "lat": 48.793204,
    "lon": 15.0718541,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (loeffler.top, vhs-noe.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gmünd",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 3,
+    "untergrenze": true,
+    "spanne": "≥ 3",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 3,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "Als Website ist laut Quelle nur www.vhs-noe.at (Verbandsseite) angegeben – keine eigene Website und kein eigenes Kursprogramm gefunden"
+   ]
   },
   {
    "id": "10172",
@@ -902,10 +1973,34 @@
    "lon": 16.4756112,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (schwechat.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Bruck an der Leitha",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 35,
+    "untergrenze": false,
+    "spanne": "35",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 8,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Website der Gemeinde (VHS-Unterseite); Kursprogramm: https://schwechat.vhs-noe.at/Kurse"
+   ]
   },
   {
    "id": "10416",
@@ -922,10 +2017,34 @@
    "lon": 16.209354,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (staw.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Tulln",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 45,
+    "untergrenze": true,
+    "spanne": "≥ 45",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 45,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10174",
@@ -942,10 +2061,34 @@
    "lon": 15.6145439,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Gemeinde- und eigene VHS-Adresse (st-poelten.gv.at, vhs-stp.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "St. Pölten (Stadt)",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 121,
+    "untergrenze": false,
+    "spanne": "113–121",
+    "zeitraum": "Herbst 2026 (+ einzelne 2027)",
+    "zaehlquelle": "eigene Online-Liste",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 32,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "mehr als 1.000 (ohne Jahresangabe)",
+    "kurse_jahr": "",
+    "quelle": "Keine Jahreszahlen publiziert. Selbstangabe AMS-Weiterbildungsdatenbank: Teilnehmende „mehr als 1000“, 6–10 Angestellte, mehr als 100 freie Mitarbeitende, gegründet 1962, CERT-NÖ-zertifiziert."
+   },
+   "hinweise": [
+    "eigenes Buchungssystem; Kurssuche zeigt nur 32"
+   ]
   },
   {
    "id": "10175",
@@ -962,10 +2105,34 @@
    "lon": 14.5333016,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (st-valentin.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Amstetten",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "Bürgerservice der Stadtgemeinde (E-Mail)",
+   "kurse": {
+    "anzahl": 17,
+    "untergrenze": false,
+    "spanne": "17",
+    "zeitraum": "Herbst 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 11,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "E-Mail ist das Bürgerservice der Gemeinde.; Website der Gemeinde (VHS-Unterseite); Kursprogramm: https://stvalentin.vhs-noe.at/Kurse"
+   ]
   },
   {
    "id": "10176",
@@ -982,10 +2149,34 @@
    "lon": 16.2390556,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vbv-stockerau.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Korneuburg",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 27,
+    "untergrenze": true,
+    "spanne": "≥ 27",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 27,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10178",
@@ -1002,10 +2193,32 @@
    "lon": 16.2293226,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-stockerau.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Korneuburg",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "Kurse laut Website über die VHS Korneuburg verwaltet; dort nicht getrennt ausgewiesen",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10367",
@@ -1022,10 +2235,32 @@
    "lon": 16.6535301,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-strasshof.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gänserndorf",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 95,
+    "untergrenze": false,
+    "spanne": "94–95",
+    "zeitraum": "Wintersemester 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10366",
@@ -1042,10 +2277,34 @@
    "lon": 15.0656906,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (suedlicheswaldviertel.vhs-noe.at, wavenet.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Melk",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 57,
+    "untergrenze": false,
+    "spanne": "53–57",
+    "zeitraum": "Herbst 2026",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 23,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": "Nur Programmzahl: rund 60 Kurse, Workshops und Vorträge im Bildungskalender Herbst 2026 (MeinBezirk 2026). Keine Jahresbilanz."
+   },
+   "hinweise": [
+    "Heft gilt Sep 2026–Jän 2027 (Dateiname FJ26 irreführend)"
+   ]
   },
   {
    "id": "10179",
@@ -1062,10 +2321,34 @@
    "lon": 16.0355194,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Gemeinde- und eigene VHS-Adresse (ternitz.at, vhs-ternitz.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Neunkirchen",
+   "kommunalpolitisches_amt": "StR",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 7,
+    "untergrenze": true,
+    "spanne": "≥ 7",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 7,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10181",
@@ -1082,10 +2365,34 @@
    "lon": 16.2927335,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Gemeinde- und eigene VHS-Adresse (traiskirchen.gv.at, vhs-traiskirchen.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Baden",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 100,
+    "untergrenze": false,
+    "spanne": "86–101",
+    "zeitraum": "Herbst/Winter 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 67,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "101–200 (ohne Jahresangabe)",
+    "kurse_jahr": "",
+    "quelle": "Keine Jahreszahlen publiziert. Selbstangabe AMS-Weiterbildungsdatenbank: Teilnehmende „101–200“, 0 Angestellte, 11–20 freie Mitarbeitende, gegründet 1961."
+   },
+   "hinweise": [
+    "Heft gilt Herbst/Winter 2026/27 (Dateiname WS2025 irreführend)"
+   ]
   },
   {
    "id": "10183",
@@ -1102,10 +2409,35 @@
    "lon": 15.7442425,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (traismauer.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "St. Pölten-Land",
+   "kommunalpolitisches_amt": "StR",
+   "ansprechperson": "Stadtgemeinde Traismauer, allgemeine Adresse (E-Mail)",
+   "kurse": {
+    "anzahl": 22,
+    "untergrenze": true,
+    "spanne": "≥ 22",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 22,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "E-Mail ist die allgemeine Adresse der Stadtgemeinde"
+   ]
   },
   {
    "id": "10184",
@@ -1122,10 +2454,34 @@
    "lon": 16.0496372,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (tulln.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Tulln",
+   "kommunalpolitisches_amt": "GR",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Keine Kurszahl ermittelbar: Programm 2025/26 hatte 48 Angebote; PDF inzwischen entfernt, Programm 2026/27 online nicht gefunden"
+   ]
   },
   {
    "id": "10131",
@@ -1142,10 +2498,32 @@
    "lon": 16.0672762,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhs-hollabrunn.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Hollabrunn",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 27,
+    "untergrenze": false,
+    "spanne": "26–27",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "eigene Online-Liste",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 27,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10139",
@@ -1162,10 +2540,35 @@
    "lon": 16.3283853,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (klosterneuburg.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Tulln",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "Denise Spusta (Durchwahl 473)",
+   "kurse": {
+    "anzahl": 92,
+    "untergrenze": false,
+    "spanne": "92–111",
+    "zeitraum": "Kursjahr 2026/27",
+    "zaehlquelle": "eigene Online-Liste + Ticketshop",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 71,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "36 Turnkurse laufen über einen externen Ticketshop; Programmheft nur gedruckt",
+    "Telefon laut Quelle über Denise Spusta (DW 473)"
+   ]
   },
   {
    "id": "10186",
@@ -1182,10 +2585,34 @@
    "lon": 15.2869099,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (waidhofen-thaya.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Waidhofen an der Thaya",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "Keine Kurszahl ermittelbar: online nur Sommersemester 2026 (11 Angebote)"
+   ]
   },
   {
    "id": "10188",
@@ -1202,10 +2629,34 @@
    "lon": 14.7743427,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Gemeinde- und eigene VHS-Adresse (vhswaidhofenybbs.at, waidhofen.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Waidhofen an der Ybbs (Stadt)",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 85,
+    "untergrenze": false,
+    "spanne": "71–86",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "462 (Sommersemester 2025)",
+    "kurse_jahr": "",
+    "quelle": "Nur Semesterwert publiziert: 462 Kursteilnehmende im Sommersemester 2025, dazu rund 100 Exkursionsteilnehmende (MeinBezirk 19.08.2025). Keine Jahreszahl."
+   },
+   "hinweise": [
+    "davon 25 Instrumentalstunden mit dem Musikschulverband"
+   ]
   },
   {
    "id": "10189",
@@ -1222,10 +2673,34 @@
    "lon": 14.8935944,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (weitra.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gmünd",
+   "kommunalpolitisches_amt": "VzBgm",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 6,
+    "untergrenze": true,
+    "spanne": "≥ 6",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 6,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10191",
@@ -1242,10 +2717,32 @@
    "lon": 16.2459016,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (wiener-neustadt.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Wiener Neustadt (Stadt)",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 212,
+    "untergrenze": false,
+    "spanne": "209–212",
+    "zeitraum": "Wintersemester 2026/27",
+    "zaehlquelle": "Programmheft (PDF)",
+    "sicherheit": "hoch",
+    "vertrauen": "hoch",
+    "im_portal": true,
+    "portal_sichtbar": 153,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": []
   },
   {
    "id": "10365",
@@ -1262,10 +2759,35 @@
    "lon": 15.1383337,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (wieselburg.at, wieselburg.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Scheibbs",
+   "kommunalpolitisches_amt": "Bürgermeister",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 118,
+    "untergrenze": false,
+    "spanne": "83–128",
+    "zeitraum": "Kursjahr 2026/27",
+    "zaehlquelle": "Programmheft der Gemeinde (PDF)",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 64,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "ohne Vereinsangebote (Turnverein u. a.)",
+    "Website der Gemeinde (VHS-Unterseite); Kursprogramm: https://wieselburg.vhs-noe.at/Kurse"
+   ]
   },
   {
    "id": "10193",
@@ -1282,10 +2804,34 @@
    "lon": 16.5187813,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "unklar",
-    "quelle": "indiz",
-    "grund": "Nur private oder Verbands-Adressen (gmx.at, wolkersdorf.vhs-noe.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Mistelbach",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 28,
+    "untergrenze": true,
+    "spanne": "≥ 28",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 28,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10194",
@@ -1302,10 +2848,35 @@
    "lon": 15.0851644,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (volkshochschule.swv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Melk",
+   "kommunalpolitisches_amt": "STR",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 5,
+    "untergrenze": true,
+    "spanne": "≥ 5",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "gering",
+    "vertrauen": "niedrig",
+    "im_portal": true,
+    "portal_sichtbar": 5,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze",
+    "E-Mail identisch mit VHS Südliches Waldviertel, Website www.volkshochschule.swv.at – bitte prüfen. Kursprogramm: https://ybbs.vhs-noe.at/Kurse"
+   ]
   },
   {
    "id": "10196",
@@ -1322,10 +2893,34 @@
    "lon": 16.7622127,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (zistersdorf.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Gänserndorf",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 28,
+    "untergrenze": true,
+    "spanne": "≥ 28",
+    "zeitraum": "Momentaufnahme 06.11.2026",
+    "zaehlquelle": "nur Verbands-Kurssuche",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": true,
+    "portal_sichtbar": 28,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "kein eigenes Programm online gefunden; Wert ist Untergrenze"
+   ]
   },
   {
    "id": "10197",
@@ -1342,10 +2937,34 @@
    "lon": 15.9111493,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "kommunal",
-    "quelle": "indiz",
-    "grund": "Kontakt über Gemeinde-Adresse (zwentendorf-donau.gv.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Tulln",
+   "kommunalpolitisches_amt": "GGR",
+   "ansprechperson": "Christian Richter (E-Mail-Adresse lautet auf ihn)",
+   "kurse": {
+    "anzahl": null,
+    "untergrenze": false,
+    "spanne": "",
+    "zeitraum": "",
+    "zaehlquelle": "",
+    "sicherheit": "",
+    "vertrauen": "niedrig",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "Seite ohne Kurse, keine Treffer",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "",
+    "kurse_jahr": "",
+    "quelle": ""
+   },
+   "hinweise": [
+    "E-Mail lautet laut Quelle auf eine andere Person (Christian Richter) als die Leitung"
+   ]
   },
   {
    "id": "10199",
@@ -1362,10 +2981,34 @@
    "lon": 15.1691074,
    "geo_genauigkeit": "adresse",
    "traeger": {
-    "wert": "verein",
-    "quelle": "indiz",
-    "grund": "Eigene VHS-Adresse (vhszwettl.at)"
-   }
+    "wert": "unbelegt",
+    "quelle": "",
+    "grund": "Trägerform je Haus nicht veröffentlicht"
+   },
+   "bezirk": "Zwettl",
+   "kommunalpolitisches_amt": "",
+   "ansprechperson": "",
+   "kurse": {
+    "anzahl": 102,
+    "untergrenze": true,
+    "spanne": "≥ 102",
+    "zeitraum": "Herbst/Winter 2026/27",
+    "zaehlquelle": "eigene Online-Liste",
+    "sicherheit": "mittel",
+    "vertrauen": "mittel",
+    "im_portal": false,
+    "portal_sichtbar": null,
+    "keine_zahl_grund": "",
+    "stand": "2026-11-06"
+   },
+   "jahreswerte": {
+    "teilnehmende": "knapp 2.000 (2024)",
+    "kurse_jahr": "",
+    "quelle": "Jahresstatistik VHS Zwettl, MeinBezirk 19.12.2024: je Frühjahrs- und Herbstsemester rund 115 Kurse, insgesamt knapp 2.000 Teilnehmer, 50 Referent:innen, rund 1.600 Unterrichtsstunden, 22 Kursorte. Jahressumme der Kurse nicht publiziert. Ob die knapp 2.000 je Jahr oder je Semester gelten, ist im Artikel nicht eindeutig."
+   },
+   "hinweise": [
+    "VHS nennt selbst „über 120 Kurse“"
+   ]
   }
  ]
 }

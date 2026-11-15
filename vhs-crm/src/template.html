@@ -22,7 +22,8 @@
   --accent-strong: #143a75;
   --c-kommunal: #1d4f9c;
   --c-verein: #d08a00;
-  --c-unklar: #8a93a6;
+  --c-unklar: #8a93a6; --bar-soft: #34476b;
+  --bar-soft: #b9cbe6;
   --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-label: "IBM Plex Sans Condensed", "Arial Narrow", "IBM Plex Sans", sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -30,11 +31,11 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
   --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
-  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; --accent-strong: #a9c5f3; --c-kommunal: #7fa8ec; --c-verein: #f5c32c; --c-unklar: #8a93a6; color-scheme: dark } }
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; --accent-strong: #a9c5f3; --c-kommunal: #7fa8ec; --c-verein: #f5c32c; --c-unklar: #8a93a6; --bar-soft: #34476b; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
   --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
-  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; --accent-strong: #a9c5f3; --c-kommunal: #7fa8ec; --c-verein: #f5c32c; --c-unklar: #8a93a6; color-scheme: dark }
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; --accent-strong: #a9c5f3; --c-kommunal: #7fa8ec; --c-verein: #f5c32c; --c-unklar: #8a93a6; --bar-soft: #34476b; color-scheme: dark }
 
 html, body { height: 100%; }
 body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--font-ui); }
@@ -149,8 +150,9 @@ header.top .count { margin-left: 0; }
 .bars { display: grid; gap: 6px; }
 .bar { display: grid; grid-template-columns: minmax(110px, 38%) 1fr; gap: 10px; align-items: center; font-size: 12.5px; }
 .bar-label { color: var(--ink); min-width: 0; overflow-wrap: anywhere; }
-.bar-track { position: relative; height: 18px; display: flex; align-items: center; gap: 8px; }
-.bar-fill { height: 12px; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar-track { height: 18px; display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 8px; align-items: center; }
+.bar-area { display: block; min-width: 0; }
+.bar-fill { display: block; height: 12px; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
 .bar-val { font: 12px var(--font-data); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .bar:hover .bar-fill { background: var(--accent-strong); }
 .empty-chart { color: var(--muted); font-size: 13px; padding: 12px 0; }
@@ -165,7 +167,7 @@ header.top .count { margin-left: 0; }
 .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
 .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .table-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; }
-.dir-table { border-collapse: collapse; width: 100%; min-width: 980px; font-size: 13px; }
+.dir-table { border-collapse: collapse; width: 100%; min-width: 1180px; font-size: 13px; }
 .dir-table th { text-align: left; font: 600 11px var(--font-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
 .dir-table th button { all: unset; cursor: pointer; }
 .dir-table th button:hover, .dir-table th button:focus-visible { color: var(--ink); text-decoration: underline; }
@@ -195,6 +197,24 @@ header.top .count { margin-left: 0; }
 .tip { position: fixed; z-index: 1000; pointer-events: none; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; font-size: 12.5px; box-shadow: 0 4px 14px rgb(0 0 0 / .15); max-width: 260px; }
 .tip b { font-variant-numeric: tabular-nums; }
 
+.span-2 { grid-column: 1 / -1; }
+.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(var(--rows, 1), auto); grid-auto-flow: column; column-gap: 32px; }
+.bar-stack { height: 12px; background: var(--bar-soft); border-radius: 0 4px 4px 0; min-width: 2px; display: block; overflow: hidden; }
+.bar-portal { display: block; height: 100%; background: var(--accent); }
+.legend-inline { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--muted); margin: -4px 0 12px; }
+.sw-gezaehlt { background: var(--bar-soft); } .sw-portal { background: var(--accent); }
+.seg-note { flex-basis: 100%; }
+.pill { display: inline-block; font: 600 11.5px var(--font-label); padding: 2px 7px; border-radius: 999px; white-space: nowrap; border: 1px solid var(--line); }
+.pill-ok { color: var(--ink); } .pill-miss { color: var(--muted); border-style: dashed; }
+.pill-hoch { background: var(--accent); color: var(--panel); border-color: var(--accent); }
+.pill-mittel { background: var(--accent-soft); color: var(--ink); border-color: var(--accent); }
+.pill-niedrig { color: var(--muted); border-style: dashed; }
+.amt { font: 600 11px var(--font-label); color: var(--accent); white-space: nowrap; }
+.notes { margin: 0; padding-left: 14px; font-size: 12px; color: var(--muted); display: grid; gap: 2px; max-width: 340px; }
+.notes b { color: var(--ink); font-weight: 600; }
+.filters select { padding: 7px 8px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; max-width: 100%; }
+.source a { color: var(--accent); }
+@media (max-width: 980px) { .two-col { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; } }
 @media (max-width: 980px) {
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .kpi-wide { grid-column: 1 / -1; }
@@ -217,26 +237,31 @@ header.top .count { margin-left: 0; }
   <main class="dash" id="view-dashboard" hidden>
     <div class="dash-inner">
       <section class="kpis" aria-label="Kennzahlen">
-        <div class="kpi"><span class="kpi-label">Mitglieds-VHS</span><span class="kpi-val" id="k-vhs">–</span><span class="kpi-note">laut Verbandsverzeichnis</span></div>
-        <div class="kpi"><span class="kpi-label">Im Kurssystem</span><span class="kpi-val" id="k-sys">–</span><span class="kpi-note" id="k-sys-note">VHS mit Kursen auf vhs-noe.at</span></div>
-        <div class="kpi"><span class="kpi-label">Ausgeschriebene Kurse</span><span class="kpi-val" id="k-kurse">–</span><span class="kpi-note" id="k-kurse-note">alle Fachbereiche</span></div>
-        <div class="kpi kpi-wide"><span class="kpi-label">Trägerschaft <span class="tag-indiz">Indiz</span></span>
-          <div class="seg" id="k-traeger" role="img"></div>
-          <div class="seg-legend" id="k-traeger-legend"></div>
-        </div>
+        <div class="kpi"><span class="kpi-label">Mitglieds-VHS</span><span class="kpi-val" id="k-vhs">–</span><span class="kpi-note" id="k-vhs-note"></span></div>
+        <div class="kpi"><span class="kpi-label">Gezählte Angebote</span><span class="kpi-val" id="k-angebote">–</span><span class="kpi-note" id="k-angebote-note"></span></div>
+        <div class="kpi"><span class="kpi-label">In der zentralen Kurssuche</span><span class="kpi-val" id="k-portal">–</span><span class="kpi-note" id="k-portal-note"></span></div>
+        <div class="kpi"><span class="kpi-label">Land NÖ · VÖV 2024/25</span><span class="kpi-val" id="k-land">–</span><span class="kpi-note" id="k-land-note"></span></div>
       </section>
 
       <section class="charts">
-        <figure class="card">
-          <figcaption><h2>Kurse nach Fachbereich</h2><p id="c-fb-sub">Anzahl ausgeschriebener Kurse, alle VHS</p></figcaption>
-          <div class="bars" id="c-fb"></div>
+        <figure class="card span-2">
+          <figcaption><h2>Angebote je VHS</h2><p id="c-angebote-sub"></p>
+            <div class="legend-inline"><span><i class="sw sw-gezaehlt"></i>gezählt im Programm</span><span><i class="sw sw-portal"></i>davon in der Kurssuche sichtbar</span><span>≥ = Untergrenze (nur Kurssuche gezählt)</span></div>
+          </figcaption>
+          <div class="bars two-col" id="c-angebote"></div>
         </figure>
         <figure class="card">
-          <figcaption><h2>Zielgruppen und Formate</h2><p>Anzahl Kurse, alle VHS. Zielgruppen überschneiden sich nicht mit Formaten.</p></figcaption>
-          <h3 class="minor">Zielgruppe</h3>
-          <div class="bars" id="c-grp"></div>
-          <h3 class="minor">Format</h3>
-          <div class="bars" id="c-form"></div>
+          <figcaption><h2>Größe des Angebots</h2><p>Anzahl VHS je Größenklasse der gezählten Angebote</p></figcaption>
+          <div class="bars" id="c-klassen"></div>
+          <h3 class="minor">Datenlage der Kurszahlen</h3>
+          <div class="bars" id="c-vertrauen"></div>
+        </figure>
+        <figure class="card">
+          <figcaption><h2>Fachbereiche landesweit</h2><p>Anteil an den Kursteilnahmen in NÖ, VÖV-Statistik 2024/25. Je VHS nicht veröffentlicht.</p></figcaption>
+          <div class="bars" id="c-fachbereiche"></div>
+          <h3 class="minor">Trägerschaft</h3>
+          <div class="seg" id="k-traeger" role="img"></div>
+          <div class="seg-legend" id="k-traeger-legend"></div>
         </figure>
       </section>
 
@@ -244,15 +269,15 @@ header.top .count { margin-left: 0; }
         <div class="table-head">
           <div>
             <h2>Verzeichnis der Volkshochschulen</h2>
-            <p id="t-sub">Ansprechpersonen, Kontakt und Kursangebot</p>
+            <p id="t-sub"></p>
           </div>
           <div class="filters">
             <input id="tq" type="search" placeholder="Suchen …" autocomplete="off" aria-label="Verzeichnis durchsuchen">
-            <div class="chips" role="group" aria-label="Trägerschaft filtern">
-              <button type="button" class="chip" data-tr="" aria-pressed="true">Alle</button>
-              <button type="button" class="chip" data-tr="kommunal" aria-pressed="false">Kommunal</button>
-              <button type="button" class="chip" data-tr="verein" aria-pressed="false">Verein</button>
-              <button type="button" class="chip" data-tr="unklar" aria-pressed="false">Unklar</button>
+            <select id="tbezirk" aria-label="Nach Bezirk filtern"><option value="">Alle Bezirke</option></select>
+            <div class="chips" role="group" aria-label="Kurssuche filtern">
+              <button type="button" class="chip" data-portal="" aria-pressed="true">Alle</button>
+              <button type="button" class="chip" data-portal="ja" aria-pressed="false">In der Kurssuche</button>
+              <button type="button" class="chip" data-portal="nein" aria-pressed="false">Nicht in der Kurssuche</button>
             </div>
           </div>
         </div>
@@ -260,11 +285,13 @@ header.top .count { margin-left: 0; }
           <table class="dir-table" id="tbl">
             <thead><tr>
               <th scope="col"><button type="button" data-sort="name">VHS</button></th>
-              <th scope="col"><button type="button" data-sort="traeger">Träger</button></th>
               <th scope="col"><button type="button" data-sort="leitung">Leitung</button></th>
               <th scope="col">Kontakt</th>
-              <th scope="col" class="num"><button type="button" data-sort="kurse">Kurse</button></th>
-              <th scope="col">Inhaltliches Angebot <span class="th-hint">(Fachbereiche)</span></th>
+              <th scope="col" class="num"><button type="button" data-sort="kurse">Angebote</button></th>
+              <th scope="col"><button type="button" data-sort="portal">Kurssuche</button></th>
+              <th scope="col"><button type="button" data-sort="vertrauen">Daten</button></th>
+              <th scope="col">Jahreswerte und Hinweise</th>
+              <th scope="col"><button type="button" data-sort="traeger">Träger</button></th>
             </tr></thead>
             <tbody id="tbody"></tbody>
           </table>
@@ -402,105 +429,123 @@ document.getElementById('legend-src').textContent = `Stand ${DATA.meta.abgerufen
 render();
 
 // ───────────── Dashboard ─────────────
-const KURSE = /*KURSE_DATA*/;   // null, solange keine Kurszahlen vorliegen
+const KURSE = /*KURSE_DATA*/;   // Fachbereichszahlen aus der Kurssuche, optional (null = nicht geladen)
+const M = DATA.meta, LAND = M.land;
 const fmt = n => n == null ? '–' : n.toLocaleString('de-AT');
-const TR = { kommunal: 'Kommunal', verein: 'Verein', unklar: 'Unklar' };
-const CAT_SHORT = { '100': 'Pol', '200': 'Grb', '300': 'Nat', '400': 'Ber', '500': 'Spr', '600': 'Kre', '700': 'Ges', '800': 'EDV', '900': 'Ver' };
-const kurseOf = v => KURSE && KURSE.vhs[v.id] ? KURSE.vhs[v.id] : null;
+const dmy = s => s.split('-').reverse().join('.');
+const VT = { hoch: 'hoch', mittel: 'mittel', niedrig: 'niedrig' };
+const VT_HINT = { hoch: 'aus dem eigenen Programmheft gezählt', mittel: 'Untergrenze aus der Kurssuche oder unsichere Quelle', niedrig: 'geringe Sicherheit oder keine Kursdaten' };
 const $tip = document.getElementById('tip');
 function tip(e, html) { if (!html) { $tip.hidden = true; return; } $tip.innerHTML = html; $tip.hidden = false;
   const x = Math.min(e.clientX + 14, innerWidth - $tip.offsetWidth - 8), y = Math.min(e.clientY + 14, innerHeight - $tip.offsetHeight - 8);
   $tip.style.left = x + 'px'; $tip.style.top = y + 'px'; }
 document.addEventListener('pointermove', e => { const t = e.target.closest('[data-tip]'); tip(e, t ? t.dataset.tip : null); });
 
-function bars(el, entries) {
-  const max = Math.max(1, ...entries.map(e => e[1]));
-  el.innerHTML = entries.map(([label, n, tipText]) => `
-    <div class="bar" data-tip="${esc(tipText || `${label}: <b>${fmt(n)}</b> Kurse`)}">
-      <span class="bar-label">${esc(label)}</span>
-      <span class="bar-track"><span class="bar-fill" style="width:calc(${(n / max * 100).toFixed(1)}% - 48px)"></span><span class="bar-val">${fmt(n)}</span></span>
+function bars(el, entries, unit = '') {
+  const max = Math.max(1, ...entries.map(e => e.n));
+  el.innerHTML = entries.map(e => `
+    <div class="bar" data-tip="${esc(e.tip || `${e.label}: <b>${e.text ?? fmt(e.n)}</b>${unit}`)}">
+      <span class="bar-label">${esc(e.label)}</span>
+      <span class="bar-track"><span class="bar-area"><span class="bar-fill" style="width:${(e.n / max * 100).toFixed(1)}%"></span></span><span class="bar-val">${esc(e.text ?? fmt(e.n))}</span></span>
     </div>`).join('');
 }
 
 function renderKpis() {
+  const withN = list.filter(v => v.kurse.anzahl != null), inPortal = list.filter(v => v.kurse.im_portal);
   document.getElementById('k-vhs').textContent = list.length;
-  const counts = { kommunal: 0, verein: 0, unklar: 0 };
-  list.forEach(v => counts[v.traeger.wert]++);
-  document.getElementById('k-traeger').innerHTML = Object.keys(counts).map(k =>
-    `<span class="t-${k}" style="flex:${counts[k]}" data-tip="${TR[k]}: <b>${counts[k]}</b> VHS"></span>`).join('');
-  document.getElementById('k-traeger').setAttribute('aria-label', Object.keys(counts).map(k => `${TR[k]} ${counts[k]}`).join(', '));
-  document.getElementById('k-traeger-legend').innerHTML = Object.keys(counts).map(k =>
-    `<span><i class="sw t-${k}"></i>${TR[k]} <b>${counts[k]}</b></span>`).join('') +
-    `<span>Abgeleitet aus Kontaktadressen, nicht geprüft</span>`;
-  if (!KURSE) {
-    document.getElementById('k-sys').textContent = '–';
-    document.getElementById('k-kurse').textContent = '–';
-    document.getElementById('k-kurse-note').textContent = 'Kurszahlen noch nicht geladen';
-    ['c-fb', 'c-grp', 'c-form'].forEach(id => document.getElementById(id).innerHTML = '<p class="empty-chart">Kurszahlen noch nicht geladen. Sie kommen aus der zentralen Kurssuche auf vhs-noe.at.</p>');
-    return;
-  }
-  const inSys = Object.keys(KURSE.vhs).length;
-  document.getElementById('k-sys').textContent = `${inSys} / ${list.length}`;
-  document.getElementById('k-sys-note').textContent = `${list.length - inSys} VHS ohne Kurse im zentralen System`;
-  document.getElementById('k-kurse').textContent = fmt(KURSE.gesamt);
-  document.getElementById('k-kurse-note').textContent = `Stand ${KURSE.stand.split('-').reverse().join('.')}`;
-  const sum = (sec, key) => Object.values(KURSE.vhs).reduce((a, e) => a + (e[sec][key] || 0), 0);
-  const fb = Object.entries(KURSE.kategorien).map(([k, n]) => [n, sum('kategorien', k)]).sort((a, b) => b[1] - a[1]);
-  bars(document.getElementById('c-fb'), fb);
-  bars(document.getElementById('c-grp'), Object.entries(KURSE.gruppen).map(([k, n]) => [n, sum('gruppen', k)]));
-  bars(document.getElementById('c-form'), Object.entries(KURSE.formen).map(([k, n]) => [n, sum('formen', k)]).sort((a, b) => b[1] - a[1]));
+  document.getElementById('k-vhs-note').textContent = `in ${new Set(list.map(v => v.bezirk)).size} Bezirken · Verzeichnis ${dmy(M.abgerufen)}`;
+  document.getElementById('k-angebote').textContent = fmt(withN.reduce((a, v) => a + v.kurse.anzahl, 0));
+  document.getElementById('k-angebote-note').textContent = `bei ${withN.length} VHS · laufendes Programm 2026/27, keine Jahreszahl`;
+  document.getElementById('k-portal').textContent = `${inPortal.length} / ${list.length}`;
+  document.getElementById('k-portal-note').textContent = `${list.length - inPortal.length} VHS fehlen in der Kurssuche`;
+  document.getElementById('k-land').textContent = fmt(LAND.kurse);
+  document.getElementById('k-land-note').textContent = `Kurse (${LAND.kurse_veraenderung}) · ${fmt(LAND.teilnahmen)} Teilnahmen · ${LAND.kurse_je_1000_ew} Kurse je 1.000 EW (Ö ${LAND.kurse_je_1000_ew_oe})`;
+
+  // Angebote je VHS: gezählt vs. in der Kurssuche sichtbar
+  const sorted = withN.slice().sort((a, b) => b.kurse.anzahl - a.kurse.anzahl), max = sorted[0].kurse.anzahl;
+  document.getElementById('c-angebote-sub').textContent = `${withN.length} VHS mit gezählter Kurszahl, Stand ${dmy(withN[0].kurse.stand)}. Zeiträume je VHS verschieden, daher nur grob vergleichbar.`;
+  document.getElementById('c-angebote').style.setProperty('--rows', Math.ceil(sorted.length / 2));
+  document.getElementById('c-angebote').innerHTML = sorted.map(v => { const k = v.kurse, p = k.im_portal ? (k.portal_sichtbar ?? 0) : 0;
+    const t = `<b>${esc(v.name)}</b><br>Gezählt: <b>${k.untergrenze ? '≥ ' : ''}${k.anzahl}</b> (${esc(k.zeitraum)})<br>In der Kurssuche: ${k.im_portal ? `<b>${p}</b>` : 'nicht vorhanden'}<br>Quelle: ${esc(k.zaehlquelle || '–')}`;
+    return `<div class="bar" data-tip="${esc(t)}"><span class="bar-label">${esc(v.name.replace(/^VHS /, ''))}</span>
+      <span class="bar-track"><span class="bar-area"><span class="bar-stack" style="width:${(k.anzahl / max * 100).toFixed(1)}%"><span class="bar-portal" style="width:${(p / k.anzahl * 100).toFixed(1)}%"></span></span></span>
+      <span class="bar-val">${k.untergrenze ? '≥ ' : ''}${k.anzahl}</span></span></div>`; }).join('');
+
+  const cls = [['150 und mehr', n => n >= 150], ['100–149', n => n >= 100 && n < 150], ['50–99', n => n >= 50 && n < 100], ['20–49', n => n >= 20 && n < 50], ['1–19', n => n >= 1 && n < 20]];
+  bars(document.getElementById('c-klassen'), [...cls.map(([l, f]) => ({ label: l + ' Angebote', n: withN.filter(v => f(v.kurse.anzahl)).length })),
+    { label: 'keine Kurszahl ermittelbar', n: list.length - withN.length }], ' VHS');
+  bars(document.getElementById('c-vertrauen'), ['hoch', 'mittel', 'niedrig'].map(k => ({ label: `Sicherheit ${k}`, n: list.filter(v => v.kurse.vertrauen === k).length,
+    tip: `Sicherheit ${k}: <b>${list.filter(v => v.kurse.vertrauen === k).length}</b> VHS<br>${VT_HINT[k]}` })), ' VHS');
+  bars(document.getElementById('c-fachbereiche'), LAND.fachbereiche_anteil_teilnahmen.map(([l, n, t]) => ({ label: l, n, text: t.split(' (')[0], tip: `${l}: <b>${t}</b>` })));
+
+  const ts = LAND.traeger_summe, belegt = list.filter(v => v.traeger.quelle === 'beleg').length;
+  document.getElementById('k-traeger').innerHTML = `<span class="t-kommunal" style="flex:${ts.kommunal}" data-tip="Kommunal: <b>${ts.kommunal}</b> VHS (Landessumme)"></span><span class="t-verein" style="flex:${ts.verein}" data-tip="Verein: <b>${ts.verein}</b> VHS (Landessumme)"></span>`;
+  document.getElementById('k-traeger').setAttribute('aria-label', `Kommunal ${ts.kommunal}, Verein ${ts.verein}`);
+  document.getElementById('k-traeger-legend').innerHTML =
+    `<span><i class="sw t-kommunal"></i>Kommunal <b>${ts.kommunal}</b></span><span><i class="sw t-verein"></i>Verein <b>${ts.verein}</b></span>` +
+    `<span class="seg-note">Nur als Landessumme veröffentlicht (Leitbild 18.03.2025, Summe 69 statt 68). Je VHS belegt: ${belegt} von ${list.length}. ` +
+    `${list.filter(v => v.kommunalpolitisches_amt).length} Leitungen haben ein kommunalpolitisches Amt.</span>`;
 }
 
 // Verzeichnis-Tabelle
-let tState = { q: '', tr: '', sort: 'name', dir: 1 };
-const $tbody = document.getElementById('tbody'), $tq = document.getElementById('tq');
-function heatCells(k) {
-  if (!k) return '<span class="kurse-none">nicht im zentralen Kurssystem</span>';
-  const max = Math.max(1, ...Object.values(k.kategorien));
-  const cells = Object.entries(KURSE.kategorien).map(([c, name]) => {
-    const n = k.kategorien[c] || 0, pct = n ? Math.round(18 + 72 * n / max) : 0;
-    return `<span class="${pct > 55 ? 'hi' : ''}" style="${n ? `background:color-mix(in oklab, var(--accent) ${pct}%, var(--panel))` : ''}" data-tip="${esc(name)}: <b>${n}</b> Kurse">${n || ''}</span>`;
-  }).join('');
-  const top = Object.entries(k.kategorien).filter(e => e[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c]) => KURSE.kategorien[c]);
-  return `<div class="heat">${cells}</div><div class="top3">${top.length ? 'Schwerpunkte: ' + esc(top.join(', ')) : 'derzeit keine Kurse ausgeschrieben'}</div>`;
+let tState = { q: '', bezirk: '', portal: '', sort: 'name', dir: 1 };
+const $tbody = document.getElementById('tbody'), $tq = document.getElementById('tq'), $tb = document.getElementById('tbezirk');
+[...new Set(list.map(v => v.bezirk))].sort((a, b) => a.localeCompare(b, 'de')).forEach(b => $tb.insertAdjacentHTML('beforeend', `<option>${esc(b)}</option>`));
+function hinweise(v) {
+  const j = v.jahreswerte, k = v.kurse, out = [];
+  if (j.teilnehmende) out.push(`Teilnehmende: <b>${esc(j.teilnehmende)}</b>`);
+  if (j.kurse_jahr) out.push(`Kurse publiziert: <b>${esc(j.kurse_jahr)}</b>`);
+  if (k.keine_zahl_grund) out.push(`Keine Kurszahl: ${esc(k.keine_zahl_grund)}`);
+  v.hinweise.forEach(h => out.push(esc(h)));
+  return out.length ? `<ul class="notes">${out.map(x => `<li>${x}</li>`).join('')}</ul>` : '<span class="kurse-none">–</span>';
 }
 function renderTable() {
   const q = norm(tState.q).trim();
-  let rows = list.filter(v => (!tState.tr || v.traeger.wert === tState.tr) &&
-    (!q || norm([v.name, v.ort, v.plz, v.leitung, v.email, v.telefon].join(' ')).includes(q)));
-  const key = { name: v => norm(v.name.replace(/^(VHS|KV|VBV) /, '')), traeger: v => v.traeger.wert, leitung: v => norm(v.leitung), kurse: v => kurseOf(v) ? kurseOf(v).gesamt : -1 }[tState.sort];
+  let rows = list.filter(v => (!tState.bezirk || v.bezirk === tState.bezirk) &&
+    (!tState.portal || (tState.portal === 'ja') === !!v.kurse.im_portal) &&
+    (!q || norm([v.name, v.ort, v.plz, v.bezirk, v.leitung, v.ansprechperson, v.email, v.telefon].join(' ')).includes(q)));
+  const vr = { hoch: 0, mittel: 1, niedrig: 2 };
+  const key = { name: v => norm(v.name.replace(/^(VHS|KV|VBV) /, '')), leitung: v => norm(v.leitung), kurse: v => v.kurse.anzahl ?? -1,
+    portal: v => v.kurse.im_portal ? (v.kurse.portal_sichtbar ?? 0) : -1, vertrauen: v => vr[v.kurse.vertrauen], traeger: v => v.traeger.quelle === 'beleg' ? 0 : 1 }[tState.sort];
   rows.sort((a, b) => (key(a) > key(b) ? 1 : key(a) < key(b) ? -1 : 0) * tState.dir);
-  $tbody.innerHTML = rows.map(v => { const k = kurseOf(v); return `<tr>
-    <td><button type="button" class="vhs-name" data-open="${v.id}">${esc(v.name)}</button><span class="vhs-ort">${esc(v.plz)} ${esc(v.ort)}</span></td>
-    <td><span class="tr-pill" data-tip="${esc(v.traeger.grund)}"><i class="sw t-${v.traeger.wert}"></i>${TR[v.traeger.wert]}</span></td>
-    <td>${esc(v.leitung) || '—'}</td>
-    <td><div class="contact"><span class="mono">${esc(v.telefon) || '—'}</span><span class="mono">${esc(v.email) || '—'}</span>${v.web ? `<a href="${esc(v.web)}" target="_blank" rel="noopener">${esc(v.web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>` : ''}</div></td>
-    <td class="num">${k ? `<span class="kurse-num">${fmt(k.gesamt)}</span>` : (KURSE ? '<span class="kurse-none">–</span>' : '<span class="kurse-none">offen</span>')}</td>
-    <td>${KURSE ? heatCells(k) : '<span class="kurse-none">Kurszahlen noch nicht geladen</span>'}</td>
-  </tr>`; }).join('') || `<tr><td colspan="6" class="kurse-none">Keine Volkshochschule passt zu diesem Filter.</td></tr>`;
-  document.getElementById('t-sub').textContent = `${rows.length} von ${list.length} Volkshochschulen · Ansprechpersonen, Kontakt und Kursangebot`;
+  $tbody.innerHTML = rows.map(v => { const k = v.kurse; return `<tr>
+    <td><button type="button" class="vhs-name" data-open="${v.id}">${esc(v.name)}</button><span class="vhs-ort">${esc(v.plz)} ${esc(v.ort)} · Bezirk ${esc(v.bezirk)}</span></td>
+    <td>${esc(v.leitung) || '—'}${v.kommunalpolitisches_amt && !norm(v.leitung).includes(norm(v.kommunalpolitisches_amt)) ? ` <span class="amt" data-tip="Leitung mit kommunalpolitischem Amt">${esc(v.kommunalpolitisches_amt)}</span>` : ''}${v.ansprechperson ? `<span class="vhs-ort">Kontakt: ${esc(v.ansprechperson)}</span>` : ''}</td>
+    <td><div class="contact"><span class="mono">${esc(v.telefon) || '—'}</span><span class="mono">${esc(v.email) || '—'}</span>${v.web ? `<a href="${esc(v.web)}" target="_blank" rel="noopener">${esc(v.web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>` : '<span class="kurse-none">keine eigene Website</span>'}</div></td>
+    <td class="num">${k.anzahl != null ? `<span class="kurse-num">${k.untergrenze ? '≥ ' : ''}${k.anzahl}</span><span class="vhs-ort">${esc(k.zeitraum)}</span>` : '<span class="kurse-none">–</span>'}</td>
+    <td>${k.im_portal ? `<span class="pill pill-ok">✓ ${k.portal_sichtbar ?? '?'} sichtbar</span>` : '<span class="pill pill-miss">✕ fehlt</span>'}</td>
+    <td><span class="pill pill-${k.vertrauen}" data-tip="${esc(`Sicherheit ${k.vertrauen}: ${VT_HINT[k.vertrauen]}${k.zaehlquelle ? '<br>Quelle: ' + k.zaehlquelle : ''}`)}">${VT[k.vertrauen]}</span></td>
+    <td class="notes-cell">${hinweise(v)}</td>
+    <td>${v.traeger.quelle === 'beleg' ? `<span class="tr-pill" data-tip="${esc(v.traeger.grund)}"><i class="sw t-${v.traeger.wert}"></i>${v.traeger.wert === 'kommunal' ? 'Kommunal' : 'Verein'} ✓</span>` : '<span class="kurse-none">nicht belegt</span>'}</td>
+  </tr>`; }).join('') || `<tr><td colspan="8" class="kurse-none">Keine Volkshochschule passt zu diesem Filter.</td></tr>`;
+  const sum = rows.reduce((a, v) => a + (v.kurse.anzahl || 0), 0);
+  document.getElementById('t-sub').textContent = `${rows.length} von ${list.length} Volkshochschulen · ${fmt(sum)} gezählte Angebote in dieser Auswahl`;
   document.querySelectorAll('.dir-table th').forEach(th => { const b = th.querySelector('[data-sort]'); th.removeAttribute('aria-sort');
     if (b && b.dataset.sort === tState.sort) th.setAttribute('aria-sort', tState.dir > 0 ? 'ascending' : 'descending'); });
 }
-if (KURSE) document.querySelector('.dir-table thead th:last-child').insertAdjacentHTML('beforeend',
-  `<div class="heat-head">${Object.keys(KURSE.kategorien).map(c => `<span title="${esc(KURSE.kategorien[c])}">${CAT_SHORT[c]}</span>`).join('')}</div>`);
 $tq.addEventListener('input', () => { tState.q = $tq.value; renderTable(); });
+$tb.addEventListener('change', () => { tState.bezirk = $tb.value; renderTable(); });
 document.querySelector('.chips').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return;
-  tState.tr = c.dataset.tr; document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === c))); renderTable(); });
+  tState.portal = c.dataset.portal; document.querySelectorAll('.chips .chip').forEach(x => x.setAttribute('aria-pressed', String(x === c))); renderTable(); });
 document.querySelector('.dir-table thead').addEventListener('click', e => { const b = e.target.closest('[data-sort]'); if (!b) return;
-  tState.dir = tState.sort === b.dataset.sort ? -tState.dir : (b.dataset.sort === 'kurse' ? -1 : 1); tState.sort = b.dataset.sort; renderTable(); });
+  tState.dir = tState.sort === b.dataset.sort ? -tState.dir : (['kurse', 'portal'].includes(b.dataset.sort) ? -1 : 1); tState.sort = b.dataset.sort; renderTable(); });
 $tbody.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (!b) return; pendingSelect = b.dataset.open; location.hash = 'karte'; });
-document.getElementById('t-source').textContent =
-  `Quellen: Verbandsverzeichnis vhs-noe.at (Stand ${DATA.meta.abgerufen.split('-').reverse().join('.')})` +
-  (KURSE ? `; Kurszahlen aus der zentralen Kurssuche (Stand ${KURSE.stand.split('-').reverse().join('.')}). Kürzel: ` + Object.keys(KURSE.kategorien).map(c => `${CAT_SHORT[c]} = ${KURSE.kategorien[c]}`).join(', ') + '.' : '.') +
-  ' Trägerschaft ist ein Indiz aus den Kontaktadressen.';
+document.getElementById('t-source').innerHTML =
+  `Quellen: Kontaktdaten aus dem <a href="${esc(M.quelle)}" target="_blank" rel="noopener">Verbandsverzeichnis</a> (Abruf ${dmy(M.abgerufen)}); ` +
+  `Kurszählung je VHS aus Programmheften, eigenen Online-Listen und der Kurssuche (Stand ${dmy(M.recherche.kurszaehlung)}); ` +
+  `Zugehörigkeit zur Kurssuche laut deren Auswahlliste (${dmy(M.abgerufen)}); Landeswerte: <a href="${esc(LAND.quelle_url)}" target="_blank" rel="noopener">${esc(LAND.quelle)}</a>. ` +
+  `„Angebote“ sind gezählte Angebote im laufenden Programm, keine Jahreswerte.`;
 
-// Kurse auch im Kartendetail zeigen
+// Kartendetail ergänzen
 const _select = select;
-select = function (id, fly) { _select(id, fly); const v = list.find(x => x.id === id), k = kurseOf(v);
-  const dl = $detail.querySelector('dl');
-  dl.insertAdjacentHTML('beforeend', `<dt>Träger</dt><dd><span class="tr-pill"><i class="sw t-${v.traeger.wert}"></i>${TR[v.traeger.wert]}</span><span class="tag-indiz" title="${esc(v.traeger.grund)}">Indiz</span></dd>` +
-    (KURSE ? `<dt>Kurse</dt><dd>${k ? `<b>${fmt(k.gesamt)}</b> ausgeschrieben` : 'nicht im zentralen Kurssystem'}</dd>` : ''));
+select = function (id, fly) { _select(id, fly); const v = list.find(x => x.id === id), k = v.kurse;
+  $detail.querySelector('.eyebrow').textContent = `Volkshochschule · Bezirk ${v.bezirk}`;
+  $detail.querySelector('dl').insertAdjacentHTML('beforeend',
+    (v.kommunalpolitisches_amt ? `<dt>Funktion</dt><dd>${esc(v.kommunalpolitisches_amt)} (kommunalpolitisches Amt)</dd>` : '') +
+    (v.ansprechperson ? `<dt>Kontakt</dt><dd>${esc(v.ansprechperson)}</dd>` : '') +
+    `<dt>Angebote</dt><dd>${k.anzahl != null ? `<b>${k.untergrenze ? '≥ ' : ''}${k.anzahl}</b> ${esc(k.zeitraum)}` : esc(k.keine_zahl_grund || 'keine Kurszahl')}</dd>` +
+    `<dt>Kurssuche</dt><dd>${k.im_portal ? `${k.portal_sichtbar ?? '?'} sichtbar` : 'nicht vorhanden'}</dd>` +
+    (v.jahreswerte.teilnehmende ? `<dt>Teilnehmende</dt><dd>${esc(v.jahreswerte.teilnehmende)}</dd>` : ''));
 };
 
 // Ansichten (Hash-Routing)
