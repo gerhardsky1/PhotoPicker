@@ -167,7 +167,7 @@ header.top .count { margin-left: 0; }
 .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
 .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .table-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; }
-.dir-table { border-collapse: collapse; width: 100%; min-width: 1180px; font-size: 13px; }
+.dir-table { border-collapse: collapse; width: 100%; min-width: 1420px; font-size: 13px; }
 .dir-table th { text-align: left; font: 600 11px var(--font-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
 .dir-table th button { all: unset; cursor: pointer; }
 .dir-table th button:hover, .dir-table th button:focus-visible { color: var(--ink); text-decoration: underline; }
@@ -263,6 +263,17 @@ header.top .count { margin-left: 0; }
           <div class="seg" id="k-traeger" role="img"></div>
           <div class="seg-legend" id="k-traeger-legend"></div>
         </figure>
+        <figure class="card">
+          <figcaption><h2>Inhaltliches Angebot in der Kurssuche</h2><p id="c-fb-sub"></p></figcaption>
+          <div class="bars" id="c-fb"></div>
+        </figure>
+        <figure class="card">
+          <figcaption><h2>Zielgruppen und Formate</h2><p>Kurse in der Kurssuche. Nur ein Teil der Kurse ist einer Zielgruppe zugeordnet.</p></figcaption>
+          <h3 class="minor">Zielgruppe</h3>
+          <div class="bars" id="c-grp"></div>
+          <h3 class="minor">Format</h3>
+          <div class="bars" id="c-form"></div>
+        </figure>
       </section>
 
       <section class="card table-card">
@@ -290,6 +301,7 @@ header.top .count { margin-left: 0; }
               <th scope="col" class="num"><button type="button" data-sort="kurse">Angebote</button></th>
               <th scope="col"><button type="button" data-sort="portal">Kurssuche</button></th>
               <th scope="col"><button type="button" data-sort="vertrauen">Daten</button></th>
+              <th scope="col">Inhaltliches Angebot <span class="th-hint">(Kurssuche)</span><div class="heat-head" id="heat-head"></div></th>
               <th scope="col">Jahreswerte und Hinweise</th>
               <th scope="col"><button type="button" data-sort="traeger">Träger</button></th>
             </tr></thead>
@@ -487,6 +499,33 @@ function renderKpis() {
     `${list.filter(v => v.kommunalpolitisches_amt).length} Leitungen haben ein kommunalpolitisches Amt.</span>`;
 }
 
+// Fachbereiche aus der Kurssuche
+const CAT_SHORT = { '100': 'Pol', '200': 'Grb', '300': 'Nat', '400': 'Ber', '500': 'Spr', '600': 'Kre', '700': 'Ges', '800': 'EDV', '900': 'Ver' };
+const kOf = v => KURSE && KURSE.vhs[v.id] ? KURSE.vhs[v.id] : null;
+function topFb(k, n = 3) { return Object.entries(k.kategorien).filter(e => e[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, n).map(([c]) => KURSE.kategorien[c]); }
+function heatCells(v) {
+  const k = kOf(v);
+  if (!KURSE) return '<span class="kurse-none">nicht geladen</span>';
+  if (!k) return '<span class="kurse-none">nicht in der Kurssuche</span>';
+  if (!k.gesamt) return '<span class="kurse-none">derzeit keine Kurse eingetragen</span>';
+  const max = Math.max(1, ...Object.values(k.kategorien));
+  const cells = Object.entries(KURSE.kategorien).map(([c, name]) => { const n = k.kategorien[c] || 0, pct = n ? Math.round(18 + 72 * n / max) : 0;
+    return `<span class="${pct > 55 ? 'hi' : ''}" style="${n ? `background:color-mix(in oklab, var(--accent) ${pct}%, var(--panel))` : ''}" data-tip="${esc(name)}: <b>${n}</b> von ${k.gesamt} Kursen">${n || ''}</span>`; }).join('');
+  return `<div class="heat">${cells}</div><div class="top3">${k.gesamt} Kurse · ${esc(topFb(k).join(', '))}</div>`;
+}
+function renderFachbereiche() {
+  if (!KURSE) { ['c-fb', 'c-grp', 'c-form'].forEach(id => document.getElementById(id).innerHTML = '<p class="empty-chart">Noch keine Daten aus der Kurssuche.</p>'); return; }
+  const sum = (sec, key) => Object.values(KURSE.vhs).reduce((a, e) => a + (e[sec][key] || 0), 0);
+  const total = Object.values(KURSE.vhs).reduce((a, e) => a + e.gesamt, 0);
+  document.getElementById('c-fb-sub').textContent = `${fmt(total)} Kurse von ${Object.keys(KURSE.vhs).length} VHS nach Fachbereich, Stand ${dmy(KURSE.stand)}. Zeigt nur, was in der Kurssuche eingetragen ist.`;
+  const pct = n => (n / total * 100).toLocaleString('de-AT', { maximumFractionDigits: 1 }) + ' %';
+  bars(document.getElementById('c-fb'), Object.entries(KURSE.kategorien).map(([k, l]) => ({ label: l, n: sum('kategorien', k) })).sort((a, b) => b.n - a.n)
+    .map(e => ({ ...e, tip: `${e.label}: <b>${fmt(e.n)}</b> Kurse (${pct(e.n)})` })));
+  bars(document.getElementById('c-grp'), Object.entries(KURSE.gruppen).map(([k, l]) => ({ label: l, n: sum('gruppen', k) })));
+  bars(document.getElementById('c-form'), Object.entries(KURSE.formen).map(([k, l]) => ({ label: l, n: sum('formen', k) })).filter(e => e.n > 0).sort((a, b) => b.n - a.n));
+  document.getElementById('heat-head').innerHTML = Object.keys(KURSE.kategorien).map(c => `<span title="${esc(KURSE.kategorien[c])}">${CAT_SHORT[c]}</span>`).join('');
+}
+
 // Verzeichnis-Tabelle
 let tState = { q: '', bezirk: '', portal: '', sort: 'name', dir: 1 };
 const $tbody = document.getElementById('tbody'), $tq = document.getElementById('tq'), $tb = document.getElementById('tbezirk');
@@ -515,9 +554,10 @@ function renderTable() {
     <td class="num">${k.anzahl != null ? `<span class="kurse-num">${k.untergrenze ? '≥ ' : ''}${k.anzahl}</span><span class="vhs-ort">${esc(k.zeitraum)}</span>` : '<span class="kurse-none">–</span>'}</td>
     <td>${k.im_portal ? `<span class="pill pill-ok">✓ ${k.portal_sichtbar ?? '?'} sichtbar</span>` : '<span class="pill pill-miss">✕ fehlt</span>'}</td>
     <td><span class="pill pill-${k.vertrauen}" data-tip="${esc(`Sicherheit ${k.vertrauen}: ${VT_HINT[k.vertrauen]}${k.zaehlquelle ? '<br>Quelle: ' + k.zaehlquelle : ''}`)}">${VT[k.vertrauen]}</span></td>
+    <td>${heatCells(v)}</td>
     <td class="notes-cell">${hinweise(v)}</td>
     <td>${v.traeger.quelle === 'beleg' ? `<span class="tr-pill" data-tip="${esc(v.traeger.grund)}"><i class="sw t-${v.traeger.wert}"></i>${v.traeger.wert === 'kommunal' ? 'Kommunal' : 'Verein'} ✓</span>` : '<span class="kurse-none">nicht belegt</span>'}</td>
-  </tr>`; }).join('') || `<tr><td colspan="8" class="kurse-none">Keine Volkshochschule passt zu diesem Filter.</td></tr>`;
+  </tr>`; }).join('') || `<tr><td colspan="9" class="kurse-none">Keine Volkshochschule passt zu diesem Filter.</td></tr>`;
   const sum = rows.reduce((a, v) => a + (v.kurse.anzahl || 0), 0);
   document.getElementById('t-sub').textContent = `${rows.length} von ${list.length} Volkshochschulen · ${fmt(sum)} gezählte Angebote in dieser Auswahl`;
   document.querySelectorAll('.dir-table th').forEach(th => { const b = th.querySelector('[data-sort]'); th.removeAttribute('aria-sort');
@@ -534,7 +574,8 @@ document.getElementById('t-source').innerHTML =
   `Quellen: Kontaktdaten aus dem <a href="${esc(M.quelle)}" target="_blank" rel="noopener">Verbandsverzeichnis</a> (Abruf ${dmy(M.abgerufen)}); ` +
   `Kurszählung je VHS aus Programmheften, eigenen Online-Listen und der Kurssuche (Stand ${dmy(M.recherche.kurszaehlung)}); ` +
   `Zugehörigkeit zur Kurssuche laut deren Auswahlliste (${dmy(M.abgerufen)}); Landeswerte: <a href="${esc(LAND.quelle_url)}" target="_blank" rel="noopener">${esc(LAND.quelle)}</a>. ` +
-  `„Angebote“ sind gezählte Angebote im laufenden Programm, keine Jahreswerte.`;
+  `„Angebote“ sind gezählte Angebote im laufenden Programm, keine Jahreswerte.` +
+  (KURSE ? ` Inhaltliches Angebot: Kurse in der Kurssuche je Fachbereich (Stand ${dmy(KURSE.stand)}); Kürzel: ` + Object.keys(KURSE.kategorien).map(c => `${CAT_SHORT[c]} = ${KURSE.kategorien[c]}`).join(', ') + '.' : '');
 
 // Kartendetail ergänzen
 const _select = select;
@@ -545,6 +586,7 @@ select = function (id, fly) { _select(id, fly); const v = list.find(x => x.id ==
     (v.ansprechperson ? `<dt>Kontakt</dt><dd>${esc(v.ansprechperson)}</dd>` : '') +
     `<dt>Angebote</dt><dd>${k.anzahl != null ? `<b>${k.untergrenze ? '≥ ' : ''}${k.anzahl}</b> ${esc(k.zeitraum)}` : esc(k.keine_zahl_grund || 'keine Kurszahl')}</dd>` +
     `<dt>Kurssuche</dt><dd>${k.im_portal ? `${k.portal_sichtbar ?? '?'} sichtbar` : 'nicht vorhanden'}</dd>` +
+    (kOf(v) && kOf(v).gesamt ? `<dt>Schwerpunkte</dt><dd>${esc(topFb(kOf(v)).join(', '))} <span class="vhs-ort">laut Kurssuche</span></dd>` : '') +
     (v.jahreswerte.teilnehmende ? `<dt>Teilnehmende</dt><dd>${esc(v.jahreswerte.teilnehmende)}</dd>` : ''));
 };
 
@@ -561,5 +603,5 @@ function route() {
   if (view === 'karte') { map.invalidateSize(); if (pendingSelect) { select(pendingSelect, true); pendingSelect = null; } }
 }
 addEventListener('hashchange', route);
-renderKpis(); renderTable(); route();
+renderKpis(); renderFachbereiche(); renderTable(); route();
 </script>

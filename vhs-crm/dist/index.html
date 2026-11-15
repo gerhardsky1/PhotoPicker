@@ -836,7 +836,7 @@ header.top .count { margin-left: 0; }
 .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
 .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .table-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; }
-.dir-table { border-collapse: collapse; width: 100%; min-width: 1180px; font-size: 13px; }
+.dir-table { border-collapse: collapse; width: 100%; min-width: 1420px; font-size: 13px; }
 .dir-table th { text-align: left; font: 600 11px var(--font-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
 .dir-table th button { all: unset; cursor: pointer; }
 .dir-table th button:hover, .dir-table th button:focus-visible { color: var(--ink); text-decoration: underline; }
@@ -932,6 +932,17 @@ header.top .count { margin-left: 0; }
           <div class="seg" id="k-traeger" role="img"></div>
           <div class="seg-legend" id="k-traeger-legend"></div>
         </figure>
+        <figure class="card">
+          <figcaption><h2>Inhaltliches Angebot in der Kurssuche</h2><p id="c-fb-sub"></p></figcaption>
+          <div class="bars" id="c-fb"></div>
+        </figure>
+        <figure class="card">
+          <figcaption><h2>Zielgruppen und Formate</h2><p>Kurse in der Kurssuche. Nur ein Teil der Kurse ist einer Zielgruppe zugeordnet.</p></figcaption>
+          <h3 class="minor">Zielgruppe</h3>
+          <div class="bars" id="c-grp"></div>
+          <h3 class="minor">Format</h3>
+          <div class="bars" id="c-form"></div>
+        </figure>
       </section>
 
       <section class="card table-card">
@@ -959,6 +970,7 @@ header.top .count { margin-left: 0; }
               <th scope="col" class="num"><button type="button" data-sort="kurse">Angebote</button></th>
               <th scope="col"><button type="button" data-sort="portal">Kurssuche</button></th>
               <th scope="col"><button type="button" data-sort="vertrauen">Daten</button></th>
+              <th scope="col">Inhaltliches Angebot <span class="th-hint">(Kurssuche)</span><div class="heat-head" id="heat-head"></div></th>
               <th scope="col">Jahreswerte und Hinweise</th>
               <th scope="col"><button type="button" data-sort="traeger">Träger</button></th>
             </tr></thead>
@@ -1098,7 +1110,7 @@ document.getElementById('legend-src').textContent = `Stand ${DATA.meta.abgerufen
 render();
 
 // ───────────── Dashboard ─────────────
-const KURSE = null;   // Fachbereichszahlen aus der Kurssuche, optional (null = nicht geladen)
+const KURSE = {"gesamt":1882,"kategorien":{"100":"Politik, Gesellschaft und Kultur","200":"Grundbildung und zweiter Bildungsweg","300":"Naturwissenschaften, Technik und Umwelt","400":"Berufliche Bildung","500":"Sprachen","600":"Kreativität und Gestalten","700":"Gesundheit und Bewegung","800":"EDV und Telekommunikation","900":"Veranstaltungen"},"gruppen":{"2000":"Kinder","4000":"Jugend","3000":"Senioren"},"formen":{"Kurs":"Kurs","Seminar/Workshop":"Seminar/Workshop","Vortrag":"Einzelveranstaltung/Vortrag","Exkursion/Studienfahrt":"Exkursion","Onlinekurs":"Online","Beratung":"Beratung"},"vhs":{"10176":{"gesamt":26,"kategorien":{"100":3,"200":0,"300":0,"400":1,"500":14,"600":2,"700":4,"800":2,"900":0},"gruppen":{"2000":4,"4000":0,"3000":0},"formen":{"Kurs":18,"Seminar/Workshop":3,"Vortrag":5,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10068":{"gesamt":349,"kategorien":{"100":88,"200":0,"300":22,"400":39,"500":52,"600":63,"700":85,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":0,"Seminar/Workshop":349,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10075":{"gesamt":176,"kategorien":{"100":23,"200":0,"300":0,"400":1,"500":122,"600":8,"700":20,"800":2,"900":0},"gruppen":{"2000":0,"4000":0,"3000":3},"formen":{"Kurs":175,"Seminar/Workshop":0,"Vortrag":1,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10077":{"gesamt":4,"kategorien":{"100":0,"200":0,"300":3,"400":0,"500":0,"600":0,"700":0,"800":0,"900":1},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":0,"Seminar/Workshop":0,"Vortrag":4,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10081":{"gesamt":4,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":0,"600":2,"700":2,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":4,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10085":{"gesamt":12,"kategorien":{"100":0,"200":0,"300":0,"400":1,"500":0,"600":3,"700":8,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":2},"formen":{"Kurs":9,"Seminar/Workshop":2,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":1}},"10092":{"gesamt":31,"kategorien":{"100":2,"200":0,"300":0,"400":0,"500":8,"600":0,"700":19,"800":1,"900":1},"gruppen":{"2000":5,"4000":0,"3000":0},"formen":{"Kurs":28,"Seminar/Workshop":3,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10106":{"gesamt":5,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":0,"600":2,"700":3,"800":0,"900":0},"gruppen":{"2000":3,"4000":0,"3000":0},"formen":{"Kurs":5,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10107":{"gesamt":7,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":3,"600":0,"700":3,"800":0,"900":1},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":5,"Seminar/Workshop":2,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10112":{"gesamt":1,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":0,"600":0,"700":1,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":1,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10425":{"gesamt":84,"kategorien":{"100":11,"200":0,"300":2,"400":0,"500":19,"600":12,"700":29,"800":11,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":63,"Seminar/Workshop":10,"Vortrag":8,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":3}},"10116":{"gesamt":13,"kategorien":{"100":1,"200":0,"300":4,"400":0,"500":0,"600":1,"700":4,"800":0,"900":3},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":8,"Seminar/Workshop":1,"Vortrag":1,"Exkursion/Studienfahrt":0,"Onlinekurs":3,"Beratung":0}},"10123":{"gesamt":14,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":4,"600":0,"700":4,"800":1,"900":5},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":12,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":2,"Beratung":0}},"10127":{"gesamt":19,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":0,"600":6,"700":6,"800":0,"900":7},"gruppen":{"2000":0,"4000":1,"3000":0},"formen":{"Kurs":17,"Seminar/Workshop":2,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10129":{"gesamt":16,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":0,"600":2,"700":13,"800":1,"900":0},"gruppen":{"2000":7,"4000":0,"3000":0},"formen":{"Kurs":16,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10135":{"gesamt":10,"kategorien":{"100":2,"200":0,"300":1,"400":0,"500":0,"600":2,"700":1,"800":0,"900":4},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":10,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10143":{"gesamt":125,"kategorien":{"100":0,"200":0,"300":0,"400":1,"500":77,"600":23,"700":23,"800":1,"900":0},"gruppen":{"2000":7,"4000":0,"3000":0},"formen":{"Kurs":125,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10144":{"gesamt":108,"kategorien":{"100":9,"200":2,"300":0,"400":0,"500":54,"600":12,"700":30,"800":1,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":108,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10146":{"gesamt":5,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":4,"600":1,"700":0,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":1},"formen":{"Kurs":5,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10149":{"gesamt":14,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":5,"600":0,"700":8,"800":1,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":14,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10415":{"gesamt":23,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":5,"600":8,"700":5,"800":4,"900":1},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":12,"Seminar/Workshop":11,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10153":{"gesamt":20,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":2,"600":0,"700":18,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":20,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10155":{"gesamt":107,"kategorien":{"100":37,"200":0,"300":0,"400":0,"500":12,"600":16,"700":37,"800":4,"900":1},"gruppen":{"2000":26,"4000":1,"3000":0},"formen":{"Kurs":106,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":1,"Onlinekurs":0,"Beratung":0}},"10369":{"gesamt":38,"kategorien":{"100":1,"200":0,"300":0,"400":0,"500":15,"600":4,"700":12,"800":0,"900":6},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":38,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10157":{"gesamt":10,"kategorien":{"100":0,"200":0,"300":0,"400":1,"500":7,"600":0,"700":2,"800":0,"900":0},"gruppen":{"2000":1,"4000":0,"3000":0},"formen":{"Kurs":9,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":1}},"10160":{"gesamt":17,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":0,"600":1,"700":13,"800":0,"900":3},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":11,"Seminar/Workshop":0,"Vortrag":5,"Exkursion/Studienfahrt":0,"Onlinekurs":1,"Beratung":0}},"10162":{"gesamt":16,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":6,"600":2,"700":6,"800":2,"900":0},"gruppen":{"2000":2,"4000":0,"3000":0},"formen":{"Kurs":15,"Seminar/Workshop":0,"Vortrag":1,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10164":{"gesamt":52,"kategorien":{"100":2,"200":0,"300":0,"400":0,"500":20,"600":12,"700":18,"800":0,"900":0},"gruppen":{"2000":2,"4000":0,"3000":0},"formen":{"Kurs":44,"Seminar/Workshop":7,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":1}},"10169":{"gesamt":27,"kategorien":{"100":0,"200":0,"300":3,"400":0,"500":7,"600":5,"700":11,"800":1,"900":0},"gruppen":{"2000":0,"4000":0,"3000":1},"formen":{"Kurs":20,"Seminar/Workshop":0,"Vortrag":7,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10171":{"gesamt":2,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":1,"600":1,"700":0,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":2,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10172":{"gesamt":8,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":0,"600":1,"700":4,"800":0,"900":3},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":3,"Seminar/Workshop":4,"Vortrag":0,"Exkursion/Studienfahrt":1,"Onlinekurs":0,"Beratung":0}},"10416":{"gesamt":44,"kategorien":{"100":1,"200":0,"300":1,"400":0,"500":22,"600":7,"700":13,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":2},"formen":{"Kurs":43,"Seminar/Workshop":1,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10174":{"gesamt":30,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":27,"600":1,"700":2,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":30,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10175":{"gesamt":9,"kategorien":{"100":8,"200":0,"300":0,"400":0,"500":1,"600":0,"700":0,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":9,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10366":{"gesamt":15,"kategorien":{"100":0,"200":0,"300":2,"400":1,"500":0,"600":1,"700":10,"800":0,"900":1},"gruppen":{"2000":5,"4000":0,"3000":0},"formen":{"Kurs":14,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":1}},"10179":{"gesamt":5,"kategorien":{"100":0,"200":0,"300":1,"400":0,"500":0,"600":0,"700":4,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":4,"Seminar/Workshop":1,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10181":{"gesamt":56,"kategorien":{"100":2,"200":0,"300":2,"400":0,"500":13,"600":9,"700":28,"800":0,"900":2},"gruppen":{"2000":3,"4000":0,"3000":5},"formen":{"Kurs":56,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10183":{"gesamt":18,"kategorien":{"100":1,"200":0,"300":2,"400":0,"500":1,"600":8,"700":6,"800":0,"900":0},"gruppen":{"2000":1,"4000":2,"3000":0},"formen":{"Kurs":12,"Seminar/Workshop":5,"Vortrag":1,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10131":{"gesamt":27,"kategorien":{"100":0,"200":0,"300":0,"400":0,"500":13,"600":5,"700":8,"800":1,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":20,"Seminar/Workshop":5,"Vortrag":2,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10139":{"gesamt":68,"kategorien":{"100":1,"200":0,"300":0,"400":0,"500":30,"600":15,"700":1,"800":0,"900":21},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":47,"Seminar/Workshop":0,"Vortrag":17,"Exkursion/Studienfahrt":4,"Onlinekurs":0,"Beratung":0}},"10189":{"gesamt":4,"kategorien":{"100":1,"200":0,"300":0,"400":0,"500":0,"600":0,"700":3,"800":0,"900":0},"gruppen":{"2000":1,"4000":0,"3000":0},"formen":{"Kurs":3,"Seminar/Workshop":0,"Vortrag":1,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10191":{"gesamt":143,"kategorien":{"100":4,"200":0,"300":2,"400":0,"500":49,"600":16,"700":65,"800":7,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":143,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10365":{"gesamt":61,"kategorien":{"100":0,"200":0,"300":0,"400":1,"500":7,"600":11,"700":35,"800":0,"900":7},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":48,"Seminar/Workshop":5,"Vortrag":7,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":1}},"10193":{"gesamt":25,"kategorien":{"100":0,"200":0,"300":1,"400":2,"500":7,"600":10,"700":5,"800":0,"900":0},"gruppen":{"2000":0,"4000":0,"3000":0},"formen":{"Kurs":25,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}},"10194":{"gesamt":5,"kategorien":{"100":0,"200":0,"300":0,"400":1,"500":0,"600":2,"700":2,"800":0,"900":0},"gruppen":{"2000":3,"4000":0,"3000":1},"formen":{"Kurs":4,"Seminar/Workshop":0,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":1}},"10196":{"gesamt":27,"kategorien":{"100":1,"200":0,"300":0,"400":0,"500":2,"600":0,"700":23,"800":0,"900":1},"gruppen":{"2000":1,"4000":0,"3000":0},"formen":{"Kurs":26,"Seminar/Workshop":1,"Vortrag":0,"Exkursion/Studienfahrt":0,"Onlinekurs":0,"Beratung":0}}},"stand":"2026-11-15","quelle":"Zentrale Kurssuche vhs-noe.at (Zählschnittstelle), nur dort eingetragene Kurse","ohne_vhs_zuordnung":2};   // Fachbereichszahlen aus der Kurssuche, optional (null = nicht geladen)
 const M = DATA.meta, LAND = M.land;
 const fmt = n => n == null ? '–' : n.toLocaleString('de-AT');
 const dmy = s => s.split('-').reverse().join('.');
@@ -1156,6 +1168,33 @@ function renderKpis() {
     `${list.filter(v => v.kommunalpolitisches_amt).length} Leitungen haben ein kommunalpolitisches Amt.</span>`;
 }
 
+// Fachbereiche aus der Kurssuche
+const CAT_SHORT = { '100': 'Pol', '200': 'Grb', '300': 'Nat', '400': 'Ber', '500': 'Spr', '600': 'Kre', '700': 'Ges', '800': 'EDV', '900': 'Ver' };
+const kOf = v => KURSE && KURSE.vhs[v.id] ? KURSE.vhs[v.id] : null;
+function topFb(k, n = 3) { return Object.entries(k.kategorien).filter(e => e[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, n).map(([c]) => KURSE.kategorien[c]); }
+function heatCells(v) {
+  const k = kOf(v);
+  if (!KURSE) return '<span class="kurse-none">nicht geladen</span>';
+  if (!k) return '<span class="kurse-none">nicht in der Kurssuche</span>';
+  if (!k.gesamt) return '<span class="kurse-none">derzeit keine Kurse eingetragen</span>';
+  const max = Math.max(1, ...Object.values(k.kategorien));
+  const cells = Object.entries(KURSE.kategorien).map(([c, name]) => { const n = k.kategorien[c] || 0, pct = n ? Math.round(18 + 72 * n / max) : 0;
+    return `<span class="${pct > 55 ? 'hi' : ''}" style="${n ? `background:color-mix(in oklab, var(--accent) ${pct}%, var(--panel))` : ''}" data-tip="${esc(name)}: <b>${n}</b> von ${k.gesamt} Kursen">${n || ''}</span>`; }).join('');
+  return `<div class="heat">${cells}</div><div class="top3">${k.gesamt} Kurse · ${esc(topFb(k).join(', '))}</div>`;
+}
+function renderFachbereiche() {
+  if (!KURSE) { ['c-fb', 'c-grp', 'c-form'].forEach(id => document.getElementById(id).innerHTML = '<p class="empty-chart">Noch keine Daten aus der Kurssuche.</p>'); return; }
+  const sum = (sec, key) => Object.values(KURSE.vhs).reduce((a, e) => a + (e[sec][key] || 0), 0);
+  const total = Object.values(KURSE.vhs).reduce((a, e) => a + e.gesamt, 0);
+  document.getElementById('c-fb-sub').textContent = `${fmt(total)} Kurse von ${Object.keys(KURSE.vhs).length} VHS nach Fachbereich, Stand ${dmy(KURSE.stand)}. Zeigt nur, was in der Kurssuche eingetragen ist.`;
+  const pct = n => (n / total * 100).toLocaleString('de-AT', { maximumFractionDigits: 1 }) + ' %';
+  bars(document.getElementById('c-fb'), Object.entries(KURSE.kategorien).map(([k, l]) => ({ label: l, n: sum('kategorien', k) })).sort((a, b) => b.n - a.n)
+    .map(e => ({ ...e, tip: `${e.label}: <b>${fmt(e.n)}</b> Kurse (${pct(e.n)})` })));
+  bars(document.getElementById('c-grp'), Object.entries(KURSE.gruppen).map(([k, l]) => ({ label: l, n: sum('gruppen', k) })));
+  bars(document.getElementById('c-form'), Object.entries(KURSE.formen).map(([k, l]) => ({ label: l, n: sum('formen', k) })).filter(e => e.n > 0).sort((a, b) => b.n - a.n));
+  document.getElementById('heat-head').innerHTML = Object.keys(KURSE.kategorien).map(c => `<span title="${esc(KURSE.kategorien[c])}">${CAT_SHORT[c]}</span>`).join('');
+}
+
 // Verzeichnis-Tabelle
 let tState = { q: '', bezirk: '', portal: '', sort: 'name', dir: 1 };
 const $tbody = document.getElementById('tbody'), $tq = document.getElementById('tq'), $tb = document.getElementById('tbezirk');
@@ -1184,9 +1223,10 @@ function renderTable() {
     <td class="num">${k.anzahl != null ? `<span class="kurse-num">${k.untergrenze ? '≥ ' : ''}${k.anzahl}</span><span class="vhs-ort">${esc(k.zeitraum)}</span>` : '<span class="kurse-none">–</span>'}</td>
     <td>${k.im_portal ? `<span class="pill pill-ok">✓ ${k.portal_sichtbar ?? '?'} sichtbar</span>` : '<span class="pill pill-miss">✕ fehlt</span>'}</td>
     <td><span class="pill pill-${k.vertrauen}" data-tip="${esc(`Sicherheit ${k.vertrauen}: ${VT_HINT[k.vertrauen]}${k.zaehlquelle ? '<br>Quelle: ' + k.zaehlquelle : ''}`)}">${VT[k.vertrauen]}</span></td>
+    <td>${heatCells(v)}</td>
     <td class="notes-cell">${hinweise(v)}</td>
     <td>${v.traeger.quelle === 'beleg' ? `<span class="tr-pill" data-tip="${esc(v.traeger.grund)}"><i class="sw t-${v.traeger.wert}"></i>${v.traeger.wert === 'kommunal' ? 'Kommunal' : 'Verein'} ✓</span>` : '<span class="kurse-none">nicht belegt</span>'}</td>
-  </tr>`; }).join('') || `<tr><td colspan="8" class="kurse-none">Keine Volkshochschule passt zu diesem Filter.</td></tr>`;
+  </tr>`; }).join('') || `<tr><td colspan="9" class="kurse-none">Keine Volkshochschule passt zu diesem Filter.</td></tr>`;
   const sum = rows.reduce((a, v) => a + (v.kurse.anzahl || 0), 0);
   document.getElementById('t-sub').textContent = `${rows.length} von ${list.length} Volkshochschulen · ${fmt(sum)} gezählte Angebote in dieser Auswahl`;
   document.querySelectorAll('.dir-table th').forEach(th => { const b = th.querySelector('[data-sort]'); th.removeAttribute('aria-sort');
@@ -1203,7 +1243,8 @@ document.getElementById('t-source').innerHTML =
   `Quellen: Kontaktdaten aus dem <a href="${esc(M.quelle)}" target="_blank" rel="noopener">Verbandsverzeichnis</a> (Abruf ${dmy(M.abgerufen)}); ` +
   `Kurszählung je VHS aus Programmheften, eigenen Online-Listen und der Kurssuche (Stand ${dmy(M.recherche.kurszaehlung)}); ` +
   `Zugehörigkeit zur Kurssuche laut deren Auswahlliste (${dmy(M.abgerufen)}); Landeswerte: <a href="${esc(LAND.quelle_url)}" target="_blank" rel="noopener">${esc(LAND.quelle)}</a>. ` +
-  `„Angebote“ sind gezählte Angebote im laufenden Programm, keine Jahreswerte.`;
+  `„Angebote“ sind gezählte Angebote im laufenden Programm, keine Jahreswerte.` +
+  (KURSE ? ` Inhaltliches Angebot: Kurse in der Kurssuche je Fachbereich (Stand ${dmy(KURSE.stand)}); Kürzel: ` + Object.keys(KURSE.kategorien).map(c => `${CAT_SHORT[c]} = ${KURSE.kategorien[c]}`).join(', ') + '.' : '');
 
 // Kartendetail ergänzen
 const _select = select;
@@ -1214,6 +1255,7 @@ select = function (id, fly) { _select(id, fly); const v = list.find(x => x.id ==
     (v.ansprechperson ? `<dt>Kontakt</dt><dd>${esc(v.ansprechperson)}</dd>` : '') +
     `<dt>Angebote</dt><dd>${k.anzahl != null ? `<b>${k.untergrenze ? '≥ ' : ''}${k.anzahl}</b> ${esc(k.zeitraum)}` : esc(k.keine_zahl_grund || 'keine Kurszahl')}</dd>` +
     `<dt>Kurssuche</dt><dd>${k.im_portal ? `${k.portal_sichtbar ?? '?'} sichtbar` : 'nicht vorhanden'}</dd>` +
+    (kOf(v) && kOf(v).gesamt ? `<dt>Schwerpunkte</dt><dd>${esc(topFb(kOf(v)).join(', '))} <span class="vhs-ort">laut Kurssuche</span></dd>` : '') +
     (v.jahreswerte.teilnehmende ? `<dt>Teilnehmende</dt><dd>${esc(v.jahreswerte.teilnehmende)}</dd>` : ''));
 };
 
@@ -1230,7 +1272,7 @@ function route() {
   if (view === 'karte') { map.invalidateSize(); if (pendingSelect) { select(pendingSelect, true); pendingSelect = null; } }
 }
 addEventListener('hashchange', route);
-renderKpis(); renderTable(); route();
+renderKpis(); renderFachbereiche(); renderTable(); route();
 </script>
 
 </body>
