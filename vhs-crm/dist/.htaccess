@@ -1,10 +1,6 @@
-# Zugang nur mit Anmeldung (HTTP Basic Auth, Apache)
-# AuthUserFile muss den ABSOLUTEN Serverpfad zur .htpasswd enthalten –
-# idealerweise außerhalb des Web-Verzeichnisses. Pfad beim Hoster nachsehen.
-AuthType Basic
-AuthName "VHS-CRM – nur für berechtigte Personen"
-AuthUserFile /PFAD/AUSSERHALB/DES/WEBROOTS/.htpasswd
-Require valid-user
+# VHS-CRM – Schutzregeln (Hostinger / LiteSpeed)
+# Der Passwortschutz wird über hPanel → Erweitert → „Passwortgeschützte Verzeichnisse“
+# eingerichtet. Hostinger ergänzt dabei selbst die Zeilen AuthType/AuthUserFile/Require.
 
 # Nur über HTTPS ausliefern (Passwort sonst im Klartext)
 RewriteEngine On
@@ -16,8 +12,8 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   Header set X-Robots-Tag "noindex, nofollow"
 </IfModule>
 
-# .htpasswd und andere versteckte Dateien nie ausliefern
-<FilesMatch "^\.">
+# Kein Verzeichnis-Listing, versteckte Dateien sperren
+Options -Indexes
+<FilesMatch "^\.ht">
   Require all denied
 </FilesMatch>
-Options -Indexes

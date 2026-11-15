@@ -19,11 +19,13 @@ Interne Web-App für den Verband NÖ Volkshochschulen: Karte und Dashboard aller
 python3 build.py      # erzeugt dist/index.html (+ .htaccess, robots.txt)
 ```
 
-## Veröffentlichen auf vhs.gr-advice.at (nur mit Anmeldung)
-1. Subdomain `vhs.gr-advice.at` beim Hoster anlegen, eigenes Verzeichnis, SSL-Zertifikat aktivieren.
-2. Inhalt von `dist/` hochladen (inkl. der versteckten Datei `.htaccess`).
-3. Passwortdatei **außerhalb** des Web-Verzeichnisses anlegen, z. B. per SSH: `htpasswd -c /pfad/.htpasswd benutzername` – oder über den Verzeichnisschutz im Hoster-Panel.
-4. In `.htaccess` die Zeile `AuthUserFile` auf diesen absoluten Pfad setzen.
-5. Prüfen: Aufruf ohne Passwort muss 401 liefern; die Subdomain nirgends auf gr-advice.at verlinken.
+## Veröffentlichen auf vhs.gr-advice.at (Hostinger, nur mit Anmeldung)
+1. **Subdomain anlegen:** hPanel → Domains → Subdomains → Name `vhs`, Domain `gr-advice.at`, Ordner übernehmen (z. B. `public_html/vhs`).
+2. **SSL:** hPanel → Sicherheit → SSL → für `vhs.gr-advice.at` installieren (meist automatisch, kann bis zu ein paar Stunden dauern).
+3. **Hochladen:** hPanel → Dateien → Dateimanager → in den Subdomain-Ordner wechseln → `vhs-crm-upload.zip` hochladen → Rechtsklick → Entpacken. Danach müssen dort `index.html`, `robots.txt` und `.htaccess` liegen (versteckte Dateien ggf. einblenden). Die ZIP-Datei danach löschen.
+4. **Passwortschutz:** hPanel → Erweitert → Passwortgeschützte Verzeichnisse → Subdomain-Ordner wählen → Benutzername und starkes Passwort setzen. Erst **nach** dem Hochladen machen, damit die `.htaccess` nicht überschrieben wird.
+5. **Prüfen:** `https://vhs.gr-advice.at` im privaten Fenster öffnen → Anmeldefenster muss erscheinen; ohne Passwort darf nichts zu sehen sein. Die Subdomain nirgends auf gr-advice.at verlinken.
+
+Aktualisieren: `python3 build.py`, dann nur `dist/index.html` im Dateimanager ersetzen.
 
 Schutz: HTTP-Basic-Auth über HTTPS, `noindex` (Meta-Tag und Header), `robots.txt` sperrt alles, kein Verzeichnis-Listing.
