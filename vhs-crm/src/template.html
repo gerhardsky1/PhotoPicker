@@ -1,4 +1,5 @@
-<title>VHS-Landkarte Niederösterreich</title>
+<title>VHS-CRM Niederösterreich</title>
+<meta name="robots" content="noindex, nofollow">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400&display=swap">
@@ -18,6 +19,10 @@
   --land-no: #fbf3d6;
   --land-line: #b9c2d3;
   --water: #dfe7f2;
+  --accent-strong: #143a75;
+  --c-kommunal: #1d4f9c;
+  --c-verein: #d08a00;
+  --c-unklar: #8a93a6;
   --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-label: "IBM Plex Sans Condensed", "Arial Narrow", "IBM Plex Sans", sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -25,11 +30,11 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
   --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
-  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; color-scheme: dark } }
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; --accent-strong: #a9c5f3; --c-kommunal: #7fa8ec; --c-verein: #f5c32c; --c-unklar: #8a93a6; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
   --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
-  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; color-scheme: dark }
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; --accent-strong: #a9c5f3; --c-kommunal: #7fa8ec; --c-verein: #f5c32c; --c-unklar: #8a93a6; color-scheme: dark }
 
 html, body { height: 100%; }
 body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--font-ui); }
@@ -108,16 +113,168 @@ ul.list li button[aria-current="true"] { background: var(--accent-soft); box-sha
   .detail { top: auto; bottom: 12px; max-height: calc(100% - 24px); }
   .legend { display: none; }
 }
+/* Reiter */
+.tabs { display: flex; gap: 4px; margin-left: auto; align-self: center; }
+.tabs a { font: 600 13px var(--font-label); letter-spacing: .02em; color: var(--muted); text-decoration: none; padding: 6px 12px; border-radius: 6px; }
+.tabs a:hover { background: var(--accent-soft); color: var(--ink); }
+.tabs a[aria-current="page"] { background: var(--accent); color: var(--panel); }
+.tabs a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+header.top .count { margin-left: 0; }
+
+/* Dashboard */
+.dash { min-height: 0; overflow-y: auto; }
+.dash-inner { max-width: 1240px; margin: 0 auto; box-sizing: border-box; padding-block: 20px 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 16px; }
+.card { margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+.card h2, .table-head h2 { margin: 0; font: 600 16px/1.3 var(--font-label); text-wrap: balance; }
+.card figcaption p, .table-head p { margin: 2px 0 12px; color: var(--muted); font-size: 12.5px; }
+.minor { margin: 12px 0 6px; font: 600 11px var(--font-label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.6fr); gap: 16px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 2px; align-content: start; min-width: 0; }
+.kpi-label { font: 600 11px var(--font-label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.kpi-val { font: 600 30px/1.15 var(--font-label); font-variant-numeric: tabular-nums; }
+.kpi-note { font-size: 12px; color: var(--muted); }
+.tag-indiz { font: 600 10px var(--font-label); letter-spacing: .04em; padding: 1px 5px; border-radius: 3px; border: 1px dashed var(--muted); color: var(--muted); text-transform: none; }
+.seg { display: flex; gap: 2px; height: 14px; margin: 10px 0 8px; }
+.seg span { border-radius: 3px; min-width: 4px; }
+.seg-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--muted); }
+.seg-legend b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.t-kommunal { background: var(--c-kommunal); }
+.t-verein { background: var(--c-verein); }
+.t-unklar { background: repeating-linear-gradient(45deg, var(--c-unklar) 0 2px, transparent 2px 5px); border: 1px solid var(--c-unklar); box-sizing: border-box; }
+
+.charts { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; }
+.bars { display: grid; gap: 6px; }
+.bar { display: grid; grid-template-columns: minmax(110px, 38%) 1fr; gap: 10px; align-items: center; font-size: 12.5px; }
+.bar-label { color: var(--ink); min-width: 0; overflow-wrap: anywhere; }
+.bar-track { position: relative; height: 18px; display: flex; align-items: center; gap: 8px; }
+.bar-fill { height: 12px; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
+.bar-val { font: 12px var(--font-data); color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bar:hover .bar-fill { background: var(--accent-strong); }
+.empty-chart { color: var(--muted); font-size: 13px; padding: 12px 0; }
+
+.table-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: end; margin-bottom: 8px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filters input { padding: 7px 10px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; min-width: 0; width: 200px; max-width: 100%; }
+.filters input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { all: unset; cursor: pointer; font: 500 12.5px var(--font-label); padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.chip:hover { background: var(--accent-soft); color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.table-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px; }
+.dir-table { border-collapse: collapse; width: 100%; min-width: 980px; font-size: 13px; }
+.dir-table th { text-align: left; font: 600 11px var(--font-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; position: sticky; top: 0; background: var(--panel); }
+.dir-table th button { all: unset; cursor: pointer; }
+.dir-table th button:hover, .dir-table th button:focus-visible { color: var(--ink); text-decoration: underline; }
+.dir-table th[aria-sort="ascending"] button::after { content: " ▲"; }
+.dir-table th[aria-sort="descending"] button::after { content: " ▼"; }
+.th-hint { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.dir-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.dir-table tbody tr:hover { background: var(--accent-soft); }
+.dir-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.vhs-name { all: unset; cursor: pointer; font-weight: 600; color: var(--ink); }
+.vhs-name:hover, .vhs-name:focus-visible { color: var(--accent); text-decoration: underline; }
+.vhs-ort { display: block; color: var(--muted); font-size: 12px; }
+.contact { display: grid; gap: 1px; font-size: 12.5px; }
+.contact .mono { font-size: 12px; }
+.contact a { color: var(--accent); }
+.tr-pill { display: inline-flex; align-items: center; gap: 5px; font: 500 12px var(--font-label); white-space: nowrap; color: var(--ink); }
+.tr-pill .sw { margin: 0; }
+.kurse-num { font: 600 14px var(--font-data); }
+.kurse-none { color: var(--muted); font-size: 12px; }
+.heat { display: grid; grid-template-columns: repeat(9, 26px); gap: 2px; }
+.heat span { height: 22px; border-radius: 3px; display: grid; place-items: center; font: 10.5px var(--font-data); color: var(--ink); background: var(--bg); }
+.heat span.hi { color: var(--panel); }
+.heat-head { display: grid; grid-template-columns: repeat(9, 26px); gap: 2px; margin-top: 4px; }
+.heat-head span { font: 600 9.5px var(--font-label); color: var(--muted); text-align: center; letter-spacing: .02em; }
+.top3 { margin-top: 4px; color: var(--muted); font-size: 12px; }
+.source { margin: 12px 0 0; color: var(--muted); font-size: 12px; }
+.tip { position: fixed; z-index: 1000; pointer-events: none; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 9px; font-size: 12.5px; box-shadow: 0 4px 14px rgb(0 0 0 / .15); max-width: 260px; }
+.tip b { font-variant-numeric: tabular-nums; }
+
+@media (max-width: 980px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi-wide { grid-column: 1 / -1; }
+  .charts { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) { .tabs { margin-left: 0; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 
 <div class="app">
   <header class="top">
-    <h1>VHS-Landkarte <span>Niederösterreich</span></h1>
+    <h1>VHS-CRM <span>Niederösterreich</span></h1>
     <div class="sub">Mitglieder des Verbands NÖ Volkshochschulen</div>
+    <nav class="tabs" aria-label="Ansicht">
+      <a href="#karte" id="tab-karte">Karte</a>
+      <a href="#dashboard" id="tab-dashboard">Dashboard</a>
+    </nav>
     <div class="count" id="count"></div>
   </header>
-  <div class="work">
+  <main class="dash" id="view-dashboard" hidden>
+    <div class="dash-inner">
+      <section class="kpis" aria-label="Kennzahlen">
+        <div class="kpi"><span class="kpi-label">Mitglieds-VHS</span><span class="kpi-val" id="k-vhs">–</span><span class="kpi-note">laut Verbandsverzeichnis</span></div>
+        <div class="kpi"><span class="kpi-label">Im Kurssystem</span><span class="kpi-val" id="k-sys">–</span><span class="kpi-note" id="k-sys-note">VHS mit Kursen auf vhs-noe.at</span></div>
+        <div class="kpi"><span class="kpi-label">Ausgeschriebene Kurse</span><span class="kpi-val" id="k-kurse">–</span><span class="kpi-note" id="k-kurse-note">alle Fachbereiche</span></div>
+        <div class="kpi kpi-wide"><span class="kpi-label">Trägerschaft <span class="tag-indiz">Indiz</span></span>
+          <div class="seg" id="k-traeger" role="img"></div>
+          <div class="seg-legend" id="k-traeger-legend"></div>
+        </div>
+      </section>
+
+      <section class="charts">
+        <figure class="card">
+          <figcaption><h2>Kurse nach Fachbereich</h2><p id="c-fb-sub">Anzahl ausgeschriebener Kurse, alle VHS</p></figcaption>
+          <div class="bars" id="c-fb"></div>
+        </figure>
+        <figure class="card">
+          <figcaption><h2>Zielgruppen und Formate</h2><p>Anzahl Kurse, alle VHS. Zielgruppen überschneiden sich nicht mit Formaten.</p></figcaption>
+          <h3 class="minor">Zielgruppe</h3>
+          <div class="bars" id="c-grp"></div>
+          <h3 class="minor">Format</h3>
+          <div class="bars" id="c-form"></div>
+        </figure>
+      </section>
+
+      <section class="card table-card">
+        <div class="table-head">
+          <div>
+            <h2>Verzeichnis der Volkshochschulen</h2>
+            <p id="t-sub">Ansprechpersonen, Kontakt und Kursangebot</p>
+          </div>
+          <div class="filters">
+            <input id="tq" type="search" placeholder="Suchen …" autocomplete="off" aria-label="Verzeichnis durchsuchen">
+            <div class="chips" role="group" aria-label="Trägerschaft filtern">
+              <button type="button" class="chip" data-tr="" aria-pressed="true">Alle</button>
+              <button type="button" class="chip" data-tr="kommunal" aria-pressed="false">Kommunal</button>
+              <button type="button" class="chip" data-tr="verein" aria-pressed="false">Verein</button>
+              <button type="button" class="chip" data-tr="unklar" aria-pressed="false">Unklar</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table class="dir-table" id="tbl">
+            <thead><tr>
+              <th scope="col"><button type="button" data-sort="name">VHS</button></th>
+              <th scope="col"><button type="button" data-sort="traeger">Träger</button></th>
+              <th scope="col"><button type="button" data-sort="leitung">Leitung</button></th>
+              <th scope="col">Kontakt</th>
+              <th scope="col" class="num"><button type="button" data-sort="kurse">Kurse</button></th>
+              <th scope="col">Inhaltliches Angebot <span class="th-hint">(Fachbereiche)</span></th>
+            </tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+        <p class="source" id="t-source"></p>
+      </section>
+    </div>
+    <div class="tip" id="tip" hidden></div>
+  </main>
+  <div class="work" id="view-karte">
     <aside class="dir">
       <div class="search">
         <input id="q" type="search" placeholder="Suchen: Name, Ort, PLZ, Leitung …" autocomplete="off" aria-label="Volkshochschulen durchsuchen">
@@ -218,7 +375,7 @@ function select(id, fly) {
       <dt>Telefon</dt><dd><span class="mono">${esc(v.telefon) || '—'}</span>${v.telefon ? copyBtn(v.telefon) : ''}</dd>
       <dt>E-Mail</dt><dd><span class="mono">${esc(v.email) || '—'}</span>${v.email ? copyBtn(v.email) : ''}</dd>
       <dt>Website</dt><dd>${link(v.web)}</dd>
-      <dt>Kurse</dt><dd>${link(v.kursprogramm)}</dd>
+      <dt>Programm</dt><dd>${link(v.kursprogramm)}</dd>
     </dl>
     <div class="foot">
       <a href="https://www.openstreetmap.org/?mlat=${v.lat}&mlon=${v.lon}#map=17/${v.lat}/${v.lon}" target="_blank" rel="noopener">Auf OpenStreetMap öffnen</a>
@@ -243,4 +400,121 @@ new MutationObserver(retheme).observe(document.documentElement, { attributes: tr
 
 document.getElementById('legend-src').textContent = `Stand ${DATA.meta.abgerufen.split('-').reverse().join('.')}, ${DATA.meta.anzahl} Mitglieder`;
 render();
+
+// ───────────── Dashboard ─────────────
+const KURSE = /*KURSE_DATA*/;   // null, solange keine Kurszahlen vorliegen
+const fmt = n => n == null ? '–' : n.toLocaleString('de-AT');
+const TR = { kommunal: 'Kommunal', verein: 'Verein', unklar: 'Unklar' };
+const CAT_SHORT = { '100': 'Pol', '200': 'Grb', '300': 'Nat', '400': 'Ber', '500': 'Spr', '600': 'Kre', '700': 'Ges', '800': 'EDV', '900': 'Ver' };
+const kurseOf = v => KURSE && KURSE.vhs[v.id] ? KURSE.vhs[v.id] : null;
+const $tip = document.getElementById('tip');
+function tip(e, html) { if (!html) { $tip.hidden = true; return; } $tip.innerHTML = html; $tip.hidden = false;
+  const x = Math.min(e.clientX + 14, innerWidth - $tip.offsetWidth - 8), y = Math.min(e.clientY + 14, innerHeight - $tip.offsetHeight - 8);
+  $tip.style.left = x + 'px'; $tip.style.top = y + 'px'; }
+document.addEventListener('pointermove', e => { const t = e.target.closest('[data-tip]'); tip(e, t ? t.dataset.tip : null); });
+
+function bars(el, entries) {
+  const max = Math.max(1, ...entries.map(e => e[1]));
+  el.innerHTML = entries.map(([label, n, tipText]) => `
+    <div class="bar" data-tip="${esc(tipText || `${label}: <b>${fmt(n)}</b> Kurse`)}">
+      <span class="bar-label">${esc(label)}</span>
+      <span class="bar-track"><span class="bar-fill" style="width:calc(${(n / max * 100).toFixed(1)}% - 48px)"></span><span class="bar-val">${fmt(n)}</span></span>
+    </div>`).join('');
+}
+
+function renderKpis() {
+  document.getElementById('k-vhs').textContent = list.length;
+  const counts = { kommunal: 0, verein: 0, unklar: 0 };
+  list.forEach(v => counts[v.traeger.wert]++);
+  document.getElementById('k-traeger').innerHTML = Object.keys(counts).map(k =>
+    `<span class="t-${k}" style="flex:${counts[k]}" data-tip="${TR[k]}: <b>${counts[k]}</b> VHS"></span>`).join('');
+  document.getElementById('k-traeger').setAttribute('aria-label', Object.keys(counts).map(k => `${TR[k]} ${counts[k]}`).join(', '));
+  document.getElementById('k-traeger-legend').innerHTML = Object.keys(counts).map(k =>
+    `<span><i class="sw t-${k}"></i>${TR[k]} <b>${counts[k]}</b></span>`).join('') +
+    `<span>Abgeleitet aus Kontaktadressen, nicht geprüft</span>`;
+  if (!KURSE) {
+    document.getElementById('k-sys').textContent = '–';
+    document.getElementById('k-kurse').textContent = '–';
+    document.getElementById('k-kurse-note').textContent = 'Kurszahlen noch nicht geladen';
+    ['c-fb', 'c-grp', 'c-form'].forEach(id => document.getElementById(id).innerHTML = '<p class="empty-chart">Kurszahlen noch nicht geladen. Sie kommen aus der zentralen Kurssuche auf vhs-noe.at.</p>');
+    return;
+  }
+  const inSys = Object.keys(KURSE.vhs).length;
+  document.getElementById('k-sys').textContent = `${inSys} / ${list.length}`;
+  document.getElementById('k-sys-note').textContent = `${list.length - inSys} VHS ohne Kurse im zentralen System`;
+  document.getElementById('k-kurse').textContent = fmt(KURSE.gesamt);
+  document.getElementById('k-kurse-note').textContent = `Stand ${KURSE.stand.split('-').reverse().join('.')}`;
+  const sum = (sec, key) => Object.values(KURSE.vhs).reduce((a, e) => a + (e[sec][key] || 0), 0);
+  const fb = Object.entries(KURSE.kategorien).map(([k, n]) => [n, sum('kategorien', k)]).sort((a, b) => b[1] - a[1]);
+  bars(document.getElementById('c-fb'), fb);
+  bars(document.getElementById('c-grp'), Object.entries(KURSE.gruppen).map(([k, n]) => [n, sum('gruppen', k)]));
+  bars(document.getElementById('c-form'), Object.entries(KURSE.formen).map(([k, n]) => [n, sum('formen', k)]).sort((a, b) => b[1] - a[1]));
+}
+
+// Verzeichnis-Tabelle
+let tState = { q: '', tr: '', sort: 'name', dir: 1 };
+const $tbody = document.getElementById('tbody'), $tq = document.getElementById('tq');
+function heatCells(k) {
+  if (!k) return '<span class="kurse-none">nicht im zentralen Kurssystem</span>';
+  const max = Math.max(1, ...Object.values(k.kategorien));
+  const cells = Object.entries(KURSE.kategorien).map(([c, name]) => {
+    const n = k.kategorien[c] || 0, pct = n ? Math.round(18 + 72 * n / max) : 0;
+    return `<span class="${pct > 55 ? 'hi' : ''}" style="${n ? `background:color-mix(in oklab, var(--accent) ${pct}%, var(--panel))` : ''}" data-tip="${esc(name)}: <b>${n}</b> Kurse">${n || ''}</span>`;
+  }).join('');
+  const top = Object.entries(k.kategorien).filter(e => e[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c]) => KURSE.kategorien[c]);
+  return `<div class="heat">${cells}</div><div class="top3">${top.length ? 'Schwerpunkte: ' + esc(top.join(', ')) : 'derzeit keine Kurse ausgeschrieben'}</div>`;
+}
+function renderTable() {
+  const q = norm(tState.q).trim();
+  let rows = list.filter(v => (!tState.tr || v.traeger.wert === tState.tr) &&
+    (!q || norm([v.name, v.ort, v.plz, v.leitung, v.email, v.telefon].join(' ')).includes(q)));
+  const key = { name: v => norm(v.name.replace(/^(VHS|KV|VBV) /, '')), traeger: v => v.traeger.wert, leitung: v => norm(v.leitung), kurse: v => kurseOf(v) ? kurseOf(v).gesamt : -1 }[tState.sort];
+  rows.sort((a, b) => (key(a) > key(b) ? 1 : key(a) < key(b) ? -1 : 0) * tState.dir);
+  $tbody.innerHTML = rows.map(v => { const k = kurseOf(v); return `<tr>
+    <td><button type="button" class="vhs-name" data-open="${v.id}">${esc(v.name)}</button><span class="vhs-ort">${esc(v.plz)} ${esc(v.ort)}</span></td>
+    <td><span class="tr-pill" data-tip="${esc(v.traeger.grund)}"><i class="sw t-${v.traeger.wert}"></i>${TR[v.traeger.wert]}</span></td>
+    <td>${esc(v.leitung) || '—'}</td>
+    <td><div class="contact"><span class="mono">${esc(v.telefon) || '—'}</span><span class="mono">${esc(v.email) || '—'}</span>${v.web ? `<a href="${esc(v.web)}" target="_blank" rel="noopener">${esc(v.web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>` : ''}</div></td>
+    <td class="num">${k ? `<span class="kurse-num">${fmt(k.gesamt)}</span>` : (KURSE ? '<span class="kurse-none">–</span>' : '<span class="kurse-none">offen</span>')}</td>
+    <td>${KURSE ? heatCells(k) : '<span class="kurse-none">Kurszahlen noch nicht geladen</span>'}</td>
+  </tr>`; }).join('') || `<tr><td colspan="6" class="kurse-none">Keine Volkshochschule passt zu diesem Filter.</td></tr>`;
+  document.getElementById('t-sub').textContent = `${rows.length} von ${list.length} Volkshochschulen · Ansprechpersonen, Kontakt und Kursangebot`;
+  document.querySelectorAll('.dir-table th').forEach(th => { const b = th.querySelector('[data-sort]'); th.removeAttribute('aria-sort');
+    if (b && b.dataset.sort === tState.sort) th.setAttribute('aria-sort', tState.dir > 0 ? 'ascending' : 'descending'); });
+}
+if (KURSE) document.querySelector('.dir-table thead th:last-child').insertAdjacentHTML('beforeend',
+  `<div class="heat-head">${Object.keys(KURSE.kategorien).map(c => `<span title="${esc(KURSE.kategorien[c])}">${CAT_SHORT[c]}</span>`).join('')}</div>`);
+$tq.addEventListener('input', () => { tState.q = $tq.value; renderTable(); });
+document.querySelector('.chips').addEventListener('click', e => { const c = e.target.closest('.chip'); if (!c) return;
+  tState.tr = c.dataset.tr; document.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x === c))); renderTable(); });
+document.querySelector('.dir-table thead').addEventListener('click', e => { const b = e.target.closest('[data-sort]'); if (!b) return;
+  tState.dir = tState.sort === b.dataset.sort ? -tState.dir : (b.dataset.sort === 'kurse' ? -1 : 1); tState.sort = b.dataset.sort; renderTable(); });
+$tbody.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (!b) return; pendingSelect = b.dataset.open; location.hash = 'karte'; });
+document.getElementById('t-source').textContent =
+  `Quellen: Verbandsverzeichnis vhs-noe.at (Stand ${DATA.meta.abgerufen.split('-').reverse().join('.')})` +
+  (KURSE ? `; Kurszahlen aus der zentralen Kurssuche (Stand ${KURSE.stand.split('-').reverse().join('.')}). Kürzel: ` + Object.keys(KURSE.kategorien).map(c => `${CAT_SHORT[c]} = ${KURSE.kategorien[c]}`).join(', ') + '.' : '.') +
+  ' Trägerschaft ist ein Indiz aus den Kontaktadressen.';
+
+// Kurse auch im Kartendetail zeigen
+const _select = select;
+select = function (id, fly) { _select(id, fly); const v = list.find(x => x.id === id), k = kurseOf(v);
+  const dl = $detail.querySelector('dl');
+  dl.insertAdjacentHTML('beforeend', `<dt>Träger</dt><dd><span class="tr-pill"><i class="sw t-${v.traeger.wert}"></i>${TR[v.traeger.wert]}</span><span class="tag-indiz" title="${esc(v.traeger.grund)}">Indiz</span></dd>` +
+    (KURSE ? `<dt>Kurse</dt><dd>${k ? `<b>${fmt(k.gesamt)}</b> ausgeschrieben` : 'nicht im zentralen Kurssystem'}</dd>` : ''));
+};
+
+// Ansichten (Hash-Routing)
+let pendingSelect = null;
+function route() {
+  const view = location.hash === '#dashboard' ? 'dashboard' : 'karte';
+  document.getElementById('view-dashboard').hidden = view !== 'dashboard';
+  document.getElementById('view-karte').hidden = view !== 'karte';
+  document.getElementById('count').hidden = view !== 'karte';
+  document.getElementById('tab-karte').setAttribute('aria-current', view === 'karte' ? 'page' : 'false');
+  document.getElementById('tab-dashboard').setAttribute('aria-current', view === 'dashboard' ? 'page' : 'false');
+  $tip.hidden = true;
+  if (view === 'karte') { map.invalidateSize(); if (pendingSelect) { select(pendingSelect, true); pendingSelect = null; } }
+}
+addEventListener('hashchange', route);
+renderKpis(); renderTable(); route();
 </script>
