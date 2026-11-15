@@ -1,0 +1,1371 @@
+{
+ "meta": {
+  "quelle": "https://www.vhs-noe.at/Verbandsmitglieder/",
+  "abgerufen": "2026-11-15",
+  "geocoding": "OpenStreetMap Nominatim (© OpenStreetMap-Mitwirkende, ODbL)",
+  "anzahl": 68,
+  "traeger_hinweis": "Trägerschaft ist aus den Kontaktadressen abgeleitet (Indiz), nicht geprüft. Bitte durch den Verband bestätigen."
+ },
+ "vhs": [
+  {
+   "id": "10063",
+   "name": "VHS Allentsteig",
+   "leitung": "Direktor Gerald Nossal",
+   "strasse": "Schaichgasse 4c",
+   "plz": "3804",
+   "ort": "Allentsteig",
+   "telefon": "0680/2165635",
+   "email": "gnossal@gmail.com",
+   "web": "http://www.allentsteig.gv.at/Bildung/Volkshochschule",
+   "kursprogramm": "https://allentsteig.vhs-noe.at/Kurse",
+   "lat": 48.6933918,
+   "lon": 15.3290528,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (allentsteig.gv.at)"
+   }
+  },
+  {
+   "id": "10068",
+   "name": "VHS Amstetten",
+   "leitung": "Marion Teichmann",
+   "strasse": "Rathausstraße 1",
+   "plz": "3300",
+   "ort": "Amstetten",
+   "telefon": "07472/601-215",
+   "email": "m.teichmann@amstetten.at",
+   "web": "https://vhs.amstetten.at",
+   "kursprogramm": "https://amstetten.vhs-noe.at/Kurse",
+   "lat": 48.1229479,
+   "lon": 14.8711144,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (amstetten.at)"
+   }
+  },
+  {
+   "id": "10075",
+   "name": "VHS Baden",
+   "leitung": "Dr. Lorena Muñoz Izarra",
+   "strasse": "Johannesgasse 9",
+   "plz": "2500",
+   "ort": "Baden",
+   "telefon": "02252 88 990",
+   "email": "office@vhs-baden.at",
+   "web": "https://baden.vhs-noe.at",
+   "kursprogramm": "https://baden.vhs-noe.at/Kurse",
+   "lat": 48.0069854,
+   "lon": 16.2275934,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-baden.at)"
+   }
+  },
+  {
+   "id": "10077",
+   "name": "VHS Badener Urania",
+   "leitung": "Norbert Ruttner, BEd",
+   "strasse": "Jägerhausgasse 16",
+   "plz": "2500",
+   "ort": "Baden",
+   "telefon": "0664/4816419",
+   "email": "urania@badener-urania.at",
+   "web": "http://www.badener-urania.at",
+   "kursprogramm": "https://badenerurania.vhs-noe.at/Kurse",
+   "lat": 48.0038354,
+   "lon": 16.2139748,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (badener-urania.at)"
+   }
+  },
+  {
+   "id": "10081",
+   "name": "VHS Berndorf",
+   "leitung": "Dipl. Päd. Andreas Rottensteiner",
+   "strasse": "Margarethenplatz 2",
+   "plz": "2560",
+   "ort": "Berndorf",
+   "telefon": "+43 664 73631721",
+   "email": "andreas.rottensteiner@gmx.at",
+   "web": "http://berndorf.vhs-noe.at",
+   "kursprogramm": "https://berndorf.vhs-noe.at/Kurse",
+   "lat": 47.9418941,
+   "lon": 16.1027302,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (berndorf.vhs-noe.at, gmx.at)"
+   }
+  },
+  {
+   "id": "10013",
+   "name": "VHS Bruck an der Leitha",
+   "leitung": "Bgm. Gerhard Weil",
+   "strasse": "Höfleinerstrasse 16",
+   "plz": "2460",
+   "ort": "Bruck/Leitha",
+   "telefon": "0216268686",
+   "email": "office@vhs-bruck.at",
+   "web": "http://vhs-bruck.at",
+   "kursprogramm": "http://vhs-bruck.at/kursprogramm/",
+   "lat": 48.0295897,
+   "lon": 16.7817352,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-bruck.at)"
+   }
+  },
+  {
+   "id": "10085",
+   "name": "VHS Deutsch-Wagram",
+   "leitung": "VizeBgm Andrea Schlederer",
+   "strasse": "Bahnhofstraße 1a",
+   "plz": "2232",
+   "ort": "Deutsch-Wagram",
+   "telefon": "0676 34 711 39 (Oberndorfer Gabriele)",
+   "email": "vhs.deutsch.wagram@gmail.com",
+   "web": "http://www.deutsch-wagram.gv.at",
+   "kursprogramm": "https://deutschwagram.vhs-noe.at/Kurse",
+   "lat": 48.2976876,
+   "lon": 16.5599512,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (deutsch-wagram.gv.at)"
+   }
+  },
+  {
+   "id": "10087",
+   "name": "VHS Drosendorf-Zissersdorf",
+   "leitung": "VzBgm. Hilde Juricka",
+   "strasse": "Hauptplatz 1",
+   "plz": "2095",
+   "ort": "Drosendorf Stadt",
+   "telefon": "0664/5921617",
+   "email": "hilde.juricka@gmx.at",
+   "web": "https://www.drosendorf.at/vhs-drosendorf-zissersdorf-volkshochschule",
+   "kursprogramm": "https://drosendorf.vhs-noe.at/Kurse",
+   "lat": 48.8679825,
+   "lon": 15.6216736,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (drosendorf.at)"
+   }
+  },
+  {
+   "id": "10014",
+   "name": "VHS Eggenburg",
+   "leitung": "STR Josef Gundinger",
+   "strasse": "Kremserstraße 3",
+   "plz": "3730",
+   "ort": "Eggenburg",
+   "telefon": "+43 (0)67682104607",
+   "email": "josef.gundinger@eggenburg.at",
+   "web": "http://www.vhs.eggenburg.at",
+   "kursprogramm": "https://eggenburg.vhs-noe.at/Kurse",
+   "lat": 48.6420213,
+   "lon": 15.8176993,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (eggenburg.at)"
+   }
+  },
+  {
+   "id": "10092",
+   "name": "VHS Fischamend",
+   "leitung": "Gabriela Besin",
+   "strasse": "Enzersdorferstrasse 13 - 15",
+   "plz": "2401",
+   "ort": "Fischamend",
+   "telefon": "02232/78 110 , 0676/6855406",
+   "email": "vhs-fischamend@aon.at",
+   "web": "http://www.vhs-fischamend.at",
+   "kursprogramm": "https://fischamend.vhs-noe.at/Kurse",
+   "lat": 48.1173651,
+   "lon": 16.6139584,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-fischamend.at)"
+   }
+  },
+  {
+   "id": "10106",
+   "name": "VHS Geras",
+   "leitung": "Stadtgemeinde Geras",
+   "strasse": "Retzer Straße 1",
+   "plz": "2093",
+   "ort": "GERAS",
+   "telefon": "029127050",
+   "email": "volkshochschulegeras@gmail.com",
+   "web": "http://geras.vhs-noe.at",
+   "kursprogramm": "https://geras.vhs-noe.at/Kurse",
+   "lat": 48.7965831,
+   "lon": 15.6779033,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (geras.vhs-noe.at, gmail.com)"
+   }
+  },
+  {
+   "id": "10107",
+   "name": "VHS Gloggnitz",
+   "leitung": "StR Ing. Peter Kasper",
+   "strasse": "Sparkassenplatz 5",
+   "plz": "2640",
+   "ort": "Gloggnitz",
+   "telefon": "02662/42401 DW 26",
+   "email": "vhs@gloggnitz.gv.at",
+   "web": "http://www.gloggnitz.at",
+   "kursprogramm": "https://gloggnitz.vhs-noe.at/Kurse",
+   "lat": 47.6746966,
+   "lon": 15.9353469,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (gloggnitz.at, gloggnitz.gv.at)"
+   }
+  },
+  {
+   "id": "10108",
+   "name": "VHS Gmünd",
+   "leitung": "Stadtrat Rene Schreiber",
+   "strasse": "Schremser Straße 6",
+   "plz": "3950",
+   "ort": "Gmünd",
+   "telefon": "0664/8542040",
+   "email": "rene.schreiber@gmuend.at",
+   "web": "http://gmuend.vhs-noe.at",
+   "kursprogramm": "https://gmuend.vhs-noe.at/Kurse",
+   "lat": 48.7716143,
+   "lon": 14.9860343,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (gmuend.at)"
+   }
+  },
+  {
+   "id": "10112",
+   "name": "VHS Groß Gerungs",
+   "leitung": "Stefanie Hackl BEd. MEd.",
+   "strasse": "Hauptplatz 18",
+   "plz": "3920",
+   "ort": "Groß Gerungs",
+   "telefon": "0 28 12 / 8611",
+   "email": "office@gerungs.at",
+   "web": "https://www.gerungs.at/Meine_Gemeinde/Bildung/Volkshochschule",
+   "kursprogramm": "https://www.gerungs.at/Meine_Gemeinde/Bildung/Volkshochschule",
+   "lat": 48.574426,
+   "lon": 14.9580745,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (gerungs.at)"
+   }
+  },
+  {
+   "id": "10113",
+   "name": "VHS Groß Siegharts",
+   "leitung": "Stadträtin Martina Matzinger",
+   "strasse": "Schloßplatz 1",
+   "plz": "3812",
+   "ort": "Groß-Siegharts",
+   "telefon": "0664/88 233 892",
+   "email": "martina.matzinger@gmx.at",
+   "web": "https://www.siegharts.at/de/Volkshochschule_Gross-Siegharts",
+   "kursprogramm": "https://www.siegharts.at/de/Volkshochschule_Gross-Siegharts",
+   "lat": 48.791701,
+   "lon": 15.406188,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (siegharts.at)"
+   }
+  },
+  {
+   "id": "10425",
+   "name": "VHS Groß-Enzersdorf",
+   "leitung": "Petra Mc Quillan",
+   "strasse": "Rathausstraße 5",
+   "plz": "2301",
+   "ort": "Groß-Enzersdorf",
+   "telefon": "066488948532",
+   "email": "vhs@gross-enzersdorf.gv.at",
+   "web": "http://vhs.gross-enzersdorf.gv.at",
+   "kursprogramm": "https://grossenzersdorf.vhs-noe.at/Kurse",
+   "lat": 48.2001997,
+   "lon": 16.5507803,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (gross-enzersdorf.gv.at, vhs.gross-enzersdorf.gv.at)"
+   }
+  },
+  {
+   "id": "10095",
+   "name": "VHS Gänserndorf",
+   "leitung": "Mario Brandtner",
+   "strasse": "Rathausplatz 1",
+   "plz": "2230",
+   "ort": "Gänserndorf",
+   "telefon": "02282/2651-26",
+   "email": "vhs@gaenserndorf.at",
+   "web": "http://vhs.gaenserndorf.at",
+   "kursprogramm": "https://gaenserndorf.venuzle.com/search/events?v=card",
+   "lat": 48.3401147,
+   "lon": 16.7169502,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (gaenserndorf.at)"
+   }
+  },
+  {
+   "id": "10116",
+   "name": "VHS Haag",
+   "leitung": "Bürgermeister Lukas Michlmayr",
+   "strasse": "Hauptplatz 4",
+   "plz": "3350",
+   "ort": "Stadt Haag",
+   "telefon": "07434/42423-19",
+   "email": "volkshochschule@haag.gv.at",
+   "web": "http://haag.vhs-noe.at",
+   "kursprogramm": "https://haag.vhs-noe.at/Kurse",
+   "lat": 48.111922,
+   "lon": 14.5655237,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (haag.gv.at)"
+   }
+  },
+  {
+   "id": "10118",
+   "name": "VHS Hainburg",
+   "leitung": "Petra Patocka",
+   "strasse": "Hauptplatz 23",
+   "plz": "2410",
+   "ort": "Hainburg a.d.Donau",
+   "telefon": "02165/62111-134",
+   "email": "p.patocka@hainburg-donau.gv.at",
+   "web": "http://hainburg.vhs-noe.at",
+   "kursprogramm": "https://hainburg.vhs-noe.at/Kurse",
+   "lat": 48.1477029,
+   "lon": 16.9420444,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (hainburg-donau.gv.at)"
+   }
+  },
+  {
+   "id": "10123",
+   "name": "VHS Hainfeld",
+   "leitung": "Sandra Bauer",
+   "strasse": "Hauptstraße 5",
+   "plz": "3170",
+   "ort": "Hainfeld",
+   "telefon": "02764/2246-279",
+   "email": "bauer@hainfeld.at",
+   "web": "https://www.hainfeld.gv.at/Stadtorganisation/Einrichtungen/Volkshochschule_Hainfeld",
+   "kursprogramm": "https://hainfeld.vhs-noe.at/Kurse/",
+   "lat": 48.0347733,
+   "lon": 15.7732335,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (hainfeld.at, hainfeld.gv.at)"
+   }
+  },
+  {
+   "id": "10125",
+   "name": "VHS Heidenreichstein",
+   "leitung": "StR Barbara Körner",
+   "strasse": "Kirchenplatz 1",
+   "plz": "3860",
+   "ort": "Heidenreichstein",
+   "telefon": "02862/52336 DW 14",
+   "email": "koerner_barbara@yahoo.de",
+   "web": "http://heidenreichstein.vhs-noe.at",
+   "kursprogramm": "https://heidenreichstein.vhs-noe.at/Kurse",
+   "lat": 48.8655007,
+   "lon": 15.1220473,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (heidenreichstein.vhs-noe.at, yahoo.de)"
+   }
+  },
+  {
+   "id": "10127",
+   "name": "VHS Herzogenburg",
+   "leitung": "Lic. May Mujica Arcia",
+   "strasse": "Rathausplatz 8",
+   "plz": "3130",
+   "ort": "Herzogenburg",
+   "telefon": "0660/8558829",
+   "email": "office@vhs-herzogenburg.at",
+   "web": "http://herzogenburg.vhs-noe.at",
+   "kursprogramm": "https://herzogenburg.vhs-noe.at/Kurse",
+   "lat": 48.2853375,
+   "lon": 15.6946553,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-herzogenburg.at)"
+   }
+  },
+  {
+   "id": "10129",
+   "name": "VHS Hohenau/March",
+   "leitung": "GGR Margot Swatschina",
+   "strasse": "Rathausplatz 1",
+   "plz": "2273",
+   "ort": "Hohenau an der March",
+   "telefon": "02535/2307 (Gemeindeamt)",
+   "email": "swatschina@hohenau.at",
+   "web": "http://hohenau.vhs-noe.at",
+   "kursprogramm": "https://hohenau.vhs-noe.at/Kurse",
+   "lat": 48.6063726,
+   "lon": 16.9052729,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (hohenau.at)"
+   }
+  },
+  {
+   "id": "10135",
+   "name": "VHS Horn",
+   "leitung": "Mag. Roland Surböck",
+   "strasse": "Rathausplatz 1",
+   "plz": "3580",
+   "ort": "Horn",
+   "telefon": "02982/20227",
+   "email": "office@vhshorn.at",
+   "web": "http://www.vhshorn.at",
+   "kursprogramm": "https://horn.vhs-noe.at/Kurse",
+   "lat": 48.6652087,
+   "lon": 15.6559964,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhshorn.at)"
+   }
+  },
+  {
+   "id": "10141",
+   "name": "KV Korneuburg",
+   "leitung": "Mag. Bettina Wobornik",
+   "strasse": "Chimanigasse 2",
+   "plz": "2100",
+   "ort": "Korneuburg",
+   "telefon": "+43 676 5600425",
+   "email": "bettina@wobornik.com",
+   "web": "http://kvkorneuburg.vhs-noe.at",
+   "kursprogramm": "https://kvkorneuburg.vhs-noe.at/Kurse",
+   "lat": 48.350312,
+   "lon": 16.3272709,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (kvkorneuburg.vhs-noe.at, wobornik.com)"
+   }
+  },
+  {
+   "id": "10143",
+   "name": "VHS Korneuburg",
+   "leitung": "Mag. Jelena Margaretic-Panzer",
+   "strasse": "Prof.-Dr.-Karl-Liebleitner-Ring 9",
+   "plz": "2100",
+   "ort": "Korneuburg",
+   "telefon": "02262/72462",
+   "email": "office@vhs-korneuburg.at",
+   "web": "https://www.vhs-korneuburg.at",
+   "kursprogramm": "https://www.vhs-korneuburg.at/Kurse/",
+   "lat": 48.3440605,
+   "lon": 16.3334321,
+   "geo_genauigkeit": "ort",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-korneuburg.at)"
+   }
+  },
+  {
+   "id": "10144",
+   "name": "VHS Krems",
+   "leitung": "Nathalie Glorion, BA., MA.",
+   "strasse": "Obere Landstraße 10",
+   "plz": "3500",
+   "ort": "Krems",
+   "telefon": "02732/85798",
+   "email": "nathalie.glorion@vhs-krems.at",
+   "web": "http://www.vhs-krems.at",
+   "kursprogramm": "https://krems.vhs-noe.at/Kurse",
+   "lat": 48.4109211,
+   "lon": 15.5989509,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-krems.at)"
+   }
+  },
+  {
+   "id": "10146",
+   "name": "VHS Laa/Thaya",
+   "leitung": "Dir. Mag. Isabella Zins",
+   "strasse": "Goethestraße 28",
+   "plz": "2136",
+   "ort": "Laa an der Thaya",
+   "telefon": "0676/3925746",
+   "email": "isabella.zins@vhs-laa.at",
+   "web": "http://www.vhs-laa.at",
+   "kursprogramm": "https://laa.vhs-noe.at/Kurse",
+   "lat": 48.722617,
+   "lon": 16.3896039,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-laa.at)"
+   }
+  },
+  {
+   "id": "10147",
+   "name": "VHS Langenlois",
+   "leitung": "Werner Schebesta",
+   "strasse": "Kaserngasse 14",
+   "plz": "3550",
+   "ort": "Langenlois",
+   "telefon": "0664/1355330",
+   "email": "w.schebesta@aon.at",
+   "web": "http://vhs-langenlois.at",
+   "kursprogramm": "https://langenlois.vhs-noe.at/Kurse",
+   "lat": 48.4724466,
+   "lon": 15.6730992,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-langenlois.at)"
+   }
+  },
+  {
+   "id": "10149",
+   "name": "VHS Lilienfeld",
+   "leitung": "Mag. Dr. Josef Heindl",
+   "strasse": "Klosterrotte 1",
+   "plz": "3180",
+   "ort": "Lilienfeld",
+   "telefon": "02762/52380",
+   "email": "vhs@bglilienfeld.ac.at",
+   "web": "http://lilienfeld.vhs-noe.at",
+   "kursprogramm": "https://lilienfeld.vhs-noe.at/Kurse",
+   "lat": 48.0131037,
+   "lon": 15.5975756,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (bglilienfeld.ac.at, lilienfeld.vhs-noe.at)"
+   }
+  },
+  {
+   "id": "10415",
+   "name": "VHS Mank",
+   "leitung": "Roswitha Rosenberger",
+   "strasse": "Schulstraße 1",
+   "plz": "3240",
+   "ort": "Mank",
+   "telefon": "02755/2282-15",
+   "email": "volkshochschule@mank.at",
+   "web": "https://mank.vhs-noe.at",
+   "kursprogramm": "https://mank.vhs-noe.at/Kurse",
+   "lat": 48.1110325,
+   "lon": 15.3411865,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (mank.at)"
+   }
+  },
+  {
+   "id": "10153",
+   "name": "VHS Mautern",
+   "leitung": "Gabriele Inzinger",
+   "strasse": "Rathausplatz 1",
+   "plz": "3512",
+   "ort": "Mautern",
+   "telefon": "0664 811 53 52",
+   "email": "vhs.mautern@gmail.com",
+   "web": "https://mautern.vhs-noe.at",
+   "kursprogramm": "https://mautern.vhs-noe.at/Kurse/",
+   "lat": 48.3935304,
+   "lon": 15.5779333,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (gmail.com, mautern.vhs-noe.at)"
+   }
+  },
+  {
+   "id": "10154",
+   "name": "VHS Melk",
+   "leitung": "Isabella Kaufmann",
+   "strasse": "Rathausplatz 11",
+   "plz": "3390",
+   "ort": "Melk",
+   "telefon": "0676 844715608",
+   "email": "vhs@stadt-melk.at",
+   "web": "http://melk.vhs-noe.at",
+   "kursprogramm": "https://melk.vhs-noe.at/Kurse",
+   "lat": 48.2271269,
+   "lon": 15.3321454,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (stadt-melk.at)"
+   }
+  },
+  {
+   "id": "10155",
+   "name": "VHS Mistelbach",
+   "leitung": "Iris Sroufek",
+   "strasse": "Franz Josef-Straße 43",
+   "plz": "2130",
+   "ort": "Mistelbach",
+   "telefon": "02572/5200",
+   "email": "iris.sroufek@gmail.com",
+   "web": "http://www.vhs-mistelbach.at",
+   "kursprogramm": "https://mistelbach.vhs-noe.at/Kurse",
+   "lat": 48.570303,
+   "lon": 16.5698407,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-mistelbach.at)"
+   }
+  },
+  {
+   "id": "10156",
+   "name": "VHS Mödling",
+   "leitung": "Barbara Pahr",
+   "strasse": "Jakob Thoma-Straße 20",
+   "plz": "2340",
+   "ort": "Mödling",
+   "telefon": "02236/43225",
+   "email": "office@vhs-moedling.at",
+   "web": "http://www.vhs-moedling.at",
+   "kursprogramm": "https://moedling.vhs-noe.at/Kurse",
+   "lat": 48.0891041,
+   "lon": 16.2902883,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-moedling.at)"
+   }
+  },
+  {
+   "id": "10369",
+   "name": "VHS Neulengbach",
+   "leitung": "Barbara Landskron",
+   "strasse": "Marktfeldstraße 26",
+   "plz": "3040",
+   "ort": "Neulengbach",
+   "telefon": "0680 2103372",
+   "email": "kurse@vhsneulengbach.at",
+   "web": "http://neulengbach.vhs-noe.at",
+   "kursprogramm": "https://neulengbach.vhs-noe.at/Kurse",
+   "lat": 48.1994249,
+   "lon": 15.9041722,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhsneulengbach.at)"
+   }
+  },
+  {
+   "id": "10157",
+   "name": "VHS Neunkirchen",
+   "leitung": "Mag.a FH Catrin Mayerhofer-Trajkovski MA",
+   "strasse": "Fabriksgasse 34",
+   "plz": "2620",
+   "ort": "Neunkirchen",
+   "telefon": "0650/7379355",
+   "email": "neunkirchen@vhs-noe.at",
+   "web": "https://neunkirchen.vhs-noe.at",
+   "kursprogramm": "https://neunkirchen.vhs-noe.at/Kurse",
+   "lat": 47.7255431,
+   "lon": 16.0889663,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (neunkirchen.vhs-noe.at, vhs-noe.at)"
+   }
+  },
+  {
+   "id": "10158",
+   "name": "VHS Perchtoldsdorf",
+   "leitung": "Herwig Heider",
+   "strasse": "Leonhardiberggasse 10",
+   "plz": "2380",
+   "ort": "Perchtoldsdorf",
+   "telefon": "+43 660 73 47 442",
+   "email": "office@vhs-perchtoldsdorf.at",
+   "web": "http://www.vhs-perchtoldsdorf.at",
+   "kursprogramm": "https://perchtoldsdorf.vhs-noe.at/Kurse",
+   "lat": 48.1207809,
+   "lon": 16.2622826,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-perchtoldsdorf.at)"
+   }
+  },
+  {
+   "id": "10159",
+   "name": "VHS Pielachtal",
+   "leitung": "Madlen Leitner",
+   "strasse": "Hauptplatz 3-5",
+   "plz": "3202",
+   "ort": "Hofstetten-Grünau",
+   "telefon": "02723/8242-14",
+   "email": "vhs-pielachtal@hofstetten-gruenau.gv.at",
+   "web": "https://www.vhs-pielachtal.at",
+   "kursprogramm": "https://pielachtal.vhs-noe.at/Kurse",
+   "lat": 48.0969419,
+   "lon": 15.5118415,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Gemeinde- und eigene VHS-Adresse (hofstetten-gruenau.gv.at, vhs-pielachtal.at)"
+   }
+  },
+  {
+   "id": "10162",
+   "name": "VHS Poysdorf",
+   "leitung": "HOL Helmut Seidl",
+   "strasse": "Johannessiedlung 6",
+   "plz": "2170",
+   "ort": "Poysdorf",
+   "telefon": "0677/64 25 54 58 od. 02552/ 2200 DW 29 (Hr. Jilli) od. DW 38 (Hr. Stadlbacher)",
+   "email": "he.seidl@aon.at",
+   "web": "http://poysdorf.vhs-noe.at",
+   "kursprogramm": "https://poysdorf.vhs-noe.at/Kurse",
+   "lat": 48.6633719,
+   "lon": 16.6267241,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (aon.at, poysdorf.vhs-noe.at)"
+   }
+  },
+  {
+   "id": "10164",
+   "name": "VHS Purkersdorf",
+   "leitung": "Beatrix Kaukal",
+   "strasse": "Schwarzhubergasse 5",
+   "plz": "3002",
+   "ort": "Purkersdorf",
+   "telefon": "02231/63601 DW235",
+   "email": "vhs@purkersdorf.at",
+   "web": "https://purkersdorf.vhs-noe.at",
+   "kursprogramm": "https://purkersdorf.vhs-noe.at/Kurse",
+   "lat": 48.2062123,
+   "lon": 16.1734913,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (purkersdorf.at)"
+   }
+  },
+  {
+   "id": "10160",
+   "name": "VHS Pöchlarn",
+   "leitung": "Kerstin Thain",
+   "strasse": "Kirchenplatz 1",
+   "plz": "3380",
+   "ort": "Pöchlarn",
+   "telefon": "02757/2310-20",
+   "email": "vhs@poechlarn.at",
+   "web": "https://poechlarn.vhs-noe.at",
+   "kursprogramm": "https://poechlarn.vhs-noe.at/Kurse",
+   "lat": 48.2122117,
+   "lon": 15.2109477,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (poechlarn.at)"
+   }
+  },
+  {
+   "id": "10169",
+   "name": "VHS Scheibbs",
+   "leitung": "Bernhard Hofecker",
+   "strasse": "Rathausplatz 1",
+   "plz": "3270",
+   "ort": "Scheibbs",
+   "telefon": "07482/42511 DW 63",
+   "email": "vhs@scheibbs.gv.at",
+   "web": "http://scheibbs.vhs-noe.at",
+   "kursprogramm": "https://scheibbs.vhs-noe.at/Kurse",
+   "lat": 48.0056102,
+   "lon": 15.1675727,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (scheibbs.gv.at)"
+   }
+  },
+  {
+   "id": "10171",
+   "name": "VHS Schrems",
+   "leitung": "Philipp Löffler",
+   "strasse": "Hauptplatz 19",
+   "plz": "3943",
+   "ort": "Schrems",
+   "telefon": "02853 7745425",
+   "email": "philipp@loeffler.top",
+   "web": "http://www.vhs-noe.at",
+   "kursprogramm": "http://www.vhs-noe.at",
+   "lat": 48.793204,
+   "lon": 15.0718541,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (loeffler.top, vhs-noe.at)"
+   }
+  },
+  {
+   "id": "10172",
+   "name": "VHS Schwechat",
+   "leitung": "Dr. Christina Pal",
+   "strasse": "Rathausplatz 9",
+   "plz": "2320",
+   "ort": "Schwechat",
+   "telefon": "01 70 108/284",
+   "email": "c.pal@schwechat.gv.at",
+   "web": "https://www.schwechat.gv.at",
+   "kursprogramm": "https://schwechat.vhs-noe.at/Kurse",
+   "lat": 48.1399512,
+   "lon": 16.4756112,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (schwechat.gv.at)"
+   }
+  },
+  {
+   "id": "10416",
+   "name": "VHS St. Andrä Wördern",
+   "leitung": "Dipl.Ing.Dr. Karl Wachter",
+   "strasse": "Altgasse 30",
+   "plz": "3423",
+   "ort": "St. Andrä-Wördern",
+   "telefon": "0676/6505073",
+   "email": "vhs@staw.at",
+   "web": "https://standraewoerdern.vhs-noe.at",
+   "kursprogramm": "https://standraewoerdern.vhs-noe.at/Kurse",
+   "lat": 48.3303902,
+   "lon": 16.209354,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (staw.at)"
+   }
+  },
+  {
+   "id": "10174",
+   "name": "VHS St. Pölten",
+   "leitung": "Mag.a Maren Waffenschmid",
+   "strasse": "Kolpingstraße 1",
+   "plz": "3100",
+   "ort": "St. Pölten",
+   "telefon": "02742/333-3100",
+   "email": "vhs@st-poelten.gv.at",
+   "web": "http://www.vhs-stp.at",
+   "kursprogramm": "https://stpoelten.vhs-noe.at/Kurse",
+   "lat": 48.2067958,
+   "lon": 15.6145439,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Gemeinde- und eigene VHS-Adresse (st-poelten.gv.at, vhs-stp.at)"
+   }
+  },
+  {
+   "id": "10175",
+   "name": "VHS St. Valentin",
+   "leitung": "Brandstetter Andrea",
+   "strasse": "Hauptplatz 7",
+   "plz": "4300",
+   "ort": "St. Valentin",
+   "telefon": "07435/505-0",
+   "email": "buergerservice@st-valentin.at",
+   "web": "http://www.st-valentin.at",
+   "kursprogramm": "https://stvalentin.vhs-noe.at/Kurse",
+   "lat": 48.1746672,
+   "lon": 14.5333016,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (st-valentin.at)"
+   }
+  },
+  {
+   "id": "10176",
+   "name": "VBV Stockerau",
+   "leitung": "Ing. Mag. Alexander Liebhart",
+   "strasse": "Alfred-Hermann-Fried-Straße 5",
+   "plz": "2000",
+   "ort": "Stockerau",
+   "telefon": "0681 81458312",
+   "email": "office@vbv-stockerau.at",
+   "web": "https://www.vbv-stockerau.at",
+   "kursprogramm": "https://www.vbv-stockerau.at/Kurse",
+   "lat": 48.3890033,
+   "lon": 16.2390556,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vbv-stockerau.at)"
+   }
+  },
+  {
+   "id": "10178",
+   "name": "VHS Stockerau",
+   "leitung": "Markus Rosenberger",
+   "strasse": "Prof. Otto Zeiller Strasse 9b",
+   "plz": "2000",
+   "ort": "Stockerau",
+   "telefon": "+43 660 2214973",
+   "email": "info@vhs-stockerau.at",
+   "web": "http://www.vhs-stockerau.at",
+   "kursprogramm": "https://stockerau.vhs-noe.at/Kurse",
+   "lat": 48.38993,
+   "lon": 16.2293226,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-stockerau.at)"
+   }
+  },
+  {
+   "id": "10367",
+   "name": "VHS Strasshof an der Nordbahn",
+   "leitung": "Christian Graf, MA",
+   "strasse": "Schönkirchner Straße 3",
+   "plz": "2231",
+   "ort": "Strasshof",
+   "telefon": "02287/46662",
+   "email": "office@vhs-strasshof.at",
+   "web": "http://www.vhs-strasshof.at",
+   "kursprogramm": "https://strasshof.vhs-noe.at/Kurse",
+   "lat": 48.3216849,
+   "lon": 16.6535301,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-strasshof.at)"
+   }
+  },
+  {
+   "id": "10366",
+   "name": "VHS Südliches Waldviertel",
+   "leitung": "Dir. Tanja Wesely, zert. EB",
+   "strasse": "Hauptstraße 9",
+   "plz": "3683",
+   "ort": "Yspertal",
+   "telefon": "+43 7415 6767-30",
+   "email": "volkshochschule.swv@wavenet.at",
+   "web": "https://suedlicheswaldviertel.vhs-noe.at",
+   "kursprogramm": "https://suedlicheswaldviertel.vhs-noe.at/Kurse",
+   "lat": 48.2832791,
+   "lon": 15.0656906,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (suedlicheswaldviertel.vhs-noe.at, wavenet.at)"
+   }
+  },
+  {
+   "id": "10179",
+   "name": "VHS Ternitz",
+   "leitung": "StR Daniela Mohr",
+   "strasse": "Bürgerbüro Th.Körner-Platz 3",
+   "plz": "2630",
+   "ort": "Ternitz",
+   "telefon": "02630/38240 DW 93 oder DW 94",
+   "email": "vhs-biz@ternitz.at",
+   "web": "http://www.vhs-ternitz.at",
+   "kursprogramm": "https://ternitz.vhs-noe.at/Kurse",
+   "lat": 47.7168223,
+   "lon": 16.0355194,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Gemeinde- und eigene VHS-Adresse (ternitz.at, vhs-ternitz.at)"
+   }
+  },
+  {
+   "id": "10181",
+   "name": "VHS Traiskirchen im BiZENT Arkadia",
+   "leitung": "Karin Grossmann",
+   "strasse": "Arkadiaweg 1",
+   "plz": "2514",
+   "ort": "Traiskirchen",
+   "telefon": "050355-387",
+   "email": "vhs@traiskirchen.gv.at",
+   "web": "http://www.vhs-traiskirchen.at",
+   "kursprogramm": "https://traiskirchen.vhs-noe.at/Kurse",
+   "lat": 48.0122495,
+   "lon": 16.2927335,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Gemeinde- und eigene VHS-Adresse (traiskirchen.gv.at, vhs-traiskirchen.at)"
+   }
+  },
+  {
+   "id": "10183",
+   "name": "VHS Traismauer",
+   "leitung": "StR. Mag. Tanja Warlich",
+   "strasse": "Wienerstraße 8",
+   "plz": "3133",
+   "ort": "Traismauer",
+   "telefon": "02783/8651-11",
+   "email": "stadtgemeinde@traismauer.at",
+   "web": "http://traismauer.vhs-noe.at",
+   "kursprogramm": "https://traismauer.vhs-noe.at/Kurse",
+   "lat": 48.3498446,
+   "lon": 15.7442425,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (traismauer.at)"
+   }
+  },
+  {
+   "id": "10184",
+   "name": "VHS Tulln",
+   "leitung": "GR Peter Höckner",
+   "strasse": "Minoritenplatz 1",
+   "plz": "3430",
+   "ort": "Tulln",
+   "telefon": "02272 / 690-110 od. 772",
+   "email": "vhs@tulln.at",
+   "web": "http://tulln.vhs-noe.at",
+   "kursprogramm": "https://tulln.vhs-noe.at/Kurse",
+   "lat": 48.3325818,
+   "lon": 16.0496372,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (tulln.at)"
+   }
+  },
+  {
+   "id": "10131",
+   "name": "VHS Urania Hollabrunn",
+   "leitung": "Mag. Leopold Schogger",
+   "strasse": "Dechant Pfeiferstraße 3",
+   "plz": "2020",
+   "ort": "Hollabrunn",
+   "telefon": "+43 680 5011676",
+   "email": "l.schogger@outlook.com",
+   "web": "https://www.vhs-hollabrunn.at",
+   "kursprogramm": "https://www.vhs-hollabrunn.at/Kurse/",
+   "lat": 48.5609343,
+   "lon": 16.0672762,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhs-hollabrunn.at)"
+   }
+  },
+  {
+   "id": "10139",
+   "name": "VHS Urania Klosterneuburg",
+   "leitung": "Dir. Mag. Dr. Rudolf Koch",
+   "strasse": "Leopoldstraße 21",
+   "plz": "3400",
+   "ort": "Klosterneuburg",
+   "telefon": "02243/444 DW 473 (Denise Spusta)",
+   "email": "vhs@klosterneuburg.at",
+   "web": "https://vhs.klosterneuburg.at",
+   "kursprogramm": "https://vhs.klosterneuburg.at/Kurse",
+   "lat": 48.3028748,
+   "lon": 16.3283853,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (klosterneuburg.at)"
+   }
+  },
+  {
+   "id": "10186",
+   "name": "VHS Waidhofen/Thaya",
+   "leitung": "Sofie Kopita",
+   "strasse": "Hauptplatz 1",
+   "plz": "3830",
+   "ort": "Waidhofen an der Thaya",
+   "telefon": "02842/503-14",
+   "email": "volkshochschule@waidhofen-thaya.gv.at",
+   "web": "http://waidhofenthaya.vhs-noe.at",
+   "kursprogramm": "https://waidhofenthaya.vhs-noe.at/Kurse",
+   "lat": 48.8151594,
+   "lon": 15.2869099,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (waidhofen-thaya.gv.at)"
+   }
+  },
+  {
+   "id": "10188",
+   "name": "VHS Waidhofen/Ybbs",
+   "leitung": "Mag. Gabriele Hofleitner",
+   "strasse": "Oberer Stadtplatz 28",
+   "plz": "3340",
+   "ort": "Waidhofen/Ybbs",
+   "telefon": "+43 664 794 8586",
+   "email": "gabriele.hofleitner@waidhofen.at",
+   "web": "http://vhswaidhofenybbs.at",
+   "kursprogramm": "https://waidhofenybbs.vhs-noe.at/Kurse",
+   "lat": 47.9610214,
+   "lon": 14.7743427,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Gemeinde- und eigene VHS-Adresse (vhswaidhofenybbs.at, waidhofen.at)"
+   }
+  },
+  {
+   "id": "10189",
+   "name": "VHS Weitra",
+   "leitung": "VzBgm. Petra Zimmermann - Moser",
+   "strasse": "Rathausplatz 1",
+   "plz": "3970",
+   "ort": "Weitra",
+   "telefon": "0664/1462782",
+   "email": "pz@weitra.gv.at",
+   "web": "http://weitra.vhs-noe.at",
+   "kursprogramm": "https://weitra.vhs-noe.at/Kurse",
+   "lat": 48.7006823,
+   "lon": 14.8935944,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (weitra.gv.at)"
+   }
+  },
+  {
+   "id": "10191",
+   "name": "VHS Wiener Neustadt",
+   "leitung": "PhDr. Claus Kraupa, M.A.",
+   "strasse": "Neuklosterplatz 1",
+   "plz": "2700",
+   "ort": "Wiener Neustadt",
+   "telefon": "02622/373-920",
+   "email": "volkshochschule@wiener-neustadt.at",
+   "web": "https://wienerneustadt.vhs-noe.at",
+   "kursprogramm": "https://wienerneustadt.vhs-noe.at/kurse",
+   "lat": 47.8124037,
+   "lon": 16.2459016,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (wiener-neustadt.at)"
+   }
+  },
+  {
+   "id": "10365",
+   "name": "VHS Wieselburg",
+   "leitung": "Bürgermeister Dr. Josef Leitner",
+   "strasse": "Hauptplatz 26",
+   "plz": "3250",
+   "ort": "Wieselburg",
+   "telefon": "07416/52319",
+   "email": "office@wieselburg.at",
+   "web": "http://wieselburg.gv.at",
+   "kursprogramm": "https://wieselburg.vhs-noe.at/Kurse",
+   "lat": 48.1303539,
+   "lon": 15.1383337,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (wieselburg.at, wieselburg.gv.at)"
+   }
+  },
+  {
+   "id": "10193",
+   "name": "VHS Wolkersdorf",
+   "leitung": "Karin Schuster",
+   "strasse": "Hauptstraße 30",
+   "plz": "2120",
+   "ort": "Wolkersdorf",
+   "telefon": "02245/20160",
+   "email": "vhs.wolkersdorf@gmx.at",
+   "web": "http://wolkersdorf.vhs-noe.at",
+   "kursprogramm": "https://wolkersdorf.vhs-noe.at/Kurse",
+   "lat": 48.3826309,
+   "lon": 16.5187813,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "unklar",
+    "quelle": "indiz",
+    "grund": "Nur private oder Verbands-Adressen (gmx.at, wolkersdorf.vhs-noe.at)"
+   }
+  },
+  {
+   "id": "10194",
+   "name": "VHS Ybbs an der Donau",
+   "leitung": "STR Simmer Philipp",
+   "strasse": "Hauptplatz 1",
+   "plz": "3370",
+   "ort": "Ybbs an der Donau",
+   "telefon": "+43 7415 6760-30",
+   "email": "volkshochschule.swv@wavenet.at",
+   "web": "http://www.volkshochschule.swv.at",
+   "kursprogramm": "https://ybbs.vhs-noe.at/Kurse",
+   "lat": 48.1770344,
+   "lon": 15.0851644,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (volkshochschule.swv.at)"
+   }
+  },
+  {
+   "id": "10196",
+   "name": "VHS Zistersdorf",
+   "leitung": "Dr. Verena Hornsteiner-Uher",
+   "strasse": "Hauptstraße 12",
+   "plz": "2225",
+   "ort": "Zistersdorf",
+   "telefon": "02532/2401-114",
+   "email": "vhs@zistersdorf.gv.at",
+   "web": "http://zistersdorf.vhs-noe.at",
+   "kursprogramm": "https://zistersdorf.vhs-noe.at/Kurse",
+   "lat": 48.5453464,
+   "lon": 16.7622127,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (zistersdorf.gv.at)"
+   }
+  },
+  {
+   "id": "10197",
+   "name": "VHS Zwentendorf",
+   "leitung": "GGR Manfred Bichler",
+   "strasse": "Rathausplatz 4",
+   "plz": "3435",
+   "ort": "Zwentendorf",
+   "telefon": "02277/2209 DW 13",
+   "email": "christian.richter@zwentendorf-donau.gv.at",
+   "web": "http://zwentendorf.vhs-noe.at",
+   "kursprogramm": "https://zwentendorf.vhs-noe.at/Kurse",
+   "lat": 48.3457043,
+   "lon": 15.9111493,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "kommunal",
+    "quelle": "indiz",
+    "grund": "Kontakt über Gemeinde-Adresse (zwentendorf-donau.gv.at)"
+   }
+  },
+  {
+   "id": "10199",
+   "name": "VHS Zwettl",
+   "leitung": "Franz Fischer",
+   "strasse": "Gartenstraße 3",
+   "plz": "3910",
+   "ort": "Zwettl",
+   "telefon": "0664/5298352",
+   "email": "info@vhszwettl.at",
+   "web": "http://www.vhszwettl.at",
+   "kursprogramm": "http://www.vhszwettl.at",
+   "lat": 48.6034608,
+   "lon": 15.1691074,
+   "geo_genauigkeit": "adresse",
+   "traeger": {
+    "wert": "verein",
+    "quelle": "indiz",
+    "grund": "Eigene VHS-Adresse (vhszwettl.at)"
+   }
+  }
+ ]
+}

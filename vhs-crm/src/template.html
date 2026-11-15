@@ -1,0 +1,246 @@
+<title>VHS-Landkarte Niederösterreich</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>/*LEAFLET_CSS*/</style>
+<style>
+/* Layout: Arbeitsfläche aus zwei Spalten — links Verzeichnis (Suche, Liste, Detail), rechts Landkarte; am Handy Karte oben, Verzeichnis darunter. */
+:root {
+  --bg: #f3f5f8;
+  --panel: #ffffff;
+  --ink: #16213a;
+  --muted: #5b6680;
+  --line: #dde2ec;
+  --accent: #1d4f9c;      /* NÖ-Blau */
+  --accent-soft: #e3ebf7;
+  --gold: #f2b705;        /* NÖ-Gelb */
+  --land: #e9edf4;
+  --land-no: #fbf3d6;
+  --land-line: #b9c2d3;
+  --water: #dfe7f2;
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-label: "IBM Plex Sans Condensed", "Arial Narrow", "IBM Plex Sans", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
+  --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
+  --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; color-scheme: dark }
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--font-ui); }
+.app { height: 100%; display: grid; grid-template-rows: auto 1fr; }
+header.top {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px;
+  padding-block: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  border-bottom: 1px solid var(--line); background: var(--panel);
+}
+header.top h1 { margin: 0; font: 600 18px/1.2 var(--font-label); letter-spacing: .01em; text-wrap: balance; }
+header.top h1 span { color: var(--accent); }
+header.top .sub { color: var(--muted); font-size: 13px; }
+header.top .count { margin-left: auto; font: 500 13px var(--font-label); color: var(--muted); font-variant-numeric: tabular-nums; }
+header.top .count b { color: var(--ink); font-size: 15px; }
+
+.work { min-height: 0; display: grid; grid-template-columns: minmax(300px, 380px) 1fr; }
+aside.dir { min-height: 0; min-width: 0; display: grid; grid-template-rows: auto 1fr; border-right: 1px solid var(--line); background: var(--panel); }
+.search { padding: 12px 16px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
+.search input {
+  width: 100%; box-sizing: border-box; padding: 9px 12px; font: inherit; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+}
+.search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search .hint { font-size: 12px; color: var(--muted); }
+ul.list { list-style: none; margin: 0; padding: 0; overflow-y: auto; min-height: 0; }
+ul.list li button {
+  all: unset; box-sizing: border-box; width: 100%; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; padding: 10px 16px; border-bottom: 1px solid var(--line);
+}
+ul.list li button:hover { background: var(--accent-soft); }
+ul.list li button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+ul.list li button[aria-current="true"] { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--gold); }
+.li-name { font-weight: 600; min-width: 0; }
+.li-plz { font: 12px var(--font-data); color: var(--muted); align-self: center; }
+.li-sub { grid-column: 1 / -1; color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.empty { padding: 24px 16px; color: var(--muted); }
+
+.mapwrap { position: relative; min-height: 0; min-width: 0; }
+#map { position: absolute; inset: 0; background: var(--water); }
+.leaflet-container { font: inherit; background: var(--water); }
+.leaflet-control-attribution { background: color-mix(in srgb, var(--panel) 85%, transparent) !important; color: var(--muted) !important; font-size: 11px; }
+.leaflet-control-attribution a { color: var(--accent) !important; }
+.leaflet-bar a { background: var(--panel); color: var(--ink); border-color: var(--line); }
+.leaflet-bar a:hover { background: var(--accent-soft); }
+.leaflet-tooltip { background: var(--panel); color: var(--ink); border: 1px solid var(--line); font: 500 12.5px var(--font-label); box-shadow: 0 2px 8px rgb(0 0 0 / .15); }
+.leaflet-tooltip-top::before { border-top-color: var(--line); }
+.layer-toggle { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; font-size: 12.5px; color: var(--ink); display: flex; gap: 6px; align-items: center; cursor: pointer; }
+
+.detail {
+  position: absolute; z-index: 500; right: max(12px, env(safe-area-inset-right, 0px)); top: 12px; width: min(360px, calc(100% - 24px));
+  max-height: calc(100% - 24px); overflow-y: auto; box-sizing: border-box;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 28px rgb(10 20 40 / .18);
+}
+.detail header { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; }
+.detail h2 { margin: 0; font: 600 18px/1.25 var(--font-label); text-wrap: balance; }
+.detail .eyebrow { grid-column: 1 / -1; font: 600 11px var(--font-label); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.detail .close { all: unset; cursor: pointer; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 6px; color: var(--muted); font-size: 20px; line-height: 1; }
+.detail .close:hover, .detail .close:focus-visible { background: var(--accent-soft); color: var(--ink); }
+.detail dl { margin: 0; padding: 12px 16px 16px; display: grid; grid-template-columns: 92px 1fr; gap: 10px 12px; }
+.detail dt { font: 600 11px/1.6 var(--font-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.detail dd { margin: 0; min-width: 0; overflow-wrap: anywhere; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.detail dd a { color: var(--accent); }
+.mono { font-family: var(--font-data); font-size: 13px; }
+.copy { all: unset; cursor: pointer; font: 500 11px var(--font-label); color: var(--accent); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; }
+.copy:hover, .copy:focus-visible { background: var(--accent-soft); }
+.detail .foot { padding: 10px 16px 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.badge { display: inline-block; font: 600 11px var(--font-label); padding: 1px 6px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+
+.legend { position: absolute; z-index: 400; left: max(12px, env(safe-area-inset-left, 0px)); bottom: 28px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; font-size: 12px; color: var(--muted); display: grid; gap: 4px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; border: 2px solid var(--accent); background: var(--gold); }
+
+@media (max-width: 760px) {
+  .work { grid-template-columns: 1fr; grid-template-rows: 52vh 1fr; }
+  .mapwrap { order: -1; }
+  aside.dir { border-right: 0; border-top: 1px solid var(--line); }
+  .detail { top: auto; bottom: 12px; max-height: calc(100% - 24px); }
+  .legend { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="app">
+  <header class="top">
+    <h1>VHS-Landkarte <span>Niederösterreich</span></h1>
+    <div class="sub">Mitglieder des Verbands NÖ Volkshochschulen</div>
+    <div class="count" id="count"></div>
+  </header>
+  <div class="work">
+    <aside class="dir">
+      <div class="search">
+        <input id="q" type="search" placeholder="Suchen: Name, Ort, PLZ, Leitung …" autocomplete="off" aria-label="Volkshochschulen durchsuchen">
+        <div class="hint" id="hint">Klick auf einen Eintrag oder Punkt zeigt die Kontaktdaten.</div>
+      </div>
+      <ul class="list" id="list" aria-label="Volkshochschulen"></ul>
+    </aside>
+    <div class="mapwrap">
+      <div id="map" role="region" aria-label="Karte der Volkshochschulen"></div>
+      <div class="legend"><span><i></i>Volkshochschule (Sitz laut Verband)</span><span id="legend-src"></span></div>
+      <section class="detail" id="detail" hidden aria-live="polite"></section>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const DATA = /*VHS_DATA*/;
+const LAENDER = /*LAENDER_GEOJSON*/;
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ß/g, 'ss');
+const list = DATA.vhs;
+
+// Karte
+const map = L.map('map', { zoomControl: true, attributionControl: true, minZoom: 7, maxZoom: 18 });
+const bounds = L.latLngBounds(list.map(v => [v.lat, v.lon])).pad(0.08);
+map.fitBounds(bounds);
+
+// Basis: eingebettete Landesgrenzen (funktioniert immer, auch offline)
+function landStyle(f) {
+  const no = f.properties.key === 'at-no';
+  return { color: css('--land-line'), weight: no ? 1.6 : 0.8, fillColor: no ? css('--land-no') : css('--land'), fillOpacity: 1 };
+}
+const land = L.geoJSON(LAENDER, { style: landStyle, interactive: false }).addTo(map);
+
+// Optional: OpenStreetMap-Hintergrund (wird geladen, wo erlaubt)
+const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
+});
+let tilesOk = false;
+osm.on('tileload', () => { if (!tilesOk) { tilesOk = true; land.setStyle(f => ({ ...landStyle(f), fillOpacity: f.properties.key === 'at-no' ? 0.12 : 0, weight: f.properties.key === 'at-no' ? 2 : 0 })); } });
+osm.addTo(map);
+map.attributionControl.setPrefix(false);
+map.attributionControl.addAttribution('Daten: <a href="' + DATA.meta.quelle + '">vhs-noe.at</a> (' + DATA.meta.abgerufen.split('-').reverse().join('.') + ')');
+
+// Marker
+const markers = new Map();
+function markerStyle(active) {
+  return { radius: active ? 9 : 6, color: css('--accent'), weight: active ? 3 : 2, fillColor: css('--gold'), fillOpacity: 1 };
+}
+list.forEach(v => {
+  const m = L.circleMarker([v.lat, v.lon], markerStyle(false)).addTo(map);
+  m.bindTooltip(esc(v.name), { direction: 'top', offset: [0, -6] });
+  m.on('click', () => select(v.id, false));
+  markers.set(v.id, m);
+});
+
+// Liste
+const $list = document.getElementById('list'), $q = document.getElementById('q'), $count = document.getElementById('count');
+let current = null;
+function render() {
+  const q = norm($q.value).trim();
+  const hits = list.filter(v => !q || norm([v.name, v.ort, v.plz, v.leitung, v.strasse, v.email].join(' ')).includes(q));
+  $count.innerHTML = q ? `<b>${hits.length}</b> von ${list.length} Volkshochschulen` : `<b>${list.length}</b> Volkshochschulen`;
+  $list.innerHTML = hits.length ? hits.map(v => `
+    <li><button type="button" data-id="${v.id}" aria-current="${v.id === current}">
+      <span class="li-name">${esc(v.name)}</span><span class="li-plz">${esc(v.plz)}</span>
+      <span class="li-sub">${esc(v.ort)} · ${esc(v.leitung)}</span>
+    </button></li>`).join('') : `<li class="empty">Keine Volkshochschule passt zu „${esc($q.value)}“. Versuche einen Ort oder eine Postleitzahl.</li>`;
+  const ids = new Set(hits.map(v => v.id));
+  markers.forEach((m, id) => m.setStyle({ ...markerStyle(id === current), opacity: ids.has(id) ? 1 : .25, fillOpacity: ids.has(id) ? 1 : .2 }));
+}
+$list.addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (b) select(b.dataset.id, true); });
+$q.addEventListener('input', render);
+
+// Detail
+const $detail = document.getElementById('detail');
+function copyBtn(text) { return `<button type="button" class="copy" data-copy="${esc(text)}">Kopieren</button>`; }
+function link(url) { return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(url.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>` : '—'; }
+function select(id, fly) {
+  current = id;
+  const v = list.find(x => x.id === id);
+  render();
+  const m = markers.get(id); m.bringToFront();
+  if (fly) map.flyTo([v.lat, v.lon], Math.max(map.getZoom(), 11), { duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.6 });
+  const adr = `${v.strasse}, ${v.plz} ${v.ort}`;
+  $detail.innerHTML = `
+    <header>
+      <span class="eyebrow">Volkshochschule · ${esc(v.plz)} ${esc(v.ort)}</span>
+      <h2>${esc(v.name)}</h2>
+      <button type="button" class="close" aria-label="Details schließen">×</button>
+    </header>
+    <dl>
+      <dt>Leitung</dt><dd>${esc(v.leitung) || '—'}</dd>
+      <dt>Adresse</dt><dd>${esc(v.strasse)}<br>${esc(v.plz)} ${esc(v.ort)} ${copyBtn(adr)}</dd>
+      <dt>Telefon</dt><dd><span class="mono">${esc(v.telefon) || '—'}</span>${v.telefon ? copyBtn(v.telefon) : ''}</dd>
+      <dt>E-Mail</dt><dd><span class="mono">${esc(v.email) || '—'}</span>${v.email ? copyBtn(v.email) : ''}</dd>
+      <dt>Website</dt><dd>${link(v.web)}</dd>
+      <dt>Kurse</dt><dd>${link(v.kursprogramm)}</dd>
+    </dl>
+    <div class="foot">
+      <a href="https://www.openstreetmap.org/?mlat=${v.lat}&mlon=${v.lon}#map=17/${v.lat}/${v.lon}" target="_blank" rel="noopener">Auf OpenStreetMap öffnen</a>
+      ${v.geo_genauigkeit === 'ort' ? ' · <span class="badge">Position nur ortsgenau</span>' : ''}
+    </div>`;
+  $detail.hidden = false;
+  const btn = $list.querySelector(`[data-id="${id}"]`); if (btn) btn.scrollIntoView({ block: 'nearest' });
+}
+$detail.addEventListener('click', async e => {
+  if (e.target.closest('.close')) { current = null; $detail.hidden = true; render(); return; }
+  const c = e.target.closest('.copy'); if (!c) return;
+  try { await navigator.clipboard.writeText(c.dataset.copy); c.textContent = 'Kopiert'; }
+  catch { const r = document.createRange(); r.selectNodeContents(c.previousElementSibling || c.parentNode); const s = getSelection(); s.removeAllRanges(); s.addRange(r); c.textContent = 'Markiert'; }
+  setTimeout(() => c.textContent = 'Kopieren', 1500);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$detail.hidden) { current = null; $detail.hidden = true; render(); } });
+
+// Theme-Wechsel: Farben der Karte nachziehen
+const retheme = () => { land.setStyle(tilesOk ? (f => ({ ...landStyle(f), fillOpacity: f.properties.key === 'at-no' ? 0.12 : 0, weight: f.properties.key === 'at-no' ? 2 : 0 })) : landStyle); render(); };
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', retheme);
+new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+document.getElementById('legend-src').textContent = `Stand ${DATA.meta.abgerufen.split('-').reverse().join('.')}, ${DATA.meta.anzahl} Mitglieder`;
+render();
+</script>

@@ -1,0 +1,907 @@
+<title>VHS-Landkarte Niederösterreich</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: none;
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* layers control */
+
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: none;
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: none;
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+
+/* Default icon URLs */
+.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
+	background-image: none;
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+/* Base styles for the element that has a tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+/* Directions */
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+/* Printing */
+
+@media print {
+	/* Prevent printers from removing background-images of controls. */
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+</style>
+<style>
+/* Layout: Arbeitsfläche aus zwei Spalten — links Verzeichnis (Suche, Liste, Detail), rechts Landkarte; am Handy Karte oben, Verzeichnis darunter. */
+:root {
+  --bg: #f3f5f8;
+  --panel: #ffffff;
+  --ink: #16213a;
+  --muted: #5b6680;
+  --line: #dde2ec;
+  --accent: #1d4f9c;      /* NÖ-Blau */
+  --accent-soft: #e3ebf7;
+  --gold: #f2b705;        /* NÖ-Gelb */
+  --land: #e9edf4;
+  --land-no: #fbf3d6;
+  --land-line: #b9c2d3;
+  --water: #dfe7f2;
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-label: "IBM Plex Sans Condensed", "Arial Narrow", "IBM Plex Sans", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
+  --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1522; --panel: #161e2e; --ink: #e6ebf5; --muted: #98a3ba; --line: #2a3448;
+  --accent: #7fa8ec; --accent-soft: #1f2d48; --gold: #f5c32c;
+  --land: #1b2334; --land-no: #2a2a1f; --land-line: #3a4559; --water: #121a29; color-scheme: dark }
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--font-ui); }
+.app { height: 100%; display: grid; grid-template-rows: auto 1fr; }
+header.top {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px;
+  padding-block: 12px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  border-bottom: 1px solid var(--line); background: var(--panel);
+}
+header.top h1 { margin: 0; font: 600 18px/1.2 var(--font-label); letter-spacing: .01em; text-wrap: balance; }
+header.top h1 span { color: var(--accent); }
+header.top .sub { color: var(--muted); font-size: 13px; }
+header.top .count { margin-left: auto; font: 500 13px var(--font-label); color: var(--muted); font-variant-numeric: tabular-nums; }
+header.top .count b { color: var(--ink); font-size: 15px; }
+
+.work { min-height: 0; display: grid; grid-template-columns: minmax(300px, 380px) 1fr; }
+aside.dir { min-height: 0; min-width: 0; display: grid; grid-template-rows: auto 1fr; border-right: 1px solid var(--line); background: var(--panel); }
+.search { padding: 12px 16px; display: grid; gap: 8px; border-bottom: 1px solid var(--line); }
+.search input {
+  width: 100%; box-sizing: border-box; padding: 9px 12px; font: inherit; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+}
+.search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.search .hint { font-size: 12px; color: var(--muted); }
+ul.list { list-style: none; margin: 0; padding: 0; overflow-y: auto; min-height: 0; }
+ul.list li button {
+  all: unset; box-sizing: border-box; width: 100%; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; padding: 10px 16px; border-bottom: 1px solid var(--line);
+}
+ul.list li button:hover { background: var(--accent-soft); }
+ul.list li button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+ul.list li button[aria-current="true"] { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--gold); }
+.li-name { font-weight: 600; min-width: 0; }
+.li-plz { font: 12px var(--font-data); color: var(--muted); align-self: center; }
+.li-sub { grid-column: 1 / -1; color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.empty { padding: 24px 16px; color: var(--muted); }
+
+.mapwrap { position: relative; min-height: 0; min-width: 0; }
+#map { position: absolute; inset: 0; background: var(--water); }
+.leaflet-container { font: inherit; background: var(--water); }
+.leaflet-control-attribution { background: color-mix(in srgb, var(--panel) 85%, transparent) !important; color: var(--muted) !important; font-size: 11px; }
+.leaflet-control-attribution a { color: var(--accent) !important; }
+.leaflet-bar a { background: var(--panel); color: var(--ink); border-color: var(--line); }
+.leaflet-bar a:hover { background: var(--accent-soft); }
+.leaflet-tooltip { background: var(--panel); color: var(--ink); border: 1px solid var(--line); font: 500 12.5px var(--font-label); box-shadow: 0 2px 8px rgb(0 0 0 / .15); }
+.leaflet-tooltip-top::before { border-top-color: var(--line); }
+.layer-toggle { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; font-size: 12.5px; color: var(--ink); display: flex; gap: 6px; align-items: center; cursor: pointer; }
+
+.detail {
+  position: absolute; z-index: 500; right: max(12px, env(safe-area-inset-right, 0px)); top: 12px; width: min(360px, calc(100% - 24px));
+  max-height: calc(100% - 24px); overflow-y: auto; box-sizing: border-box;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 28px rgb(10 20 40 / .18);
+}
+.detail header { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; }
+.detail h2 { margin: 0; font: 600 18px/1.25 var(--font-label); text-wrap: balance; }
+.detail .eyebrow { grid-column: 1 / -1; font: 600 11px var(--font-label); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.detail .close { all: unset; cursor: pointer; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 6px; color: var(--muted); font-size: 20px; line-height: 1; }
+.detail .close:hover, .detail .close:focus-visible { background: var(--accent-soft); color: var(--ink); }
+.detail dl { margin: 0; padding: 12px 16px 16px; display: grid; grid-template-columns: 92px 1fr; gap: 10px 12px; }
+.detail dt { font: 600 11px/1.6 var(--font-label); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.detail dd { margin: 0; min-width: 0; overflow-wrap: anywhere; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.detail dd a { color: var(--accent); }
+.mono { font-family: var(--font-data); font-size: 13px; }
+.copy { all: unset; cursor: pointer; font: 500 11px var(--font-label); color: var(--accent); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; }
+.copy:hover, .copy:focus-visible { background: var(--accent-soft); }
+.detail .foot { padding: 10px 16px 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.badge { display: inline-block; font: 600 11px var(--font-label); padding: 1px 6px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+
+.legend { position: absolute; z-index: 400; left: max(12px, env(safe-area-inset-left, 0px)); bottom: 28px; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; font-size: 12px; color: var(--muted); display: grid; gap: 4px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; border: 2px solid var(--accent); background: var(--gold); }
+
+@media (max-width: 760px) {
+  .work { grid-template-columns: 1fr; grid-template-rows: 52vh 1fr; }
+  .mapwrap { order: -1; }
+  aside.dir { border-right: 0; border-top: 1px solid var(--line); }
+  .detail { top: auto; bottom: 12px; max-height: calc(100% - 24px); }
+  .legend { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="app">
+  <header class="top">
+    <h1>VHS-Landkarte <span>Niederösterreich</span></h1>
+    <div class="sub">Mitglieder des Verbands NÖ Volkshochschulen</div>
+    <div class="count" id="count"></div>
+  </header>
+  <div class="work">
+    <aside class="dir">
+      <div class="search">
+        <input id="q" type="search" placeholder="Suchen: Name, Ort, PLZ, Leitung …" autocomplete="off" aria-label="Volkshochschulen durchsuchen">
+        <div class="hint" id="hint">Klick auf einen Eintrag oder Punkt zeigt die Kontaktdaten.</div>
+      </div>
+      <ul class="list" id="list" aria-label="Volkshochschulen"></ul>
+    </aside>
+    <div class="mapwrap">
+      <div id="map" role="region" aria-label="Karte der Volkshochschulen"></div>
+      <div class="legend"><span><i></i>Volkshochschule (Sitz laut Verband)</span><span id="legend-src"></span></div>
+      <section class="detail" id="detail" hidden aria-live="polite"></section>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const DATA = {"meta":{"quelle":"https://www.vhs-noe.at/Verbandsmitglieder/","abgerufen":"2026-11-15","geocoding":"OpenStreetMap Nominatim (© OpenStreetMap-Mitwirkende, ODbL)","anzahl":68},"vhs":[{"id":"10063","name":"VHS Allentsteig","leitung":"Direktor Gerald Nossal","strasse":"Schaichgasse 4c","plz":"3804","ort":"Allentsteig","telefon":"0680/2165635","email":"gnossal@gmail.com","web":"http://www.allentsteig.gv.at/Bildung/Volkshochschule","kursprogramm":"https://allentsteig.vhs-noe.at/Kurse","lat":48.6933918,"lon":15.3290528,"geo_genauigkeit":"adresse"},{"id":"10068","name":"VHS Amstetten","leitung":"Marion Teichmann","strasse":"Rathausstraße 1","plz":"3300","ort":"Amstetten","telefon":"07472/601-215","email":"m.teichmann@amstetten.at","web":"https://vhs.amstetten.at","kursprogramm":"https://amstetten.vhs-noe.at/Kurse","lat":48.1229479,"lon":14.8711144,"geo_genauigkeit":"adresse"},{"id":"10075","name":"VHS Baden","leitung":"Dr. Lorena Muñoz Izarra","strasse":"Johannesgasse 9","plz":"2500","ort":"Baden","telefon":"02252 88 990","email":"office@vhs-baden.at","web":"https://baden.vhs-noe.at","kursprogramm":"https://baden.vhs-noe.at/Kurse","lat":48.0069854,"lon":16.2275934,"geo_genauigkeit":"adresse"},{"id":"10077","name":"VHS Badener Urania","leitung":"Norbert Ruttner, BEd","strasse":"Jägerhausgasse 16","plz":"2500","ort":"Baden","telefon":"0664/4816419","email":"urania@badener-urania.at","web":"http://www.badener-urania.at","kursprogramm":"https://badenerurania.vhs-noe.at/Kurse","lat":48.0038354,"lon":16.2139748,"geo_genauigkeit":"adresse"},{"id":"10081","name":"VHS Berndorf","leitung":"Dipl. Päd. Andreas Rottensteiner","strasse":"Margarethenplatz 2","plz":"2560","ort":"Berndorf","telefon":"+43 664 73631721","email":"andreas.rottensteiner@gmx.at","web":"http://berndorf.vhs-noe.at","kursprogramm":"https://berndorf.vhs-noe.at/Kurse","lat":47.9418941,"lon":16.1027302,"geo_genauigkeit":"adresse"},{"id":"10013","name":"VHS Bruck an der Leitha","leitung":"Bgm. Gerhard Weil","strasse":"Höfleinerstrasse 16","plz":"2460","ort":"Bruck/Leitha","telefon":"0216268686","email":"office@vhs-bruck.at","web":"http://vhs-bruck.at","kursprogramm":"http://vhs-bruck.at/kursprogramm/","lat":48.0295897,"lon":16.7817352,"geo_genauigkeit":"adresse"},{"id":"10085","name":"VHS Deutsch-Wagram","leitung":"VizeBgm Andrea Schlederer","strasse":"Bahnhofstraße 1a","plz":"2232","ort":"Deutsch-Wagram","telefon":"0676 34 711 39 (Oberndorfer Gabriele)","email":"vhs.deutsch.wagram@gmail.com","web":"http://www.deutsch-wagram.gv.at","kursprogramm":"https://deutschwagram.vhs-noe.at/Kurse","lat":48.2976876,"lon":16.5599512,"geo_genauigkeit":"adresse"},{"id":"10087","name":"VHS Drosendorf-Zissersdorf","leitung":"VzBgm. Hilde Juricka","strasse":"Hauptplatz 1","plz":"2095","ort":"Drosendorf Stadt","telefon":"0664/5921617","email":"hilde.juricka@gmx.at","web":"https://www.drosendorf.at/vhs-drosendorf-zissersdorf-volkshochschule","kursprogramm":"https://drosendorf.vhs-noe.at/Kurse","lat":48.8679825,"lon":15.6216736,"geo_genauigkeit":"adresse"},{"id":"10014","name":"VHS Eggenburg","leitung":"STR Josef Gundinger","strasse":"Kremserstraße 3","plz":"3730","ort":"Eggenburg","telefon":"+43 (0)67682104607","email":"josef.gundinger@eggenburg.at","web":"http://www.vhs.eggenburg.at","kursprogramm":"https://eggenburg.vhs-noe.at/Kurse","lat":48.6420213,"lon":15.8176993,"geo_genauigkeit":"adresse"},{"id":"10092","name":"VHS Fischamend","leitung":"Gabriela Besin","strasse":"Enzersdorferstrasse 13 - 15","plz":"2401","ort":"Fischamend","telefon":"02232/78 110 , 0676/6855406","email":"vhs-fischamend@aon.at","web":"http://www.vhs-fischamend.at","kursprogramm":"https://fischamend.vhs-noe.at/Kurse","lat":48.1173651,"lon":16.6139584,"geo_genauigkeit":"adresse"},{"id":"10106","name":"VHS Geras","leitung":"Stadtgemeinde Geras","strasse":"Retzer Straße 1","plz":"2093","ort":"GERAS","telefon":"029127050","email":"volkshochschulegeras@gmail.com","web":"http://geras.vhs-noe.at","kursprogramm":"https://geras.vhs-noe.at/Kurse","lat":48.7965831,"lon":15.6779033,"geo_genauigkeit":"adresse"},{"id":"10107","name":"VHS Gloggnitz","leitung":"StR Ing. Peter Kasper","strasse":"Sparkassenplatz 5","plz":"2640","ort":"Gloggnitz","telefon":"02662/42401 DW 26","email":"vhs@gloggnitz.gv.at","web":"http://www.gloggnitz.at","kursprogramm":"https://gloggnitz.vhs-noe.at/Kurse","lat":47.6746966,"lon":15.9353469,"geo_genauigkeit":"adresse"},{"id":"10108","name":"VHS Gmünd","leitung":"Stadtrat Rene Schreiber","strasse":"Schremser Straße 6","plz":"3950","ort":"Gmünd","telefon":"0664/8542040","email":"rene.schreiber@gmuend.at","web":"http://gmuend.vhs-noe.at","kursprogramm":"https://gmuend.vhs-noe.at/Kurse","lat":48.7716143,"lon":14.9860343,"geo_genauigkeit":"adresse"},{"id":"10112","name":"VHS Groß Gerungs","leitung":"Stefanie Hackl BEd. MEd.","strasse":"Hauptplatz 18","plz":"3920","ort":"Groß Gerungs","telefon":"0 28 12 / 8611","email":"office@gerungs.at","web":"https://www.gerungs.at/Meine_Gemeinde/Bildung/Volkshochschule","kursprogramm":"https://www.gerungs.at/Meine_Gemeinde/Bildung/Volkshochschule","lat":48.574426,"lon":14.9580745,"geo_genauigkeit":"adresse"},{"id":"10113","name":"VHS Groß Siegharts","leitung":"Stadträtin Martina Matzinger","strasse":"Schloßplatz 1","plz":"3812","ort":"Groß-Siegharts","telefon":"0664/88 233 892","email":"martina.matzinger@gmx.at","web":"https://www.siegharts.at/de/Volkshochschule_Gross-Siegharts","kursprogramm":"https://www.siegharts.at/de/Volkshochschule_Gross-Siegharts","lat":48.791701,"lon":15.406188,"geo_genauigkeit":"adresse"},{"id":"10425","name":"VHS Groß-Enzersdorf","leitung":"Petra Mc Quillan","strasse":"Rathausstraße 5","plz":"2301","ort":"Groß-Enzersdorf","telefon":"066488948532","email":"vhs@gross-enzersdorf.gv.at","web":"http://vhs.gross-enzersdorf.gv.at","kursprogramm":"https://grossenzersdorf.vhs-noe.at/Kurse","lat":48.2001997,"lon":16.5507803,"geo_genauigkeit":"adresse"},{"id":"10095","name":"VHS Gänserndorf","leitung":"Mario Brandtner","strasse":"Rathausplatz 1","plz":"2230","ort":"Gänserndorf","telefon":"02282/2651-26","email":"vhs@gaenserndorf.at","web":"http://vhs.gaenserndorf.at","kursprogramm":"https://gaenserndorf.venuzle.com/search/events?v=card","lat":48.3401147,"lon":16.7169502,"geo_genauigkeit":"adresse"},{"id":"10116","name":"VHS Haag","leitung":"Bürgermeister Lukas Michlmayr","strasse":"Hauptplatz 4","plz":"3350","ort":"Stadt Haag","telefon":"07434/42423-19","email":"volkshochschule@haag.gv.at","web":"http://haag.vhs-noe.at","kursprogramm":"https://haag.vhs-noe.at/Kurse","lat":48.111922,"lon":14.5655237,"geo_genauigkeit":"adresse"},{"id":"10118","name":"VHS Hainburg","leitung":"Petra Patocka","strasse":"Hauptplatz 23","plz":"2410","ort":"Hainburg a.d.Donau","telefon":"02165/62111-134","email":"p.patocka@hainburg-donau.gv.at","web":"http://hainburg.vhs-noe.at","kursprogramm":"https://hainburg.vhs-noe.at/Kurse","lat":48.1477029,"lon":16.9420444,"geo_genauigkeit":"adresse"},{"id":"10123","name":"VHS Hainfeld","leitung":"Sandra Bauer","strasse":"Hauptstraße 5","plz":"3170","ort":"Hainfeld","telefon":"02764/2246-279","email":"bauer@hainfeld.at","web":"https://www.hainfeld.gv.at/Stadtorganisation/Einrichtungen/Volkshochschule_Hainfeld","kursprogramm":"https://hainfeld.vhs-noe.at/Kurse/","lat":48.0347733,"lon":15.7732335,"geo_genauigkeit":"adresse"},{"id":"10125","name":"VHS Heidenreichstein","leitung":"StR Barbara Körner","strasse":"Kirchenplatz 1","plz":"3860","ort":"Heidenreichstein","telefon":"02862/52336 DW 14","email":"koerner_barbara@yahoo.de","web":"http://heidenreichstein.vhs-noe.at","kursprogramm":"https://heidenreichstein.vhs-noe.at/Kurse","lat":48.8655007,"lon":15.1220473,"geo_genauigkeit":"adresse"},{"id":"10127","name":"VHS Herzogenburg","leitung":"Lic. May Mujica Arcia","strasse":"Rathausplatz 8","plz":"3130","ort":"Herzogenburg","telefon":"0660/8558829","email":"office@vhs-herzogenburg.at","web":"http://herzogenburg.vhs-noe.at","kursprogramm":"https://herzogenburg.vhs-noe.at/Kurse","lat":48.2853375,"lon":15.6946553,"geo_genauigkeit":"adresse"},{"id":"10129","name":"VHS Hohenau/March","leitung":"GGR Margot Swatschina","strasse":"Rathausplatz 1","plz":"2273","ort":"Hohenau an der March","telefon":"02535/2307 (Gemeindeamt)","email":"swatschina@hohenau.at","web":"http://hohenau.vhs-noe.at","kursprogramm":"https://hohenau.vhs-noe.at/Kurse","lat":48.6063726,"lon":16.9052729,"geo_genauigkeit":"adresse"},{"id":"10135","name":"VHS Horn","leitung":"Mag. Roland Surböck","strasse":"Rathausplatz 1","plz":"3580","ort":"Horn","telefon":"02982/20227","email":"office@vhshorn.at","web":"http://www.vhshorn.at","kursprogramm":"https://horn.vhs-noe.at/Kurse","lat":48.6652087,"lon":15.6559964,"geo_genauigkeit":"adresse"},{"id":"10141","name":"KV Korneuburg","leitung":"Mag. Bettina Wobornik","strasse":"Chimanigasse 2","plz":"2100","ort":"Korneuburg","telefon":"+43 676 5600425","email":"bettina@wobornik.com","web":"http://kvkorneuburg.vhs-noe.at","kursprogramm":"https://kvkorneuburg.vhs-noe.at/Kurse","lat":48.350312,"lon":16.3272709,"geo_genauigkeit":"adresse"},{"id":"10143","name":"VHS Korneuburg","leitung":"Mag. Jelena Margaretic-Panzer","strasse":"Prof.-Dr.-Karl-Liebleitner-Ring 9","plz":"2100","ort":"Korneuburg","telefon":"02262/72462","email":"office@vhs-korneuburg.at","web":"https://www.vhs-korneuburg.at","kursprogramm":"https://www.vhs-korneuburg.at/Kurse/","lat":48.3440605,"lon":16.3334321,"geo_genauigkeit":"ort"},{"id":"10144","name":"VHS Krems","leitung":"Nathalie Glorion, BA., MA.","strasse":"Obere Landstraße 10","plz":"3500","ort":"Krems","telefon":"02732/85798","email":"nathalie.glorion@vhs-krems.at","web":"http://www.vhs-krems.at","kursprogramm":"https://krems.vhs-noe.at/Kurse","lat":48.4109211,"lon":15.5989509,"geo_genauigkeit":"adresse"},{"id":"10146","name":"VHS Laa/Thaya","leitung":"Dir. Mag. Isabella Zins","strasse":"Goethestraße 28","plz":"2136","ort":"Laa an der Thaya","telefon":"0676/3925746","email":"isabella.zins@vhs-laa.at","web":"http://www.vhs-laa.at","kursprogramm":"https://laa.vhs-noe.at/Kurse","lat":48.722617,"lon":16.3896039,"geo_genauigkeit":"adresse"},{"id":"10147","name":"VHS Langenlois","leitung":"Werner Schebesta","strasse":"Kaserngasse 14","plz":"3550","ort":"Langenlois","telefon":"0664/1355330","email":"w.schebesta@aon.at","web":"http://vhs-langenlois.at","kursprogramm":"https://langenlois.vhs-noe.at/Kurse","lat":48.4724466,"lon":15.6730992,"geo_genauigkeit":"adresse"},{"id":"10149","name":"VHS Lilienfeld","leitung":"Mag. Dr. Josef Heindl","strasse":"Klosterrotte 1","plz":"3180","ort":"Lilienfeld","telefon":"02762/52380","email":"vhs@bglilienfeld.ac.at","web":"http://lilienfeld.vhs-noe.at","kursprogramm":"https://lilienfeld.vhs-noe.at/Kurse","lat":48.0131037,"lon":15.5975756,"geo_genauigkeit":"adresse"},{"id":"10415","name":"VHS Mank","leitung":"Roswitha Rosenberger","strasse":"Schulstraße 1","plz":"3240","ort":"Mank","telefon":"02755/2282-15","email":"volkshochschule@mank.at","web":"https://mank.vhs-noe.at","kursprogramm":"https://mank.vhs-noe.at/Kurse","lat":48.1110325,"lon":15.3411865,"geo_genauigkeit":"adresse"},{"id":"10153","name":"VHS Mautern","leitung":"Gabriele Inzinger","strasse":"Rathausplatz 1","plz":"3512","ort":"Mautern","telefon":"0664 811 53 52","email":"vhs.mautern@gmail.com","web":"https://mautern.vhs-noe.at","kursprogramm":"https://mautern.vhs-noe.at/Kurse/","lat":48.3935304,"lon":15.5779333,"geo_genauigkeit":"adresse"},{"id":"10154","name":"VHS Melk","leitung":"Isabella Kaufmann","strasse":"Rathausplatz 11","plz":"3390","ort":"Melk","telefon":"0676 844715608","email":"vhs@stadt-melk.at","web":"http://melk.vhs-noe.at","kursprogramm":"https://melk.vhs-noe.at/Kurse","lat":48.2271269,"lon":15.3321454,"geo_genauigkeit":"adresse"},{"id":"10155","name":"VHS Mistelbach","leitung":"Iris Sroufek","strasse":"Franz Josef-Straße 43","plz":"2130","ort":"Mistelbach","telefon":"02572/5200","email":"iris.sroufek@gmail.com","web":"http://www.vhs-mistelbach.at","kursprogramm":"https://mistelbach.vhs-noe.at/Kurse","lat":48.570303,"lon":16.5698407,"geo_genauigkeit":"adresse"},{"id":"10156","name":"VHS Mödling","leitung":"Barbara Pahr","strasse":"Jakob Thoma-Straße 20","plz":"2340","ort":"Mödling","telefon":"02236/43225","email":"office@vhs-moedling.at","web":"http://www.vhs-moedling.at","kursprogramm":"https://moedling.vhs-noe.at/Kurse","lat":48.0891041,"lon":16.2902883,"geo_genauigkeit":"adresse"},{"id":"10369","name":"VHS Neulengbach","leitung":"Barbara Landskron","strasse":"Marktfeldstraße 26","plz":"3040","ort":"Neulengbach","telefon":"0680 2103372","email":"kurse@vhsneulengbach.at","web":"http://neulengbach.vhs-noe.at","kursprogramm":"https://neulengbach.vhs-noe.at/Kurse","lat":48.1994249,"lon":15.9041722,"geo_genauigkeit":"adresse"},{"id":"10157","name":"VHS Neunkirchen","leitung":"Mag.a FH Catrin Mayerhofer-Trajkovski MA","strasse":"Fabriksgasse 34","plz":"2620","ort":"Neunkirchen","telefon":"0650/7379355","email":"neunkirchen@vhs-noe.at","web":"https://neunkirchen.vhs-noe.at","kursprogramm":"https://neunkirchen.vhs-noe.at/Kurse","lat":47.7255431,"lon":16.0889663,"geo_genauigkeit":"adresse"},{"id":"10158","name":"VHS Perchtoldsdorf","leitung":"Herwig Heider","strasse":"Leonhardiberggasse 10","plz":"2380","ort":"Perchtoldsdorf","telefon":"+43 660 73 47 442","email":"office@vhs-perchtoldsdorf.at","web":"http://www.vhs-perchtoldsdorf.at","kursprogramm":"https://perchtoldsdorf.vhs-noe.at/Kurse","lat":48.1207809,"lon":16.2622826,"geo_genauigkeit":"adresse"},{"id":"10159","name":"VHS Pielachtal","leitung":"Madlen Leitner","strasse":"Hauptplatz 3-5","plz":"3202","ort":"Hofstetten-Grünau","telefon":"02723/8242-14","email":"vhs-pielachtal@hofstetten-gruenau.gv.at","web":"https://www.vhs-pielachtal.at","kursprogramm":"https://pielachtal.vhs-noe.at/Kurse","lat":48.0969419,"lon":15.5118415,"geo_genauigkeit":"adresse"},{"id":"10162","name":"VHS Poysdorf","leitung":"HOL Helmut Seidl","strasse":"Johannessiedlung 6","plz":"2170","ort":"Poysdorf","telefon":"0677/64 25 54 58 od. 02552/ 2200 DW 29 (Hr. Jilli) od. DW 38 (Hr. Stadlbacher)","email":"he.seidl@aon.at","web":"http://poysdorf.vhs-noe.at","kursprogramm":"https://poysdorf.vhs-noe.at/Kurse","lat":48.6633719,"lon":16.6267241,"geo_genauigkeit":"adresse"},{"id":"10164","name":"VHS Purkersdorf","leitung":"Beatrix Kaukal","strasse":"Schwarzhubergasse 5","plz":"3002","ort":"Purkersdorf","telefon":"02231/63601 DW235","email":"vhs@purkersdorf.at","web":"https://purkersdorf.vhs-noe.at","kursprogramm":"https://purkersdorf.vhs-noe.at/Kurse","lat":48.2062123,"lon":16.1734913,"geo_genauigkeit":"adresse"},{"id":"10160","name":"VHS Pöchlarn","leitung":"Kerstin Thain","strasse":"Kirchenplatz 1","plz":"3380","ort":"Pöchlarn","telefon":"02757/2310-20","email":"vhs@poechlarn.at","web":"https://poechlarn.vhs-noe.at","kursprogramm":"https://poechlarn.vhs-noe.at/Kurse","lat":48.2122117,"lon":15.2109477,"geo_genauigkeit":"adresse"},{"id":"10169","name":"VHS Scheibbs","leitung":"Bernhard Hofecker","strasse":"Rathausplatz 1","plz":"3270","ort":"Scheibbs","telefon":"07482/42511 DW 63","email":"vhs@scheibbs.gv.at","web":"http://scheibbs.vhs-noe.at","kursprogramm":"https://scheibbs.vhs-noe.at/Kurse","lat":48.0056102,"lon":15.1675727,"geo_genauigkeit":"adresse"},{"id":"10171","name":"VHS Schrems","leitung":"Philipp Löffler","strasse":"Hauptplatz 19","plz":"3943","ort":"Schrems","telefon":"02853 7745425","email":"philipp@loeffler.top","web":"http://www.vhs-noe.at","kursprogramm":"http://www.vhs-noe.at","lat":48.793204,"lon":15.0718541,"geo_genauigkeit":"adresse"},{"id":"10172","name":"VHS Schwechat","leitung":"Dr. Christina Pal","strasse":"Rathausplatz 9","plz":"2320","ort":"Schwechat","telefon":"01 70 108/284","email":"c.pal@schwechat.gv.at","web":"https://www.schwechat.gv.at","kursprogramm":"https://schwechat.vhs-noe.at/Kurse","lat":48.1399512,"lon":16.4756112,"geo_genauigkeit":"adresse"},{"id":"10416","name":"VHS St. Andrä Wördern","leitung":"Dipl.Ing.Dr. Karl Wachter","strasse":"Altgasse 30","plz":"3423","ort":"St. Andrä-Wördern","telefon":"0676/6505073","email":"vhs@staw.at","web":"https://standraewoerdern.vhs-noe.at","kursprogramm":"https://standraewoerdern.vhs-noe.at/Kurse","lat":48.3303902,"lon":16.209354,"geo_genauigkeit":"adresse"},{"id":"10174","name":"VHS St. Pölten","leitung":"Mag.a Maren Waffenschmid","strasse":"Kolpingstraße 1","plz":"3100","ort":"St. Pölten","telefon":"02742/333-3100","email":"vhs@st-poelten.gv.at","web":"http://www.vhs-stp.at","kursprogramm":"https://stpoelten.vhs-noe.at/Kurse","lat":48.2067958,"lon":15.6145439,"geo_genauigkeit":"adresse"},{"id":"10175","name":"VHS St. Valentin","leitung":"Brandstetter Andrea","strasse":"Hauptplatz 7","plz":"4300","ort":"St. Valentin","telefon":"07435/505-0","email":"buergerservice@st-valentin.at","web":"http://www.st-valentin.at","kursprogramm":"https://stvalentin.vhs-noe.at/Kurse","lat":48.1746672,"lon":14.5333016,"geo_genauigkeit":"adresse"},{"id":"10176","name":"VBV Stockerau","leitung":"Ing. Mag. Alexander Liebhart","strasse":"Alfred-Hermann-Fried-Straße 5","plz":"2000","ort":"Stockerau","telefon":"0681 81458312","email":"office@vbv-stockerau.at","web":"https://www.vbv-stockerau.at","kursprogramm":"https://www.vbv-stockerau.at/Kurse","lat":48.3890033,"lon":16.2390556,"geo_genauigkeit":"adresse"},{"id":"10178","name":"VHS Stockerau","leitung":"Markus Rosenberger","strasse":"Prof. Otto Zeiller Strasse 9b","plz":"2000","ort":"Stockerau","telefon":"+43 660 2214973","email":"info@vhs-stockerau.at","web":"http://www.vhs-stockerau.at","kursprogramm":"https://stockerau.vhs-noe.at/Kurse","lat":48.38993,"lon":16.2293226,"geo_genauigkeit":"adresse"},{"id":"10367","name":"VHS Strasshof an der Nordbahn","leitung":"Christian Graf, MA","strasse":"Schönkirchner Straße 3","plz":"2231","ort":"Strasshof","telefon":"02287/46662","email":"office@vhs-strasshof.at","web":"http://www.vhs-strasshof.at","kursprogramm":"https://strasshof.vhs-noe.at/Kurse","lat":48.3216849,"lon":16.6535301,"geo_genauigkeit":"adresse"},{"id":"10366","name":"VHS Südliches Waldviertel","leitung":"Dir. Tanja Wesely, zert. EB","strasse":"Hauptstraße 9","plz":"3683","ort":"Yspertal","telefon":"+43 7415 6767-30","email":"volkshochschule.swv@wavenet.at","web":"https://suedlicheswaldviertel.vhs-noe.at","kursprogramm":"https://suedlicheswaldviertel.vhs-noe.at/Kurse","lat":48.2832791,"lon":15.0656906,"geo_genauigkeit":"adresse"},{"id":"10179","name":"VHS Ternitz","leitung":"StR Daniela Mohr","strasse":"Bürgerbüro Th.Körner-Platz 3","plz":"2630","ort":"Ternitz","telefon":"02630/38240 DW 93 oder DW 94","email":"vhs-biz@ternitz.at","web":"http://www.vhs-ternitz.at","kursprogramm":"https://ternitz.vhs-noe.at/Kurse","lat":47.7168223,"lon":16.0355194,"geo_genauigkeit":"adresse"},{"id":"10181","name":"VHS Traiskirchen im BiZENT Arkadia","leitung":"Karin Grossmann","strasse":"Arkadiaweg 1","plz":"2514","ort":"Traiskirchen","telefon":"050355-387","email":"vhs@traiskirchen.gv.at","web":"http://www.vhs-traiskirchen.at","kursprogramm":"https://traiskirchen.vhs-noe.at/Kurse","lat":48.0122495,"lon":16.2927335,"geo_genauigkeit":"adresse"},{"id":"10183","name":"VHS Traismauer","leitung":"StR. Mag. Tanja Warlich","strasse":"Wienerstraße 8","plz":"3133","ort":"Traismauer","telefon":"02783/8651-11","email":"stadtgemeinde@traismauer.at","web":"http://traismauer.vhs-noe.at","kursprogramm":"https://traismauer.vhs-noe.at/Kurse","lat":48.3498446,"lon":15.7442425,"geo_genauigkeit":"adresse"},{"id":"10184","name":"VHS Tulln","leitung":"GR Peter Höckner","strasse":"Minoritenplatz 1","plz":"3430","ort":"Tulln","telefon":"02272 / 690-110 od. 772","email":"vhs@tulln.at","web":"http://tulln.vhs-noe.at","kursprogramm":"https://tulln.vhs-noe.at/Kurse","lat":48.3325818,"lon":16.0496372,"geo_genauigkeit":"adresse"},{"id":"10131","name":"VHS Urania Hollabrunn","leitung":"Mag. Leopold Schogger","strasse":"Dechant Pfeiferstraße 3","plz":"2020","ort":"Hollabrunn","telefon":"+43 680 5011676","email":"l.schogger@outlook.com","web":"https://www.vhs-hollabrunn.at","kursprogramm":"https://www.vhs-hollabrunn.at/Kurse/","lat":48.5609343,"lon":16.0672762,"geo_genauigkeit":"adresse"},{"id":"10139","name":"VHS Urania Klosterneuburg","leitung":"Dir. Mag. Dr. Rudolf Koch","strasse":"Leopoldstraße 21","plz":"3400","ort":"Klosterneuburg","telefon":"02243/444 DW 473 (Denise Spusta)","email":"vhs@klosterneuburg.at","web":"https://vhs.klosterneuburg.at","kursprogramm":"https://vhs.klosterneuburg.at/Kurse","lat":48.3028748,"lon":16.3283853,"geo_genauigkeit":"adresse"},{"id":"10186","name":"VHS Waidhofen/Thaya","leitung":"Sofie Kopita","strasse":"Hauptplatz 1","plz":"3830","ort":"Waidhofen an der Thaya","telefon":"02842/503-14","email":"volkshochschule@waidhofen-thaya.gv.at","web":"http://waidhofenthaya.vhs-noe.at","kursprogramm":"https://waidhofenthaya.vhs-noe.at/Kurse","lat":48.8151594,"lon":15.2869099,"geo_genauigkeit":"adresse"},{"id":"10188","name":"VHS Waidhofen/Ybbs","leitung":"Mag. Gabriele Hofleitner","strasse":"Oberer Stadtplatz 28","plz":"3340","ort":"Waidhofen/Ybbs","telefon":"+43 664 794 8586","email":"gabriele.hofleitner@waidhofen.at","web":"http://vhswaidhofenybbs.at","kursprogramm":"https://waidhofenybbs.vhs-noe.at/Kurse","lat":47.9610214,"lon":14.7743427,"geo_genauigkeit":"adresse"},{"id":"10189","name":"VHS Weitra","leitung":"VzBgm. Petra Zimmermann - Moser","strasse":"Rathausplatz 1","plz":"3970","ort":"Weitra","telefon":"0664/1462782","email":"pz@weitra.gv.at","web":"http://weitra.vhs-noe.at","kursprogramm":"https://weitra.vhs-noe.at/Kurse","lat":48.7006823,"lon":14.8935944,"geo_genauigkeit":"adresse"},{"id":"10191","name":"VHS Wiener Neustadt","leitung":"PhDr. Claus Kraupa, M.A.","strasse":"Neuklosterplatz 1","plz":"2700","ort":"Wiener Neustadt","telefon":"02622/373-920","email":"volkshochschule@wiener-neustadt.at","web":"https://wienerneustadt.vhs-noe.at","kursprogramm":"https://wienerneustadt.vhs-noe.at/kurse","lat":47.8124037,"lon":16.2459016,"geo_genauigkeit":"adresse"},{"id":"10365","name":"VHS Wieselburg","leitung":"Bürgermeister Dr. Josef Leitner","strasse":"Hauptplatz 26","plz":"3250","ort":"Wieselburg","telefon":"07416/52319","email":"office@wieselburg.at","web":"http://wieselburg.gv.at","kursprogramm":"https://wieselburg.vhs-noe.at/Kurse","lat":48.1303539,"lon":15.1383337,"geo_genauigkeit":"adresse"},{"id":"10193","name":"VHS Wolkersdorf","leitung":"Karin Schuster","strasse":"Hauptstraße 30","plz":"2120","ort":"Wolkersdorf","telefon":"02245/20160","email":"vhs.wolkersdorf@gmx.at","web":"http://wolkersdorf.vhs-noe.at","kursprogramm":"https://wolkersdorf.vhs-noe.at/Kurse","lat":48.3826309,"lon":16.5187813,"geo_genauigkeit":"adresse"},{"id":"10194","name":"VHS Ybbs an der Donau","leitung":"STR Simmer Philipp","strasse":"Hauptplatz 1","plz":"3370","ort":"Ybbs an der Donau","telefon":"+43 7415 6760-30","email":"volkshochschule.swv@wavenet.at","web":"http://www.volkshochschule.swv.at","kursprogramm":"https://ybbs.vhs-noe.at/Kurse","lat":48.1770344,"lon":15.0851644,"geo_genauigkeit":"adresse"},{"id":"10196","name":"VHS Zistersdorf","leitung":"Dr. Verena Hornsteiner-Uher","strasse":"Hauptstraße 12","plz":"2225","ort":"Zistersdorf","telefon":"02532/2401-114","email":"vhs@zistersdorf.gv.at","web":"http://zistersdorf.vhs-noe.at","kursprogramm":"https://zistersdorf.vhs-noe.at/Kurse","lat":48.5453464,"lon":16.7622127,"geo_genauigkeit":"adresse"},{"id":"10197","name":"VHS Zwentendorf","leitung":"GGR Manfred Bichler","strasse":"Rathausplatz 4","plz":"3435","ort":"Zwentendorf","telefon":"02277/2209 DW 13","email":"christian.richter@zwentendorf-donau.gv.at","web":"http://zwentendorf.vhs-noe.at","kursprogramm":"https://zwentendorf.vhs-noe.at/Kurse","lat":48.3457043,"lon":15.9111493,"geo_genauigkeit":"adresse"},{"id":"10199","name":"VHS Zwettl","leitung":"Franz Fischer","strasse":"Gartenstraße 3","plz":"3910","ort":"Zwettl","telefon":"0664/5298352","email":"info@vhszwettl.at","web":"http://www.vhszwettl.at","kursprogramm":"http://www.vhszwettl.at","lat":48.6034608,"lon":15.1691074,"geo_genauigkeit":"adresse"}]};
+const LAENDER = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"name":"Wien","key":"at-wi"},"geometry":{"type":"Polygon","coordinates":[[[16.4797,48.2915],[16.5117,48.303],[16.5373,48.2804],[16.556,48.249],[16.5428,48.1976],[16.5713,48.1531],[16.5022,48.1616],[16.4402,48.1571],[16.4105,48.1351],[16.3878,48.1357],[16.3467,48.1492],[16.294,48.1458],[16.2324,48.1493],[16.2025,48.1743],[16.2113,48.203],[16.1886,48.2302],[16.2082,48.262],[16.2326,48.2543],[16.2591,48.2574],[16.2843,48.2739],[16.3515,48.303],[16.4036,48.3178],[16.4158,48.3303],[16.4463,48.328],[16.4797,48.2915]]]}},{"type":"Feature","properties":{"name":"Vorarlberg","key":"at-vo"},"geometry":{"type":"Polygon","coordinates":[[[10.125,46.847],[10.0683,46.8568],[10.0066,46.8906],[9.8997,46.9145],[9.8627,46.9396],[9.867,47.002],[9.8578,47.0155],[9.6688,47.0561],[9.5811,47.0571],[9.6086,47.0808],[9.6159,47.1067],[9.6057,47.1325],[9.5818,47.155],[9.5517,47.1668],[9.5628,47.1976],[9.5403,47.2292],[9.547,47.2432],[9.5212,47.2628],[9.5534,47.3],[9.5871,47.3277],[9.6008,47.3614],[9.6499,47.4096],[9.6504,47.4519],[9.6219,47.469],[9.5846,47.4806],[9.5551,47.511],[9.6078,47.4994],[9.6274,47.5105],[9.6696,47.4986],[9.6898,47.5201],[9.7445,47.52],[9.7182,47.5467],[9.7529,47.582],[9.782,47.5886],[9.8081,47.5761],[9.8132,47.5416],[9.8334,47.5346],[9.8589,47.5415],[9.9184,47.5324],[9.9459,47.5408],[9.9484,47.5243],[9.972,47.5064],[9.9935,47.4767],[10.0229,47.488],[10.0716,47.439],[10.0757,47.4168],[10.0534,47.4047],[10.0733,47.3654],[10.1308,47.3627],[10.1469,47.3736],[10.1907,47.3791],[10.2093,47.3725],[10.2082,47.3544],[10.1859,47.2949],[10.1551,47.2726],[10.1747,47.2722],[10.1917,47.2437],[10.2035,47.1989],[10.2022,47.1608],[10.187,47.1362],[10.1483,47.0962],[10.1383,47.0773],[10.1249,47.0218],[10.1292,46.9849],[10.1206,46.9552],[10.0841,46.9261],[10.0832,46.908],[10.1062,46.8825],[10.125,46.847]]]}},{"type":"Feature","properties":{"name":"Burgenland","key":"at-bu"},"geometry":{"type":"Polygon","coordinates":[[[17.0626,48.1125],[17.08,48.0977],[17.0588,48.0603],[17.0752,48.0522],[17.0698,48.0358],[17.1253,48.0197],[17.1484,48.0056],[17.0856,47.9701],[17.0963,47.9617],[17.0754,47.9277],[17.0878,47.9226],[17.0778,47.8915],[17.051,47.8729],[17.0037,47.8635],[17.0044,47.8525],[17.0393,47.8372],[17.0559,47.8124],[17.0409,47.801],[17.0507,47.7308],[17.0752,47.7087],[17.055,47.7022],[16.9821,47.6955],[16.903,47.6818],[16.8646,47.6868],[16.8502,47.7129],[16.7977,47.6756],[16.7411,47.6815],[16.7194,47.6936],[16.7023,47.7235],[16.6097,47.7505],[16.5676,47.754],[16.531,47.7432],[16.5132,47.7061],[16.4548,47.6816],[16.4391,47.6906],[16.4078,47.6615],[16.4818,47.639],[16.5094,47.643],[16.5758,47.625],[16.6084,47.6288],[16.6304,47.622],[16.6563,47.5861],[16.6508,47.5663],[16.6814,47.5507],[16.688,47.5225],[16.6774,47.51],[16.6371,47.4931],[16.6409,47.453],[16.5894,47.4255],[16.4817,47.3924],[16.4563,47.4117],[16.4337,47.3971],[16.4364,47.3585],[16.4247,47.3512],[16.4696,47.2934],[16.4664,47.2636],[16.4212,47.243],[16.4244,47.2258],[16.4092,47.2038],[16.4131,47.1871],[16.4352,47.1837],[16.4337,47.1457],[16.4473,47.1396],[16.4807,47.1506],[16.5098,47.1374],[16.4822,47.1054],[16.4608,47.0965],[16.4619,47.0684],[16.4934,47.0599],[16.4934,47.049],[16.4246,47.0243],[16.4673,47.0184],[16.4863,46.9984],[16.4101,46.9904],[16.3879,47.002],[16.3259,47.0003],[16.2748,47.0045],[16.2608,46.9782],[16.2331,46.9661],[16.2308,46.9486],[16.1594,46.9104],[16.1229,46.8762],[16.0281,46.8371],[16.0268,46.8523],[16.0031,46.8771],[16.0185,46.9228],[16.0543,46.9443],[16.1031,46.9883],[16.1362,47.025],[16.1349,47.0403],[16.0899,47.0827],[16.0842,47.1071],[16.0948,47.1653],[16.0672,47.2377],[16.0581,47.2911],[16.0377,47.3439],[16.0203,47.3723],[16.0218,47.3894],[16.0474,47.4107],[16.0718,47.3949],[16.0904,47.402],[16.1478,47.4429],[16.2306,47.4456],[16.2723,47.4636],[16.3241,47.5012],[16.3211,47.5716],[16.3759,47.6447],[16.3124,47.7025],[16.2895,47.7325],[16.2894,47.7938],[16.3241,47.7963],[16.3483,47.8123],[16.358,47.8329],[16.3602,47.8718],[16.391,47.9028],[16.4392,47.9282],[16.5032,47.9354],[16.573,47.9197],[16.612,47.9333],[16.6802,47.9717],[16.7046,48.009],[16.7506,48.0295],[16.774,48.0298],[16.816,48.0433],[16.8563,48.0629],[16.9001,48.072],[16.9621,48.0459],[16.9828,48.068],[16.9828,48.098],[17.0035,48.1092],[17.0347,48.1001],[17.0626,48.1125]]]}},{"type":"Feature","properties":{"name":"Steiermark","key":"at-st"},"geometry":{"type":"Polygon","coordinates":[[[16.1478,47.4429],[16.0904,47.402],[16.0718,47.3949],[16.0474,47.4107],[16.0218,47.3894],[16.0203,47.3723],[16.0377,47.3439],[16.0581,47.2911],[16.0672,47.2377],[16.0948,47.1653],[16.0842,47.1071],[16.0899,47.0827],[16.1349,47.0403],[16.1362,47.025],[16.1031,46.9883],[16.0543,46.9443],[16.0185,46.9228],[16.0031,46.8771],[16.0268,46.8523],[16.0281,46.8371],[15.9876,46.8299],[15.9783,46.8093],[15.9702,46.7429],[15.9821,46.7184],[16.0148,46.6939],[16.0171,46.6705],[15.987,46.6921],[15.9466,46.6974],[15.8786,46.7207],[15.8227,46.7229],[15.7548,46.7039],[15.6522,46.7108],[15.6359,46.7173],[15.6268,46.6809],[15.6036,46.6728],[15.5672,46.6759],[15.5308,46.6638],[15.5114,46.6285],[15.4626,46.6147],[15.4173,46.6379],[15.3879,46.6455],[15.2048,46.6392],[15.1057,46.6465],[15.0343,46.7031],[15.0227,46.7271],[15.0202,46.7604],[14.9868,46.8421],[15.006,46.8813],[15.0083,46.9112],[14.9296,46.9936],[14.8903,47.0269],[14.8497,47.0412],[14.7394,47.0231],[14.6163,47.017],[14.5894,47.0244],[14.4969,47.023],[14.3943,46.9983],[14.267,47.0294],[14.2007,47.0565],[14.136,47.0536],[14.0264,47.0178],[14.0026,47.0027],[13.9786,46.9729],[13.9417,46.9607],[13.8796,46.9278],[13.8442,46.9227],[13.782,46.9544],[13.8205,46.9879],[13.8634,47.0424],[13.8804,47.0727],[13.88,47.1055],[13.9369,47.1504],[13.9315,47.1694],[13.9017,47.1838],[13.861,47.222],[13.848,47.2506],[13.81,47.2964],[13.7968,47.3021],[13.7388,47.29],[13.694,47.2744],[13.6306,47.3055],[13.6042,47.3426],[13.5745,47.4097],[13.5655,47.4453],[13.5818,47.4862],[13.6743,47.4741],[13.7242,47.4981],[13.7356,47.5161],[13.7302,47.5461],[13.6814,47.5976],[13.6773,47.6175],[13.6875,47.6641],[13.7165,47.6844],[13.823,47.7206],[13.953,47.6943],[13.9967,47.6988],[14.0419,47.6624],[14.0597,47.6262],[14.0858,47.636],[14.1952,47.6576],[14.2517,47.631],[14.2936,47.6207],[14.3471,47.6255],[14.4174,47.6586],[14.4769,47.6784],[14.4913,47.6954],[14.6359,47.7342],[14.6995,47.7691],[14.7342,47.7502],[14.8385,47.7507],[14.8835,47.725],[14.9293,47.7267],[15.0147,47.7526],[15.0562,47.751],[15.1868,47.7803],[15.2298,47.8191],[15.2777,47.8154],[15.3394,47.8253],[15.3752,47.8194],[15.4172,47.7935],[15.4999,47.7663],[15.5386,47.7475],[15.6061,47.7433],[15.6387,47.7175],[15.6719,47.704],[15.7141,47.7017],[15.7262,47.6901],[15.7434,47.6365],[15.7637,47.6327],[15.7966,47.6453],[15.829,47.6323],[15.8277,47.5891],[15.8661,47.5854],[15.8921,47.572],[15.9169,47.5334],[15.9985,47.5239],[16.0474,47.5062],[16.0802,47.5163],[16.1132,47.4632],[16.1478,47.4429]]]}},{"type":"Feature","properties":{"name":"Kärnten","key":"at-ka"},"geometry":{"type":"Polygon","coordinates":[[[13.782,46.9544],[13.8442,46.9227],[13.8796,46.9278],[13.9417,46.9607],[13.9786,46.9729],[14.0026,47.0027],[14.0264,47.0178],[14.136,47.0536],[14.2007,47.0565],[14.267,47.0294],[14.3943,46.9983],[14.4969,47.023],[14.5894,47.0244],[14.6163,47.017],[14.7394,47.0231],[14.8497,47.0412],[14.8903,47.0269],[14.9296,46.9936],[15.0083,46.9112],[15.006,46.8813],[14.9868,46.8421],[15.0202,46.7604],[15.0227,46.7271],[15.0343,46.7031],[15.1057,46.6465],[15.0616,46.6495],[15.0047,46.637],[14.967,46.6],[14.9338,46.6209],[14.8975,46.6058],[14.8505,46.6012],[14.822,46.5673],[14.7887,46.5065],[14.7609,46.4963],[14.7099,46.4927],[14.6802,46.4588],[14.5902,46.4342],[14.5575,46.3842],[14.5402,46.3787],[14.5019,46.4185],[14.4674,46.4127],[14.4202,46.4245],[14.4068,46.4394],[14.362,46.436],[14.1497,46.4401],[14.0808,46.4762],[14.0499,46.4845],[13.9825,46.482],[13.8906,46.512],[13.8603,46.5154],[13.7818,46.5077],[13.7158,46.5188],[13.6704,46.5185],[13.5493,46.5459],[13.5066,46.5469],[13.4777,46.5636],[13.4171,46.5603],[13.373,46.5656],[13.2711,46.5508],[13.2311,46.5522],[13.1463,46.5849],[13.0642,46.598],[12.8304,46.6096],[12.7736,46.635],[12.7397,46.6429],[12.7163,46.638],[12.6713,46.6525],[12.7093,46.705],[12.724,46.7488],[12.7454,46.756],[12.8345,46.7655],[12.8752,46.7775],[12.8973,46.7757],[12.9327,46.7573],[12.945,46.7754],[12.8851,46.8327],[12.8286,46.8762],[12.815,46.9189],[12.764,46.9566],[12.7387,46.9855],[12.735,47.004],[12.7513,47.0397],[12.7441,47.0582],[12.6583,47.0777],[12.6366,47.0928],[12.6335,47.1122],[12.6653,47.1367],[12.6869,47.132],[12.7722,47.0992],[12.8662,47.0864],[12.9143,47.0761],[12.9938,47.0407],[13.0592,47.029],[13.1343,47.0315],[13.1739,47.0373],[13.226,47.055],[13.2746,47.084],[13.308,47.0873],[13.4394,47.0626],[13.5617,47.0467],[13.6062,47.0442],[13.6673,47.026],[13.7531,46.9806],[13.782,46.9544]]]}},{"type":"Feature","properties":{"name":"Oberösterreich","key":"at-oo"},"geometry":{"type":"Polygon","coordinates":[[[14.6995,47.7691],[14.6359,47.7342],[14.4913,47.6954],[14.4769,47.6784],[14.4174,47.6586],[14.3471,47.6255],[14.2936,47.6207],[14.2517,47.631],[14.1952,47.6576],[14.0858,47.636],[14.0597,47.6262],[14.0419,47.6624],[13.9967,47.6988],[13.953,47.6943],[13.823,47.7206],[13.7165,47.6844],[13.6875,47.6641],[13.6773,47.6175],[13.6814,47.5976],[13.7302,47.5461],[13.7356,47.5161],[13.7242,47.4981],[13.6743,47.4741],[13.5818,47.4862],[13.5245,47.511],[13.4888,47.5357],[13.479,47.5643],[13.5058,47.6027],[13.4891,47.6417],[13.5259,47.7177],[13.5133,47.7353],[13.4528,47.7505],[13.4535,47.77],[13.5085,47.7733],[13.5212,47.7837],[13.4973,47.798],[13.3168,47.8252],[13.2921,47.8409],[13.2715,47.9121],[13.2764,47.9525],[13.2955,47.9691],[13.3507,47.9653],[13.3613,47.9805],[13.3032,48.01],[13.2346,47.9891],[13.1773,47.9842],[13.1391,47.987],[13.0902,48.0002],[13.0362,48.031],[12.9682,48.0317],[12.9378,48.0212],[12.9274,48.0017],[12.8483,47.9824],[12.831,48.0155],[12.7603,48.0651],[12.7372,48.1001],[12.7448,48.1206],[12.8224,48.1609],[12.8534,48.19],[12.8774,48.202],[12.9328,48.2093],[13.0327,48.2638],[13.1365,48.2911],[13.2739,48.3069],[13.308,48.3197],[13.4057,48.3767],[13.4193,48.3924],[13.4379,48.4408],[13.4365,48.4693],[13.4566,48.5068],[13.4574,48.5254],[13.4403,48.561],[13.4546,48.5734],[13.5205,48.5847],[13.6242,48.5655],[13.6734,48.5354],[13.7162,48.5215],[13.7337,48.5599],[13.7659,48.5636],[13.8022,48.6119],[13.8006,48.6751],[13.8166,48.6954],[13.786,48.7245],[13.8158,48.7662],[13.856,48.7594],[13.9153,48.7311],[13.9825,48.7065],[14.0327,48.6549],[14.006,48.6394],[14.0406,48.6012],[14.0748,48.5919],[14.2164,48.581],[14.3155,48.5578],[14.4055,48.5865],[14.4215,48.5973],[14.4439,48.6365],[14.4583,48.643],[14.4823,48.6242],[14.5221,48.6105],[14.5789,48.6204],[14.6022,48.6045],[14.6344,48.6022],[14.6595,48.5767],[14.6912,48.5863],[14.7116,48.5719],[14.7743,48.5625],[14.8396,48.5422],[14.876,48.5389],[14.9064,48.5271],[14.9134,48.4999],[14.8869,48.5003],[14.8825,48.4713],[14.9101,48.4401],[14.9342,48.4341],[14.9403,48.4017],[14.964,48.3833],[14.9752,48.3337],[14.9682,48.225],[14.9297,48.2441],[14.8619,48.2369],[14.8183,48.2057],[14.6756,48.1822],[14.6376,48.1969],[14.6105,48.2234],[14.5648,48.2443],[14.52,48.2448],[14.4846,48.2185],[14.4697,48.156],[14.4802,48.1178],[14.4451,48.0683],[14.4271,48.0576],[14.4453,48.0431],[14.6069,47.9612],[14.6905,47.9374],[14.7331,47.9179],[14.751,47.902],[14.7505,47.883],[14.7324,47.8656],[14.7187,47.8287],[14.7163,47.7936],[14.6995,47.7691]]]}},{"type":"Feature","properties":{"name":"Salzburg","key":"at-sz"},"geometry":{"type":"Polygon","coordinates":[[[13.5818,47.4862],[13.5655,47.4453],[13.5745,47.4097],[13.6042,47.3426],[13.6306,47.3055],[13.694,47.2744],[13.7388,47.29],[13.7968,47.3021],[13.81,47.2964],[13.848,47.2506],[13.861,47.222],[13.9017,47.1838],[13.9315,47.1694],[13.9369,47.1504],[13.88,47.1055],[13.8804,47.0727],[13.8634,47.0424],[13.8205,46.9879],[13.782,46.9544],[13.7531,46.9806],[13.6673,47.026],[13.6062,47.0442],[13.5617,47.0467],[13.4394,47.0626],[13.308,47.0873],[13.2746,47.084],[13.226,47.055],[13.1739,47.0373],[13.1343,47.0315],[13.0592,47.029],[12.9938,47.0407],[12.9143,47.0761],[12.8662,47.0864],[12.7722,47.0992],[12.6869,47.132],[12.6653,47.1367],[12.6335,47.1122],[12.5774,47.1442],[12.4762,47.1558],[12.3969,47.1495],[12.3803,47.1441],[12.3205,47.1047],[12.2037,47.067],[12.1803,47.0853],[12.1332,47.0786],[12.1315,47.1214],[12.1198,47.145],[12.0843,47.1765],[12.0815,47.2054],[12.0984,47.2598],[12.0958,47.2797],[12.1235,47.2895],[12.1682,47.2909],[12.2801,47.3181],[12.3154,47.3327],[12.342,47.3325],[12.3932,47.3205],[12.4573,47.3334],[12.4793,47.3526],[12.5019,47.385],[12.5682,47.3931],[12.6141,47.4195],[12.6354,47.451],[12.6789,47.4988],[12.6573,47.5386],[12.6576,47.5709],[12.5889,47.6113],[12.5632,47.6416],[12.5981,47.6627],[12.6528,47.6749],[12.7619,47.667],[12.7515,47.6493],[12.8131,47.6116],[12.7858,47.6025],[12.7734,47.5796],[12.7793,47.5549],[12.8286,47.5371],[12.8829,47.4984],[12.9427,47.4706],[12.97,47.4759],[13.0086,47.4703],[13.0372,47.4932],[13.0278,47.5416],[13.0403,47.5606],[13.0381,47.5839],[13.0723,47.6225],[13.075,47.6467],[13.0643,47.6738],[13.0197,47.7131],[12.9642,47.7053],[12.9085,47.7123],[12.8922,47.7236],[12.9174,47.7503],[12.927,47.7774],[12.9914,47.847],[12.9651,47.8721],[12.9308,47.9247],[12.8619,47.9625],[12.8483,47.9824],[12.9274,48.0017],[12.9378,48.0212],[12.9682,48.0317],[13.0362,48.031],[13.0902,48.0002],[13.1391,47.987],[13.1773,47.9842],[13.2346,47.9891],[13.3032,48.01],[13.3613,47.9805],[13.3507,47.9653],[13.2955,47.9691],[13.2764,47.9525],[13.2715,47.9121],[13.2921,47.8409],[13.3168,47.8252],[13.4973,47.798],[13.5212,47.7837],[13.5085,47.7733],[13.4535,47.77],[13.4528,47.7505],[13.5133,47.7353],[13.5259,47.7177],[13.4891,47.6417],[13.5058,47.6027],[13.479,47.5643],[13.4888,47.5357],[13.5245,47.511],[13.5818,47.4862]]]}},{"type":"Feature","properties":{"name":"Tirol","key":"at-tr"},"geometry":{"type":"MultiPolygon","coordinates":[[[[12.6335,47.1122],[12.6366,47.0928],[12.6583,47.0777],[12.7441,47.0582],[12.7513,47.0397],[12.735,47.004],[12.7387,46.9855],[12.764,46.9566],[12.815,46.9189],[12.8286,46.8762],[12.8851,46.8327],[12.945,46.7754],[12.9327,46.7573],[12.8973,46.7757],[12.8752,46.7775],[12.8345,46.7655],[12.7454,46.756],[12.724,46.7488],[12.7093,46.705],[12.6713,46.6525],[12.6202,46.6565],[12.5623,46.6513],[12.4998,46.6723],[12.4459,46.6785],[12.4049,46.6901],[12.3707,46.7112],[12.3428,46.7651],[12.269,46.7887],[12.2764,46.8339],[12.2668,46.868],[12.2507,46.8755],[12.1951,46.8802],[12.1719,46.8994],[12.1266,46.9089],[12.1416,46.9191],[12.1115,46.9929],[12.1215,47.0106],[12.1821,47.0335],[12.2037,47.067],[12.3205,47.1047],[12.3803,47.1441],[12.3969,47.1495],[12.4762,47.1558],[12.5774,47.1442],[12.6335,47.1122]]],[[[12.1332,47.0786],[12.1165,47.0765],[12.0152,47.0403],[11.9436,47.038],[11.8568,47.0122],[11.8226,46.9932],[11.7769,46.9883],[11.7461,46.9722],[11.7162,46.9756],[11.6837,46.9918],[11.5966,47.0005],[11.515,46.9897],[11.4896,47.004],[11.4528,47.001],[11.4109,46.9704],[11.3803,46.9718],[11.3138,46.9873],[11.2439,46.9793],[11.1567,46.9563],[11.0919,46.9123],[11.0549,46.8199],[10.9969,46.7693],[10.931,46.7741],[10.8802,46.7645],[10.8241,46.7803],[10.7953,46.7769],[10.7545,46.7907],[10.7169,46.795],[10.7489,46.8195],[10.7388,46.8298],[10.6624,46.8608],[10.6291,46.8624],[10.5276,46.8433],[10.4865,46.8466],[10.4537,46.8643],[10.4512,46.8856],[10.4639,46.9197],[10.4582,46.9366],[10.4158,46.9626],[10.3944,46.9854],[10.3682,46.9956],[10.339,46.9839],[10.2962,46.9415],[10.2959,46.9229],[10.2348,46.9232],[10.2014,46.8667],[10.125,46.847],[10.1062,46.8825],[10.0832,46.908],[10.0841,46.9261],[10.1206,46.9552],[10.1292,46.9849],[10.1249,47.0218],[10.1383,47.0773],[10.1483,47.0962],[10.187,47.1362],[10.2022,47.1608],[10.2035,47.1989],[10.1917,47.2437],[10.1747,47.2722],[10.2393,47.2778],[10.3056,47.3024],[10.3431,47.3309],[10.3659,47.361],[10.4116,47.3812],[10.4426,47.4162],[10.4519,47.4387],[10.4425,47.4813],[10.4195,47.493],[10.4308,47.5423],[10.4143,47.5732],[10.4539,47.5813],[10.4537,47.5462],[10.4825,47.5326],[10.5248,47.5285],[10.5497,47.5367],[10.5834,47.5627],[10.608,47.5623],[10.7402,47.5283],[10.7521,47.5153],[10.7906,47.5161],[10.8587,47.5305],[10.8924,47.515],[10.8513,47.4932],[10.9099,47.4688],[10.9599,47.4323],[10.9554,47.4094],[10.9793,47.3905],[11.0836,47.3897],[11.103,47.3934],[11.1689,47.4241],[11.2152,47.4231],[11.2128,47.396],[11.2588,47.4006],[11.3057,47.4352],[11.3838,47.4446],[11.3888,47.4623],[11.3654,47.4695],[11.4124,47.5059],[11.4354,47.5096],[11.4826,47.5028],[11.551,47.5139],[11.5695,47.5275],[11.5891,47.5705],[11.6208,47.5895],[11.6828,47.5833],[11.7642,47.583],[11.8206,47.5752],[11.8523,47.5989],[11.9362,47.6109],[12.1654,47.604],[12.2021,47.63],[12.2025,47.678],[12.1765,47.7058],[12.2421,47.7321],[12.2232,47.6958],[12.239,47.6788],[12.2937,47.6898],[12.3515,47.6818],[12.4076,47.6936],[12.4238,47.6914],[12.4527,47.6498],[12.4966,47.6288],[12.5381,47.6314],[12.5632,47.6416],[12.5889,47.6113],[12.6576,47.5709],[12.6573,47.5386],[12.6789,47.4988],[12.6354,47.451],[12.6141,47.4195],[12.5682,47.3931],[12.5019,47.385],[12.4793,47.3526],[12.4573,47.3334],[12.3932,47.3205],[12.342,47.3325],[12.3154,47.3327],[12.2801,47.3181],[12.1682,47.2909],[12.1235,47.2895],[12.0958,47.2797],[12.0984,47.2598],[12.0815,47.2054],[12.0843,47.1765],[12.1198,47.145],[12.1315,47.1214],[12.1332,47.0786]]]]}},{"type":"Feature","properties":{"name":"Niederösterreich","key":"at-no"},"geometry":{"type":"Polygon","coordinates":[[[16.1478,47.4429],[16.1132,47.4632],[16.0802,47.5163],[16.0474,47.5062],[15.9985,47.5239],[15.9169,47.5334],[15.8921,47.572],[15.8661,47.5854],[15.8277,47.5891],[15.829,47.6323],[15.7966,47.6453],[15.7637,47.6327],[15.7434,47.6365],[15.7262,47.6901],[15.7141,47.7017],[15.6719,47.704],[15.6387,47.7175],[15.6061,47.7433],[15.5386,47.7475],[15.4999,47.7663],[15.4172,47.7935],[15.3752,47.8194],[15.3394,47.8253],[15.2777,47.8154],[15.2298,47.8191],[15.1868,47.7803],[15.0562,47.751],[15.0147,47.7526],[14.9293,47.7267],[14.8835,47.725],[14.8385,47.7507],[14.7342,47.7502],[14.6995,47.7691],[14.7163,47.7936],[14.7187,47.8287],[14.7324,47.8656],[14.7505,47.883],[14.751,47.902],[14.7331,47.9179],[14.6905,47.9374],[14.6069,47.9612],[14.4453,48.0431],[14.4271,48.0576],[14.4451,48.0683],[14.4802,48.1178],[14.4697,48.156],[14.4846,48.2185],[14.52,48.2448],[14.5648,48.2443],[14.6105,48.2234],[14.6376,48.1969],[14.6756,48.1822],[14.8183,48.2057],[14.8619,48.2369],[14.9297,48.2441],[14.9682,48.225],[14.9752,48.3337],[14.964,48.3833],[14.9403,48.4017],[14.9342,48.4341],[14.9101,48.4401],[14.8825,48.4713],[14.8869,48.5003],[14.9134,48.4999],[14.9064,48.5271],[14.876,48.5389],[14.8396,48.5422],[14.7743,48.5625],[14.7116,48.5719],[14.6912,48.5863],[14.7006,48.6157],[14.7036,48.6731],[14.7228,48.6933],[14.7753,48.724],[14.8006,48.7764],[14.8674,48.7756],[14.9194,48.7616],[14.9396,48.7627],[14.9509,48.7801],[14.938,48.8026],[14.968,48.8849],[14.9643,48.9719],[14.9821,49.0077],[15.0038,49.0098],[15.0597,48.9971],[15.1375,48.993],[15.1488,48.9653],[15.142,48.9374],[15.2384,48.9506],[15.2627,48.9825],[15.3353,48.9751],[15.4715,48.9365],[15.5215,48.9085],[15.6034,48.8874],[15.6813,48.8583],[15.7265,48.855],[15.7791,48.871],[15.8188,48.8725],[15.84,48.8502],[15.8856,48.8421],[15.9082,48.8198],[16.0323,48.758],[16.0853,48.743],[16.1775,48.7464],[16.3581,48.7271],[16.3852,48.7368],[16.4355,48.7944],[16.4532,48.802],[16.5102,48.8047],[16.643,48.7782],[16.662,48.7401],[16.729,48.7329],[16.7992,48.709],[16.8732,48.7191],[16.8967,48.697],[16.9107,48.631],[16.9454,48.6042],[16.9542,48.5574],[16.9472,48.5396],[16.9143,48.5192],[16.8752,48.4715],[16.8611,48.4439],[16.8443,48.3655],[16.9017,48.3395],[16.8986,48.3163],[16.9168,48.2906],[16.9507,48.2767],[16.9699,48.2167],[16.9816,48.1612],[17.0073,48.1428],[17.0476,48.131],[17.0626,48.1125],[17.0347,48.1001],[17.0035,48.1092],[16.9828,48.098],[16.9828,48.068],[16.9621,48.0459],[16.9001,48.072],[16.8563,48.0629],[16.816,48.0433],[16.774,48.0298],[16.7506,48.0295],[16.7046,48.009],[16.6802,47.9717],[16.612,47.9333],[16.573,47.9197],[16.5032,47.9354],[16.4392,47.9282],[16.391,47.9028],[16.3602,47.8718],[16.358,47.8329],[16.3483,47.8123],[16.3241,47.7963],[16.2894,47.7938],[16.2895,47.7325],[16.3124,47.7025],[16.3759,47.6447],[16.3211,47.5716],[16.3241,47.5012],[16.2723,47.4636],[16.2306,47.4456],[16.1478,47.4429]],[[16.4797,48.2915],[16.4463,48.328],[16.4158,48.3303],[16.4036,48.3178],[16.3515,48.303],[16.2843,48.2739],[16.2591,48.2574],[16.2326,48.2543],[16.2082,48.262],[16.1886,48.2302],[16.2113,48.203],[16.2025,48.1743],[16.2324,48.1493],[16.294,48.1458],[16.3467,48.1492],[16.3878,48.1357],[16.4105,48.1351],[16.4402,48.1571],[16.5022,48.1616],[16.5713,48.1531],[16.5428,48.1976],[16.556,48.249],[16.5373,48.2804],[16.5117,48.303],[16.4797,48.2915]]]}}]};
+
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ß/g, 'ss');
+const list = DATA.vhs;
+
+// Karte
+const map = L.map('map', { zoomControl: true, attributionControl: true, minZoom: 7, maxZoom: 18 });
+const bounds = L.latLngBounds(list.map(v => [v.lat, v.lon])).pad(0.08);
+map.fitBounds(bounds);
+
+// Basis: eingebettete Landesgrenzen (funktioniert immer, auch offline)
+function landStyle(f) {
+  const no = f.properties.key === 'at-no';
+  return { color: css('--land-line'), weight: no ? 1.6 : 0.8, fillColor: no ? css('--land-no') : css('--land'), fillOpacity: 1 };
+}
+const land = L.geoJSON(LAENDER, { style: landStyle, interactive: false }).addTo(map);
+
+// Optional: OpenStreetMap-Hintergrund (wird geladen, wo erlaubt)
+const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
+});
+let tilesOk = false;
+osm.on('tileload', () => { if (!tilesOk) { tilesOk = true; land.setStyle(f => ({ ...landStyle(f), fillOpacity: f.properties.key === 'at-no' ? 0.12 : 0, weight: f.properties.key === 'at-no' ? 2 : 0 })); } });
+osm.addTo(map);
+map.attributionControl.setPrefix(false);
+map.attributionControl.addAttribution('Daten: <a href="' + DATA.meta.quelle + '">vhs-noe.at</a> (' + DATA.meta.abgerufen.split('-').reverse().join('.') + ')');
+
+// Marker
+const markers = new Map();
+function markerStyle(active) {
+  return { radius: active ? 9 : 6, color: css('--accent'), weight: active ? 3 : 2, fillColor: css('--gold'), fillOpacity: 1 };
+}
+list.forEach(v => {
+  const m = L.circleMarker([v.lat, v.lon], markerStyle(false)).addTo(map);
+  m.bindTooltip(esc(v.name), { direction: 'top', offset: [0, -6] });
+  m.on('click', () => select(v.id, false));
+  markers.set(v.id, m);
+});
+
+// Liste
+const $list = document.getElementById('list'), $q = document.getElementById('q'), $count = document.getElementById('count');
+let current = null;
+function render() {
+  const q = norm($q.value).trim();
+  const hits = list.filter(v => !q || norm([v.name, v.ort, v.plz, v.leitung, v.strasse, v.email].join(' ')).includes(q));
+  $count.innerHTML = q ? `<b>${hits.length}</b> von ${list.length} Volkshochschulen` : `<b>${list.length}</b> Volkshochschulen`;
+  $list.innerHTML = hits.length ? hits.map(v => `
+    <li><button type="button" data-id="${v.id}" aria-current="${v.id === current}">
+      <span class="li-name">${esc(v.name)}</span><span class="li-plz">${esc(v.plz)}</span>
+      <span class="li-sub">${esc(v.ort)} · ${esc(v.leitung)}</span>
+    </button></li>`).join('') : `<li class="empty">Keine Volkshochschule passt zu „${esc($q.value)}“. Versuche einen Ort oder eine Postleitzahl.</li>`;
+  const ids = new Set(hits.map(v => v.id));
+  markers.forEach((m, id) => m.setStyle({ ...markerStyle(id === current), opacity: ids.has(id) ? 1 : .25, fillOpacity: ids.has(id) ? 1 : .2 }));
+}
+$list.addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (b) select(b.dataset.id, true); });
+$q.addEventListener('input', render);
+
+// Detail
+const $detail = document.getElementById('detail');
+function copyBtn(text) { return `<button type="button" class="copy" data-copy="${esc(text)}">Kopieren</button>`; }
+function link(url) { return url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(url.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</a>` : '—'; }
+function select(id, fly) {
+  current = id;
+  const v = list.find(x => x.id === id);
+  render();
+  const m = markers.get(id); m.bringToFront();
+  if (fly) map.flyTo([v.lat, v.lon], Math.max(map.getZoom(), 11), { duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.6 });
+  const adr = `${v.strasse}, ${v.plz} ${v.ort}`;
+  $detail.innerHTML = `
+    <header>
+      <span class="eyebrow">Volkshochschule · ${esc(v.plz)} ${esc(v.ort)}</span>
+      <h2>${esc(v.name)}</h2>
+      <button type="button" class="close" aria-label="Details schließen">×</button>
+    </header>
+    <dl>
+      <dt>Leitung</dt><dd>${esc(v.leitung) || '—'}</dd>
+      <dt>Adresse</dt><dd>${esc(v.strasse)}<br>${esc(v.plz)} ${esc(v.ort)} ${copyBtn(adr)}</dd>
+      <dt>Telefon</dt><dd><span class="mono">${esc(v.telefon) || '—'}</span>${v.telefon ? copyBtn(v.telefon) : ''}</dd>
+      <dt>E-Mail</dt><dd><span class="mono">${esc(v.email) || '—'}</span>${v.email ? copyBtn(v.email) : ''}</dd>
+      <dt>Website</dt><dd>${link(v.web)}</dd>
+      <dt>Kurse</dt><dd>${link(v.kursprogramm)}</dd>
+    </dl>
+    <div class="foot">
+      <a href="https://www.openstreetmap.org/?mlat=${v.lat}&mlon=${v.lon}#map=17/${v.lat}/${v.lon}" target="_blank" rel="noopener">Auf OpenStreetMap öffnen</a>
+      ${v.geo_genauigkeit === 'ort' ? ' · <span class="badge">Position nur ortsgenau</span>' : ''}
+    </div>`;
+  $detail.hidden = false;
+  const btn = $list.querySelector(`[data-id="${id}"]`); if (btn) btn.scrollIntoView({ block: 'nearest' });
+}
+$detail.addEventListener('click', async e => {
+  if (e.target.closest('.close')) { current = null; $detail.hidden = true; render(); return; }
+  const c = e.target.closest('.copy'); if (!c) return;
+  try { await navigator.clipboard.writeText(c.dataset.copy); c.textContent = 'Kopiert'; }
+  catch { const r = document.createRange(); r.selectNodeContents(c.previousElementSibling || c.parentNode); const s = getSelection(); s.removeAllRanges(); s.addRange(r); c.textContent = 'Markiert'; }
+  setTimeout(() => c.textContent = 'Kopieren', 1500);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$detail.hidden) { current = null; $detail.hidden = true; render(); } });
+
+// Theme-Wechsel: Farben der Karte nachziehen
+const retheme = () => { land.setStyle(tilesOk ? (f => ({ ...landStyle(f), fillOpacity: f.properties.key === 'at-no' ? 0.12 : 0, weight: f.properties.key === 'at-no' ? 2 : 0 })) : landStyle); render(); };
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', retheme);
+new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+document.getElementById('legend-src').textContent = `Stand ${DATA.meta.abgerufen.split('-').reverse().join('.')}, ${DATA.meta.anzahl} Mitglieder`;
+render();
+</script>
